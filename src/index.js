@@ -1,6 +1,8 @@
 import { Graph } from "./models/Graph.js";
 import { Node } from "./models/Node.js";
 import { CanvasDrawer } from "./view/CanvasDrawer.js";
+import { Camera } from "./view/Camera.js";
+import { Interaction } from "./controller/Interaction.js";
 
 const graph = new Graph();
 
@@ -30,7 +32,9 @@ console.log("Node D weight:", nodeD.weight);
 console.log("Node E weight:", nodeE.weight);
 
 const canvas = document.getElementById("graphCanvas");
-const drawer = new CanvasDrawer(canvas);
+const camera = new Camera();
+const drawer = new CanvasDrawer(canvas, camera);
+const interaction = new Interaction(canvas, graph, camera);
 
 function renderGraph() {
   drawer.draw(graph);

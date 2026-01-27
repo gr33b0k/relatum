@@ -1,7 +1,8 @@
 export class CanvasDrawer {
-  constructor(canvas) {
+  constructor(canvas, camera) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
+    this.camera = camera;
 
     this.resize();
   }
@@ -24,6 +25,20 @@ export class CanvasDrawer {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
+  applyCamera() {
+    const { scale, offsetX, offsetY } = this.camera;
+    const dpr = window.devicePixelRatio || 1;
+
+    this.ctx.setTransform(
+      dpr * scale,
+      0,
+      0,
+      dpr * scale,
+      -offsetX * dpr * scale,
+      -offsetY * dpr * scale,
+    );
+  }
+
   drawNode(node) {
     const { ctx } = this;
     ctx.fillStyle = "#63c6af";
@@ -43,6 +58,7 @@ export class CanvasDrawer {
 
   draw(graph) {
     this.clear();
+    this.applyCamera();
     graph.getLinks().forEach((link) => this.drawLink(link));
     graph.getNodesArray().forEach((node) => this.drawNode(node));
   }
