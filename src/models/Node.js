@@ -10,7 +10,7 @@ export class Node {
     this.weight = weight;
   }
 
-  setWeight(newWeight) {
-    this.weight = newWeight;
+  setWeight(weight) {
+    this.weight = weight;
   }
 }

@@ -1,14 +1,17 @@
 import { Graph } from "./models/Graph.js";
 import { Node } from "./models/Node.js";
 import { CanvasDrawer } from "./view/CanvasDrawer.js";
+import { Camera } from "./view/Camera.js";
+import { Interaction } from "./controller/Interaction.js";
+import { InteractionState } from "./controller/InteractionState.js";
 
 const graph = new Graph();
 
-const nodeA = new Node({ id: "1", label: "Node A", x: 100, y: 100, weight: 1 });
-const nodeB = new Node({ id: "2", label: "Node B", x: 200, y: 100, weight: 1 });
-const nodeC = new Node({ id: "3", label: "Node C", x: 150, y: 200, weight: 1 });
-const nodeD = new Node({ id: "4", label: "Node D", x: 250, y: 200, weight: 1 });
-const nodeE = new Node({ id: "5", label: "Node E", x: 200, y: 300, weight: 1 });
+const nodeA = new Node({ id: "1", label: "Node A", x: 50, y: 50 });
+const nodeB = new Node({ id: "2", label: "Node B", x: 200, y: 150 });
+const nodeC = new Node({ id: "3", label: "Node C", x: 400, y: 300 });
+const nodeD = new Node({ id: "4", label: "Node D", x: 600, y: 250 });
+const nodeE = new Node({ id: "5", label: "Node E", x: 800, y: 100 });
 
 graph.addNode(nodeA);
 graph.addNode(nodeB);
@@ -21,12 +24,27 @@ graph.linkNodes(nodeA, nodeC);
 graph.linkNodes(nodeA, nodeD);
 graph.linkNodes(nodeA, nodeE);
 
-const canvas = document.getElementById("graphCanvas");
-const drawer = new CanvasDrawer(canvas);
+console.log("Nodes in graph:", graph.getNodesArray());
+console.log("Links in graph:", graph.getLinks());
+console.log("Node A weight:", nodeA.weight);
+console.log("Node B weight:", nodeB.weight);
+console.log("Node C weight:", nodeC.weight);
+console.log("Node D weight:", nodeD.weight);
+console.log("Node E weight:", nodeE.weight);
 
-function render() {
+console.log("Neighbors of Node A:", graph.getNodeNeighbors(nodeA));
+
+const canvas = document.getElementById("graphCanvas");
+const camera = new Camera();
+const interactionState = new InteractionState();
+const drawer = new CanvasDrawer(canvas, camera);
+const interaction = new Interaction(canvas, graph, camera, interactionState);
+
+function renderGraph() {
   drawer.draw(graph);
-  requestAnimationFrame(render);
+  console.log(`Selected Nodes:`, interactionState.getSelectedNode());
+  console.log(`Highlighted Nodes:`, interactionState.getHighlightedNodes());
+  requestAnimationFrame(renderGraph);
 }
 
-render();
+renderGraph();
