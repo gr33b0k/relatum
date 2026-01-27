@@ -30,5 +30,20 @@ export class Graph {
 
   linkNodes(from, to, options) {
     this.#links.push(new Link(from, to, options));
+    this.#recalculateNodeWeights();
+  }
+
+  #recalculateNodeWeights() {
+    for (let node of this.#nodes.values()) {
+      const numLinks = this.#countNodeLinks(node);
+      const newWeight = numLinks > 1 ? Math.log(numLinks + 1) : 1;
+      node.setWeight(newWeight);
+    }
+  }
+
+  #countNodeLinks(node) {
+    return this.#links.filter(
+      (link) => link.from.id === node.id || link.to.id === node.id,
+    ).length;
   }
 }
