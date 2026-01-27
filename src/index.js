@@ -31,6 +31,8 @@ console.log("Node C weight:", nodeC.weight);
 console.log("Node D weight:", nodeD.weight);
 console.log("Node E weight:", nodeE.weight);
 
+console.log("Neighbors of Node A:", graph.getNodeNeighbors(nodeA));
+
 const canvas = document.getElementById("graphCanvas");
 const camera = new Camera();
 const drawer = new CanvasDrawer(canvas, camera);

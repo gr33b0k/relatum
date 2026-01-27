@@ -46,4 +46,17 @@ export class Graph {
       (link) => link.from.id === node.id || link.to.id === node.id,
     ).length;
   }
+
+  getNodeNeighbors(node) {
+    if (!this.#nodes.has(node.id)) {
+      return [];
+    }
+    return this.#links
+      .filter((link) => link.from.id === node.id || link.to.id === node.id)
+      .map((link) => {
+        return link.from.id === node.id
+          ? { neighbor: this.#nodes.get(link.to.id), type: "source" }
+          : { neighbor: this.#nodes.get(link.from.id), type: "target" };
+      });
+  }
 }
