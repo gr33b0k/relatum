@@ -24,16 +24,6 @@ graph.linkNodes(nodeA, nodeC);
 graph.linkNodes(nodeA, nodeD);
 graph.linkNodes(nodeA, nodeE);
 
-console.log("Nodes in graph:", graph.getNodesArray());
-console.log("Links in graph:", graph.getLinks());
-console.log("Node A weight:", nodeA.weight);
-console.log("Node B weight:", nodeB.weight);
-console.log("Node C weight:", nodeC.weight);
-console.log("Node D weight:", nodeD.weight);
-console.log("Node E weight:", nodeE.weight);
-
-console.log("Neighbors of Node A:", graph.getNodeNeighbors(nodeA));
-
 const canvas = document.getElementById("graphCanvas");
 const camera = new Camera();
 const interactionState = new InteractionState();
@@ -42,8 +32,6 @@ const interaction = new Interaction(canvas, graph, camera, interactionState);
 
 function renderGraph() {
   drawer.draw(graph);
-  console.log(`Selected Nodes:`, interactionState.getSelectedNode());
-  console.log(`Highlighted Nodes:`, interactionState.getHighlightedNodes());
   requestAnimationFrame(renderGraph);
 }
 
