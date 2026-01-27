@@ -28,7 +28,7 @@ export class CanvasDrawer {
     const { ctx } = this;
     ctx.fillStyle = "#63c6af";
     ctx.beginPath();
-    ctx.arc(node.x, node.y, 10, 0, 2 * Math.PI);
+    ctx.arc(node.x, node.y, node.weight * 10, 0, 2 * Math.PI);
     ctx.fill();
   }
 
