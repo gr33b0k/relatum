@@ -50,9 +50,9 @@ export class Interaction {
 
         interactionState.clearAll();
         interactionState.selectNode(clickedNode);
-        neighbors.forEach((neighbor) =>
-          interactionState.highlightNode(neighbor),
-        );
+        neighbors.forEach((neighbor) => {
+          interactionState.highlightNode(neighbor.neighbor);
+        });
       } else {
         interactionState.clearAll();
       }
