@@ -1,8 +1,9 @@
 export class CanvasDrawer {
-  constructor(canvas, camera) {
+  constructor(canvas, camera, interactionState) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.camera = camera;
+    this.interactionState = interactionState;
 
     this.resize();
   }
@@ -40,8 +41,14 @@ export class CanvasDrawer {
   }
 
   drawNode(node) {
-    const { ctx } = this;
-    ctx.fillStyle = "#63c6af";
+    const { ctx, interactionState } = this;
+    const selectedNode = interactionState.getSelectedNode();
+    const highlightedNodes = interactionState.getHighlightedNodes();
+    if (selectedNode && selectedNode !== node && !highlightedNodes.has(node)) {
+      ctx.fillStyle = "#9ac0b7ff";
+    } else {
+      ctx.fillStyle = "#63c6af";
+    }
     ctx.beginPath();
     ctx.arc(node.x, node.y, node.weight * 10, 0, 2 * Math.PI);
     ctx.fill();
