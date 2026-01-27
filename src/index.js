@@ -4,6 +4,7 @@ import { CanvasDrawer } from "./view/CanvasDrawer.js";
 import { Camera } from "./view/Camera.js";
 import { Interaction } from "./controller/Interaction.js";
 import { InteractionState } from "./controller/InteractionState.js";
+import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
 const graph = new Graph();
 
@@ -29,10 +30,18 @@ graph.linkNodes(nodeA, nodeE);
 const canvas = document.getElementById("graphCanvas");
 const camera = new Camera();
 const interactionState = new InteractionState();
+const physics = new PhysicsEngine(graph);
 const drawer = new CanvasDrawer(canvas, camera, interactionState);
-const interaction = new Interaction(canvas, graph, camera, interactionState);
+const interaction = new Interaction(
+  canvas,
+  graph,
+  camera,
+  interactionState,
+  physics,
+);
 
 function renderGraph() {
+  physics.update();
   drawer.draw(graph);
   requestAnimationFrame(renderGraph);
 }

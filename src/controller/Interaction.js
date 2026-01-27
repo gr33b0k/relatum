@@ -8,12 +8,14 @@ export class Interaction {
   graph = null;
   camera = null;
   interactionState = null;
+  physics = null;
 
-  constructor(canvas, graph, camera, interactionState) {
+  constructor(canvas, graph, camera, interactionState, physics) {
     this.canvas = canvas;
     this.graph = graph;
     this.camera = camera;
     this.interactionState = interactionState;
+    this.physics = physics;
 
     this.#initEvents();
   }
@@ -29,7 +31,7 @@ export class Interaction {
   #onMouseDown(event) {
     event.preventDefault();
 
-    const { canvas, camera, graph, interactionState } = this;
+    const { canvas, camera, graph, interactionState, physics } = this;
 
     const rect = canvas.getBoundingClientRect();
     const sx = event.clientX - rect.left;
@@ -53,6 +55,8 @@ export class Interaction {
         neighbors.forEach((neighbor) => {
           interactionState.highlightNode(neighbor.neighbor);
         });
+
+        physics.setDraggedNode(clickedNode);
       } else {
         interactionState.clearAll();
       }
@@ -69,7 +73,7 @@ export class Interaction {
   #onMouseMove(event) {
     event.preventDefault();
 
-    const { camera, canvas } = this;
+    const { camera, physics, canvas } = this;
 
     const rect = canvas.getBoundingClientRect();
 
@@ -81,6 +85,13 @@ export class Interaction {
 
       this.#lastScreenX = event.clientX;
       this.#lastScreenY = event.clientY;
+    }
+
+    if (this.#isMovingNode) {
+      const sx = event.clientX - rect.left;
+      const sy = event.clientY - rect.top;
+      const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
+      physics.setDragTarget(wx, wy);
     }
   }
 
