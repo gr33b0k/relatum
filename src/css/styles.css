@@ -1,0 +1,26 @@
+/* Generals */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main content  */
+
+.main-content {
+    height: 100vh;
+    position: relative;
+}
+
+/* Graph */
+
+.graph-wrapper {
+    position: relative;
+}
+
+.graph-area {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
