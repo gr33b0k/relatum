@@ -3,6 +3,7 @@ import { Node } from "./models/Node.js";
 import { CanvasDrawer } from "./view/CanvasDrawer.js";
 import { Camera } from "./view/Camera.js";
 import { Interaction } from "./controller/Interaction.js";
+import { InteractionState } from "./controller/InteractionState.js";
 
 const graph = new Graph();
 
@@ -35,11 +36,14 @@ console.log("Neighbors of Node A:", graph.getNodeNeighbors(nodeA));
 
 const canvas = document.getElementById("graphCanvas");
 const camera = new Camera();
+const interactionState = new InteractionState();
 const drawer = new CanvasDrawer(canvas, camera);
-const interaction = new Interaction(canvas, graph, camera);
+const interaction = new Interaction(canvas, graph, camera, interactionState);
 
 function renderGraph() {
   drawer.draw(graph);
+  console.log(`Selected Nodes:`, interactionState.getSelectedNode());
+  console.log(`Highlighted Nodes:`, interactionState.getHighlightedNodes());
   requestAnimationFrame(renderGraph);
 }
 

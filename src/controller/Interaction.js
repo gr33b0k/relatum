@@ -7,11 +7,13 @@ export class Interaction {
   canvas = null;
   graph = null;
   camera = null;
+  interactionState = null;
 
-  constructor(canvas, graph, camera) {
+  constructor(canvas, graph, camera, interactionState) {
     this.canvas = canvas;
     this.graph = graph;
     this.camera = camera;
+    this.interactionState = interactionState;
 
     this.#initEvents();
   }
@@ -27,7 +29,7 @@ export class Interaction {
   #onMouseDown(event) {
     event.preventDefault();
 
-    const { canvas, camera, graph } = this;
+    const { canvas, camera, graph, interactionState } = this;
 
     const rect = canvas.getBoundingClientRect();
     const sx = event.clientX - rect.left;
@@ -46,8 +48,13 @@ export class Interaction {
 
         const neighbors = graph.getNodeNeighbors(clickedNode);
 
-        console.log("Clicked node:", clickedNode);
-        console.log("It's neighbors:", neighbors);
+        interactionState.clearAll();
+        interactionState.selectNode(clickedNode);
+        neighbors.forEach((neighbor) =>
+          interactionState.highlightNode(neighbor),
+        );
+      } else {
+        interactionState.clearAll();
       }
     }
 
@@ -80,10 +87,11 @@ export class Interaction {
   #onMouseUp(event) {
     event.preventDefault();
 
-    const { canvas } = this;
+    const { canvas, interactionState } = this;
 
     if (event.button === 0) {
       this.#isMovingNode = false;
+      interactionState.clearAll();
     }
 
     if (event.button === 1) {
