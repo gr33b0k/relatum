@@ -7,6 +7,8 @@ export class Node {
     this.label = label;
     this.x = x;
     this.y = y;
+    this.vx = 0;
+    this.vy = 0;
     this.weight = weight;
   }
 
