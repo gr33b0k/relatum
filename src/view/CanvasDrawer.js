@@ -10,7 +10,7 @@ export class CanvasDrawer {
 
   resize() {
     const { canvas } = this;
-    const rect = canvas.getBoundingClientRect();
+    const rect = canvas.parentElement.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
 
     canvas.width = rect.width * dpr;
