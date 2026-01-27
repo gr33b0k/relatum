@@ -22,4 +22,9 @@ export class Camera {
     this.offsetX += before.x - after.x;
     this.offsetY += before.y - after.y;
   }
+
+  pan(dx, dy) {
+    this.offsetX -= dx / this.scale;
+    this.offsetY -= dy / this.scale;
+  }
 }
