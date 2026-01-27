@@ -1,13 +1,14 @@
 import { Graph } from "./models/Graph.js";
 import { Node } from "./models/Node.js";
+import { CanvasDrawer } from "./view/CanvasDrawer.js";
 
 const graph = new Graph();
 
 const nodeA = new Node({ id: "1", label: "Node A", x: 50, y: 50 });
-const nodeB = new Node({ id: "2", label: "Node B", x: 100, y: 100 });
-const nodeC = new Node({ id: "3", label: "Node C", x: 150, y: 200 });
-const nodeD = new Node({ id: "4", label: "Node D", x: 200, y: 300 });
-const nodeE = new Node({ id: "5", label: "Node E", x: 250, y: 400 });
+const nodeB = new Node({ id: "2", label: "Node B", x: 200, y: 150 });
+const nodeC = new Node({ id: "3", label: "Node C", x: 400, y: 300 });
+const nodeD = new Node({ id: "4", label: "Node D", x: 600, y: 250 });
+const nodeE = new Node({ id: "5", label: "Node E", x: 800, y: 100 });
 
 graph.addNode(nodeA);
 graph.addNode(nodeB);
@@ -27,3 +28,13 @@ console.log("Node B weight:", nodeB.weight);
 console.log("Node C weight:", nodeC.weight);
 console.log("Node D weight:", nodeD.weight);
 console.log("Node E weight:", nodeE.weight);
+
+const canvas = document.getElementById("graphCanvas");
+const drawer = new CanvasDrawer(canvas);
+
+function renderGraph() {
+  drawer.draw(graph);
+  requestAnimationFrame(renderGraph);
+}
+
+renderGraph();
