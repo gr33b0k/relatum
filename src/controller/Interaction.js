@@ -26,7 +26,6 @@ export class Interaction {
 
   #onMouseDown(event) {
     event.preventDefault();
-    // this.canvas.setPointerCapture(event.pointerId);
 
     const { canvas, camera, graph } = this;
 
@@ -34,6 +33,23 @@ export class Interaction {
     const sx = event.clientX - rect.left;
     const sy = event.clientY - rect.top;
     const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
+
+    if (event.button === 0) {
+      const clickedNode = graph.getNodesArray().find((node) => {
+        const dx = wx - node.x;
+        const dy = wy - node.y;
+        return Math.hypot(dx, dy) <= node.weight * 10;
+      });
+
+      if (clickedNode) {
+        this.#isMovingNode = true;
+
+        const neighbors = graph.getNodeNeighbors(clickedNode);
+
+        console.log("Clicked node:", clickedNode);
+        console.log("It's neighbors:", neighbors);
+      }
+    }
 
     if (event.button === 1) {
       this.#isPanning = true;
@@ -65,6 +81,10 @@ export class Interaction {
     event.preventDefault();
 
     const { canvas } = this;
+
+    if (event.button === 0) {
+      this.#isMovingNode = false;
+    }
 
     if (event.button === 1) {
       this.#isPanning = false;
