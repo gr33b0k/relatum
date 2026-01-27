@@ -1,5 +1,5 @@
 export class Node {
-  constructor({ id, label, weight = 1 }) {
+  constructor({ id, label }) {
     if (!id) {
       throw new Error("Node must have a valid id.");
     }
