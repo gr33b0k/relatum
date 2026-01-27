@@ -7,9 +7,25 @@
     <link rel="stylesheet" href="src/css/styles.css" />
     <script defer type="module" src="./src/index.js"></script>
   </head>
-  <body>
+  <body class="light">
+    <header class="header">
+      <div class="header__left header-logo">
+        <h1 class="logo">Relatum</h1>
+      </div>
+      <div class="header__middle">
+        <input type="text" class="header__search" />
+      </div>
+      <div class="header__right">
+        <button class="change-theme">theme</button>
+      </div>
+    </header>
     <main class="main-content">
-      <canvas class="graph-area" id="graphCanvas"></canvas>
+      <section class="graph-wrapper">
+        <canvas class="graph-area" id="graphCanvas"></canvas>
+      </section>
+      <aside class="sidebar">
+        <div class="sidebar__actions">right</div>
+      </aside>
     </main>
   </body>
 </html>
