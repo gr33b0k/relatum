@@ -13,6 +13,8 @@ export class Interaction {
   interactionState = null;
   physics = null;
 
+  onNodeSelect = null;
+
   constructor(canvas, graph, camera, interactionState, physics) {
     this.canvas = canvas;
     this.graph = graph;
@@ -114,6 +116,9 @@ export class Interaction {
     const { canvas, interactionState } = this;
 
     if (event.button === 0) {
+      if (this.#nodeClicked && !this.#draggingNode) {
+        this.onNodeSelect?.();
+      }
       this.#nodeClicked = false;
       this.#draggingNode = false;
       interactionState.clearAll();

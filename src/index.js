@@ -48,6 +48,8 @@ const toggle = document.querySelector(".sidebartoggle");
 const closeSidebarButton = document.getElementById("closeSidebar");
 const sidebarController = new SidebarController(sidebar, overlay);
 
+interaction.onNodeSelect = () => sidebarController.changeState();
+
 toggle.addEventListener("click", () => sidebarController.changeState());
 
 closeSidebarButton.addEventListener("click", () =>
