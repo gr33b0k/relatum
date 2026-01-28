@@ -1,8 +1,11 @@
 export class Interaction {
-  #isMovingNode = false;
+  #nodeClicked = false;
+  #draggingNode = false;
   #isPanning = false;
   #lastScreenX = 0;
   #lastScreenY = 0;
+  #startX = 0;
+  #startY = 0;
 
   canvas = null;
   graph = null;
@@ -46,7 +49,11 @@ export class Interaction {
       });
 
       if (clickedNode) {
-        this.#isMovingNode = true;
+        this.#nodeClicked = true;
+        this.#draggingNode = false;
+
+        this.#startX = event.clientX;
+        this.#startY = event.clientY;
 
         const neighbors = graph.getNodeNeighbors(clickedNode);
 
@@ -87,11 +94,17 @@ export class Interaction {
       this.#lastScreenY = event.clientY;
     }
 
-    if (this.#isMovingNode) {
+    if (this.#nodeClicked) {
       const sx = event.clientX - rect.left;
       const sy = event.clientY - rect.top;
       const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
-      physics.setDragTarget(wx, wy);
+      const dx = event.clientX - this.#startX;
+      const dy = event.clientY - this.#startY;
+      const distance = Math.hypot(dx, dy);
+      if (distance > 3) {
+        this.#draggingNode = true;
+        physics.setDragTarget(wx, wy);
+      }
     }
   }
 
@@ -101,7 +114,8 @@ export class Interaction {
     const { canvas, interactionState } = this;
 
     if (event.button === 0) {
-      this.#isMovingNode = false;
+      this.#nodeClicked = false;
+      this.#draggingNode = false;
       interactionState.clearAll();
     }
 
