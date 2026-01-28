@@ -6,6 +6,8 @@ import { Interaction } from "./controller/Interaction.js";
 import { InteractionState } from "./controller/InteractionState.js";
 import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
+import { SidebarController } from "./ui/SidebarController.js";
+
 const graph = new Graph();
 
 const nodeA = new Node({ id: "1", label: "Node A", x: 50, y: 50 });
@@ -38,6 +40,18 @@ const interaction = new Interaction(
   camera,
   interactionState,
   physics,
+);
+
+const sidebar = document.querySelector(".sidebar");
+const overlay = document.querySelector(".overlay");
+const toggle = document.querySelector(".sidebartoggle");
+const closeSidebarButton = document.getElementById("closeSidebar");
+const sidebarController = new SidebarController(sidebar, overlay);
+
+toggle.addEventListener("click", () => sidebarController.changeState());
+
+closeSidebarButton.addEventListener("click", () =>
+  sidebarController.changeState(),
 );
 
 function renderGraph() {
