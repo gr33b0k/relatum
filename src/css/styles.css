@@ -79,6 +79,25 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
+/* Overlay */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: oklab(0% 0 0 / 0.5);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 5;
+    pointer-events: auto;
+}
+
 /* Header */
 
 .header {
@@ -125,11 +144,45 @@ body {
     top: 0;
     right: 0;
     height: 100%;
+    width: 100%;
+    max-width: 500px;
     background-color: var(--bg-dark);
+    border-left: 1px solid var(--border);
     color: var(--text);
-    box-shadow: inset -1px 0 0 var(--border-muted);
-    padding: 12px;
     font-size: 14px;
+    z-index: 6;
+    transition: transform .3s ease;
+}
+
+.sidebar__header {
+    padding: 16px;
+    border-bottom: 1px solid gray;
+}
+
+.sidebar__header h2 {
+    font-size: 1.5rem;
+}
+
+.sidebar__close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    overflow: none;
+    cursor: pointer;
+}
+
+.sidebar__close-button svg {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: var(--text);
+    fill: var(--text);
+}
+
+.sidebar--hidden {
+    transform: translateX(100%);
 }
 
 /* Graph */

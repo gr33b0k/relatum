@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="src/css/styles.css" />
     <script defer type="module" src="./src/index.js"></script>
   </head>
-  <body class="light">
+  <body class="">
+    <div class="overlay hidden"></div>
     <header class="header">
       <div class="header__left header-logo">
         <h1 class="logo">Relatum</h1>
+        <button class="sidebartoggle">toggle</button>
       </div>
       <div class="header__middle">
         <input type="text" class="header__search" />
@@ -23,9 +25,24 @@
       <section class="graph-wrapper">
         <canvas class="graph-area" id="graphCanvas"></canvas>
       </section>
-      <aside class="sidebar">
-        <div class="sidebar__actions">right</div>
-      </aside>
     </main>
+    <aside class="sidebar sidebar--hidden">
+      <div class="sidebar__header">
+        <h2>Editing "Node 1"</h2>
+      </div>
+      <button class="sidebar__close-button" id="closeSidebar">
+        <svg
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          height="1em"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          ></path>
+        </svg>
+      </button>
+    </aside>
   </body>
 </html>
