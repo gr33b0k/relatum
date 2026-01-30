@@ -94,7 +94,7 @@ body {
     background-color: oklab(0% 0 0 / 0.5);
     opacity: 1;
     transition: opacity 0.3s ease;
-    z-index: 5;
+    z-index: 2;
     pointer-events: auto;
 }
 
@@ -141,44 +141,93 @@ body {
 
 .sidebar {
     position: fixed;
+    display: flex;
+    flex-direction: column;
     top: 0;
     right: 0;
     height: 100%;
     width: 100%;
     max-width: 500px;
     background-color: var(--bg-dark);
-    border-left: 1px solid var(--border);
+    border-left: 1px solid var(--border-muted);
     color: var(--text);
-    font-size: 14px;
-    z-index: 6;
+    font-size: 1rem;
+    z-index: 3;
     transition: transform .3s ease;
 }
 
-.sidebar__header {
-    padding: 16px;
-    border-bottom: 1px solid gray;
-}
-
-.sidebar__header h2 {
-    font-size: 1.5rem;
-}
-
-.sidebar__close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
+.sidebar__action {
+    background: var(--bg-light);
     border: none;
-    overflow: none;
     cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
 }
 
-.sidebar__close-button svg {
+.sidebar__action svg {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
     stroke: var(--text);
     fill: var(--text);
+}
+
+.sidebar__action--edit {
+    background-color: var(--success);
+}
+
+.sidebar__action--delete {
+    background-color: var(--danger);
+}
+
+.sidebar__title {
+    flex: 1;
+    font-size: 1.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar__subtitle {
+    font-size: 1.2rem;
+}
+
+.sidebar__header {
+    display: flex;
+    align-items: center;
+    padding: 1.3rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar__section {
+    display: flex;
+    flex-direction: column;
+    padding: 1.3rem;
+    gap: .8rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar__section--description {
+    border-bottom: none;
+}
+
+.sidebar__actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.sidebar__tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    list-style: none;
+}
+
+.tag {
+    background-color: var(--bg-light);
+    border-radius: .3rem;
+    padding: 5px 10px;
 }
 
 .sidebar--hidden {
@@ -196,4 +245,5 @@ body {
     height: 100%;
     width: 100%;
     display: block;
+    background-color: var(--bg-light);
 }
