@@ -209,6 +209,48 @@ body {
 
 .sidebar__section--description {
     border-bottom: none;
+    overflow-y: auto;
+    scrollbar-color: var(--bg-light) var(--bg-dark);
+}
+
+.sidebar__label {
+    margin-bottom: .2em;
+    font-size: .9em;
+}
+
+.sidebar__field {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.sidebar__select-wrapper {
+    position: relative;
+}
+
+.sidebar__select-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: .8rem;
+    width: 0.5em;
+    height: 0.5em;
+    pointer-events: none;
+    border-left: 2px solid var(--text);
+    border-bottom: 2px solid var(--text);
+    transform: translateY(calc(-50% - (.25em / sqrt(2)))) rotate(-45deg);
+
+}
+
+.sidebar__select {
+    width: 100%;
+    padding: .5rem .8rem;
+    appearance: none;
+    background-color: var(--bg-light);
+    color: var(--text);
+    border: 1px solid var(--border-muted);
+    border-radius: .5rem;
+    outline: none;
 }
 
 .sidebar__actions {
@@ -216,6 +258,7 @@ body {
     justify-content: center;
     gap: 0.5rem;
 }
+
 
 .sidebar__tag-list {
     display: flex;

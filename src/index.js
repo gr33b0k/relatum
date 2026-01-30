@@ -106,8 +106,20 @@ const interaction = new Interaction(
 
 const sidebar = document.querySelector(".sidebar");
 const overlay = document.querySelector(".overlay");
+const sidebarTitle = sidebar.querySelector(".sidebar__title");
+const sidebarDescription = sidebar.querySelector(".sidebar__description-text");
+const sidebarTags = sidebar.querySelector(".sidebar__tag-list");
+const sidebarSelector = document.getElementById("sidebar-node-select");
 const closeSidebarButton = document.getElementById("closeSidebar");
-const sidebarController = new SidebarController(sidebar, overlay);
+const sidebarController = new SidebarController(
+  sidebar,
+  overlay,
+  sidebarTitle,
+  sidebarDescription,
+  sidebarTags,
+  sidebarSelector,
+);
+
 
 interaction.onNodeSelect = (selectedNode) => {
   sidebarController.changeState(selectedNode);

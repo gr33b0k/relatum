@@ -5,14 +5,16 @@ export class SidebarController {
   #title = null;
   #description = null;
   #tags = null;
+  #nodeSelector = null;
 
-  constructor(sidebar, overlay) {
+  constructor(sidebar, overlay, title, description, tags, nodeSelector) {
     this.sidebar = sidebar;
     this.overlay = overlay;
 
-    this.#title = sidebar.querySelector(".sidebar__title");
-    this.#description = sidebar.querySelector(".sidebar__description-text");
-    this.#tags = sidebar.querySelector(".sidebar__tag-list");
+    this.#title = title;
+    this.#description = description;
+    this.#tags = tags;
+    this.#nodeSelector = nodeSelector;
 
     this.#init();
   }
@@ -28,6 +30,16 @@ export class SidebarController {
       return;
     }
     this.#renderNodeInfo(selectedNode);
+
+  setNodes(nodes) {
+    this.#nodeSelector.innerHTML = "";
+
+    nodes.forEach((node) => {
+      const option = document.createElement("option");
+      option.value = node.id;
+      option.textContent = node.label;
+      this.#nodeSelector.appendChild(option);
+    });
   }
 
   #renderNodeInfo(node) {
