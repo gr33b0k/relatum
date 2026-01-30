@@ -21,6 +21,12 @@ export class SidebarController {
 
   #init() {
     this.overlay.addEventListener("click", () => this.changeState());
+    this.#nodeSelector.addEventListener("change", (e) => {
+      const nodeId = this.#nodeSelector.value;
+      this.sidebar.dispatchEvent(
+        new CustomEvent("sidebarNodeSelected", { detail: { nodeId } }),
+      );
+    });
   }
 
   changeState(selectedNode) {
@@ -29,7 +35,12 @@ export class SidebarController {
     if (!selectedNode) {
       return;
     }
-    this.#renderNodeInfo(selectedNode);
+    this.fillInfo(selectedNode);
+  }
+
+  fillInfo(node) {
+    this.#renderNodeInfo(node);
+  }
 
   setNodes(nodes) {
     this.#nodeSelector.innerHTML = "";
