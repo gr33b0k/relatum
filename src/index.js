@@ -120,14 +120,11 @@ const sidebarController = new SidebarController(
   sidebarSelector,
 );
 
-sidebar.addEventListener("sidebarNodeSelected", (e) => {
-  console.log(e);
-  const nodeId = e.detail.nodeId;
-  const node = graph.getNodeById(nodeId);
-  sidebarController.fillInfo(node);
-});
-
 sidebarController.setNodes(graph.getNodesArray());
+sidebarController.onNodeChange = (nodeId) => {
+  const node = graph.getNodeById(nodeId);
+  sidebarController.renderNodeInfo(node);
+};
 
 interaction.onNodeSelect = (selectedNode) => {
   sidebarController.changeState(selectedNode);

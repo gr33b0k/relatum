@@ -7,6 +7,8 @@ export class SidebarController {
   #tags = null;
   #nodeSelector = null;
 
+  onNodeChange = null;
+
   constructor(sidebar, overlay, title, description, tags, nodeSelector) {
     this.sidebar = sidebar;
     this.overlay = overlay;
@@ -23,9 +25,7 @@ export class SidebarController {
     this.overlay.addEventListener("click", () => this.changeState());
     this.#nodeSelector.addEventListener("change", (e) => {
       const nodeId = this.#nodeSelector.value;
-      this.sidebar.dispatchEvent(
-        new CustomEvent("sidebarNodeSelected", { detail: { nodeId } }),
-      );
+      this.onNodeChange?.(nodeId);
     });
   }
 
@@ -35,11 +35,7 @@ export class SidebarController {
     if (!selectedNode) {
       return;
     }
-    this.fillInfo(selectedNode);
-  }
-
-  fillInfo(node) {
-    this.#renderNodeInfo(node);
+    this.renderNodeInfo(selectedNode);
   }
 
   setNodes(nodes) {
@@ -53,7 +49,7 @@ export class SidebarController {
     });
   }
 
-  #renderNodeInfo(node) {
+  renderNodeInfo(node) {
     this.#title.textContent = node.label;
     this.#description.textContent = node.description
       ? node.description
