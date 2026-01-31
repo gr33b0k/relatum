@@ -127,12 +127,11 @@ sidebarController.onNodeChange = (nodeId) => {
 };
 
 interaction.onNodeSelect = (selectedNode) => {
-  sidebarController.changeState(selectedNode);
+  sidebarController.open();
+  sidebarController.renderNodeInfo(selectedNode);
 };
 
-closeSidebarButton.addEventListener("click", () =>
-  sidebarController.changeState(),
-);
+closeSidebarButton.addEventListener("click", () => sidebarController.close());
 
 function renderGraph() {
   physics.update();

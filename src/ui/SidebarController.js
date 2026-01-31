@@ -22,20 +22,21 @@ export class SidebarController {
   }
 
   #init() {
-    this.overlay.addEventListener("click", () => this.changeState());
+    this.overlay.addEventListener("click", () => this.close());
     this.#nodeSelector.addEventListener("change", (e) => {
       const nodeId = this.#nodeSelector.value;
       this.onNodeChange?.(nodeId);
     });
   }
 
-  changeState(selectedNode) {
-    this.sidebar.classList.toggle("sidebar--hidden");
-    this.overlay.classList.toggle("hidden");
-    if (!selectedNode) {
-      return;
-    }
-    this.renderNodeInfo(selectedNode);
+  open() {
+    this.sidebar.classList.remove("sidebar--hidden");
+    this.overlay.classList.remove("hidden");
+  }
+
+  close() {
+    this.sidebar.classList.add("sidebar--hidden");
+    this.overlay.classList.add("hidden");
   }
 
   setNodes(nodes) {
