@@ -5,6 +5,7 @@ export class CanvasDrawer {
     this.camera = camera;
     this.interactionState = interactionState;
 
+    window.addEventListener("resize", () => this.resize());
     this.resize();
   }
 
