@@ -28,8 +28,8 @@ export class Graph {
     return this.#nodes.get(id);
   }
 
-  linkNodes(from, to, options) {
-    this.#links.push(new Link(from, to, options));
+  linkNodes(from, to) {
+    this.#links.push(new Link(from, to));
     this.#recalculateNodeWeights();
   }
 
