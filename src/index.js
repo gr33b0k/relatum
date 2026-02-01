@@ -7,6 +7,7 @@ import { InteractionState } from "./controller/InteractionState.js";
 import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
 import { SidebarController } from "./ui/SidebarController.js";
+import { SidebarSelectController } from "./ui/SidebarSelectController.js";
 
 const graph = new Graph();
 
@@ -26,8 +27,8 @@ const nodeA = new Node({
 const nodeB = new Node({
   id: "2",
   label: "Node B",
-  x: 200,
-  y: 150,
+  x: 50,
+  y: 50,
   description: `Lorem ipsum dolor sit amet consectetur, 
                 adipisicing elit. Delectus quam blanditiis, 
                 doloremque officia odio aut saepe aspernatur doloribus, 
@@ -109,8 +110,23 @@ const overlay = document.querySelector(".overlay");
 const sidebarTitle = sidebar.querySelector(".sidebar__title");
 const sidebarDescription = sidebar.querySelector(".sidebar__description-text");
 const sidebarTags = sidebar.querySelector(".sidebar__tag-list");
-const sidebarSelector = document.getElementById("sidebar-node-select");
 const closeSidebarButton = document.getElementById("closeSidebar");
+
+const selectWrapper = document.querySelector(".sidebar__select-wrapper");
+const sidebarSelector = new SidebarSelectController(
+  selectWrapper,
+  graph.getNodesArray().map((node) => ({
+    value: node.id,
+    text: node.label,
+  })),
+  {
+    onChange: (nodeId) => {
+      const node = graph.getNodeById(nodeId);
+      sidebarController.renderNodeInfo(node);
+    },
+  },
+);
+
 const sidebarController = new SidebarController(
   sidebar,
   overlay,
@@ -120,7 +136,6 @@ const sidebarController = new SidebarController(
   sidebarSelector,
 );
 
-sidebarController.setNodes(graph.getNodesArray());
 sidebarController.onNodeChange = (nodeId) => {
   const node = graph.getNodeById(nodeId);
   sidebarController.renderNodeInfo(node);

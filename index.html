@@ -25,7 +25,7 @@
         <canvas class="graph-area" id="graphCanvas"></canvas>
       </section>
     </main>
-    <aside class="sidebar">
+    <aside class="sidebar sidebar--hidden">
       <header class="sidebar__header">
         <h2 class="sidebar__title">Node Details</h2>
         <div class="sidebar__actions">
@@ -77,11 +77,11 @@
         <div class="sidebar__field">
           <label class="sidebar__label" for="sidebar-node">Current Node</label>
           <div class="sidebar__select-wrapper">
-            <select
-              class="sidebar__select"
-              name="sidebar-node"
-              id="sidebar-node-select"
-            ></select>
+            <button class="sidebar__select">
+              <span class="selected-value">Node A</span>
+              <span class="arrow"></span>
+            </button>
+            <ul class="sidebar__select-options"></ul>
           </div>
         </div>
       </section>

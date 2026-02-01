@@ -23,10 +23,9 @@ export class SidebarController {
 
   #init() {
     this.overlay.addEventListener("click", () => this.close());
-    this.#nodeSelector.addEventListener("change", (e) => {
-      const nodeId = this.#nodeSelector.value;
+    this.#nodeSelector.onChange = (nodeId) => {
       this.onNodeChange?.(nodeId);
-    });
+    };
   }
 
   open() {
@@ -39,17 +38,6 @@ export class SidebarController {
     this.overlay.classList.add("hidden");
   }
 
-  setNodes(nodes) {
-    this.#nodeSelector.innerHTML = "";
-
-    nodes.forEach((node) => {
-      const option = document.createElement("option");
-      option.value = node.id;
-      option.textContent = node.label;
-      this.#nodeSelector.appendChild(option);
-    });
-  }
-
   renderNodeInfo(node) {
     this.#title.textContent = node.label;
     this.#description.textContent = node.description
@@ -58,6 +46,8 @@ export class SidebarController {
 
     this.#tags.innerHTML = "";
     node.tags.forEach(this.#renderNodeTag);
+
+    this.#nodeSelector.setValue(node.id);
   }
 
   #renderNodeTag = (tag) => {

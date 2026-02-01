@@ -84,7 +84,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* Overlay */
@@ -214,7 +214,7 @@ body {
 .sidebar__section--description {
     border-bottom: none;
     overflow-y: auto;
-    scrollbar-color: var(--bg-light) var(--bg-dark);
+    scrollbar-color: var(--border) var(--bg-light);
 }
 
 .sidebar__label {
@@ -232,31 +232,64 @@ body {
     position: relative;
 }
 
-.sidebar__select-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: .8rem;
-    width: 0.5em;
-    height: 0.5em;
-    pointer-events: none;
-    border-left: 2px solid var(--text);
-    border-bottom: 2px solid var(--text);
-    transform: translateY(calc(-50% - (.25em / sqrt(2)))) rotate(-45deg);
-
-}
-
 .sidebar__select {
-    font-family: "Manrope", sans-serif;
-    font-size: .9em;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    padding: .5rem .8rem;
-    appearance: none;
+    padding: 0.6em 1em;
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
     background-color: var(--bg-light);
     color: var(--text);
+    cursor: pointer;
+}
+
+.arrow {
+    border-left: .3em solid transparent;
+    border-right: .3em solid transparent;
+    border-top: .4em solid var(--text);
+    transition: transform ease-in-out 0.1s;
+}
+
+.sidebar__select[aria-expanded="true"] .arrow {
+    transform: rotate(180deg);
+}
+
+.sidebar__select-options {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    top: 100%;
+    left: 0;
+    width: 100%;
     border: 1px solid var(--border-muted);
-    border-radius: .5rem;
-    outline: none;
+    border-radius: 0.25rem;
+    background-color: var(--bg-dark);
+    list-style: none;
+    padding: .5em;
+    margin-top: 10px;
+    box-shadow: 0 10px 25px oklch(from var(--border) l c h / 0.3);
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-color: var(--border) var(--bg-light);
+}
+
+.sidebar__select-options li:hover,
+.sidebar__select-options li:focus {
+    background-color: var(--bg-light);
+    border-radius: 4px;
+}
+
+.sidebar__select-options li {
+    padding: .5em;
+    cursor: pointer;
+}
+
+.sidebar__select-options li.selected {
+    background-color: var(--bg-light);
 }
 
 .sidebar__actions {
