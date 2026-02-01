@@ -59,7 +59,6 @@ export class Interaction {
 
         const neighbors = graph.getNodeNeighbors(clickedNode);
 
-        interactionState.clearAll();
         interactionState.selectNode(clickedNode);
         neighbors.forEach((neighbor) => {
           interactionState.highlightNode(neighbor.neighbor);
