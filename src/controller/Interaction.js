@@ -57,16 +57,14 @@ export class Interaction {
         this.#startX = event.clientX;
         this.#startY = event.clientY;
 
-        const neighbors = graph.getNodeNeighbors(clickedNode);
+        const neighbors = graph
+          .getNodeNeighbors(clickedNode)
+          .map((n) => n.neighbor);
 
-        interactionState.selectNode(clickedNode);
-        neighbors.forEach((neighbor) => {
-          interactionState.highlightNode(neighbor.neighbor);
-        });
-
+        interactionState.setSelection(clickedNode, neighbors);
         physics.setDraggedNode(clickedNode);
       } else {
-        interactionState.clearAll();
+        interactionState.clearSelection();
       }
     }
 
@@ -120,7 +118,7 @@ export class Interaction {
       }
       this.#nodeClicked = false;
       this.#draggingNode = false;
-      interactionState.clearAll();
+      interactionState.clearSelection();
     }
 
     if (event.button === 1) {

@@ -2,17 +2,16 @@ export class InteractionState {
   #selectedNode = null;
   #highlightedNodes = new Set();
 
-  selectNode(node) {
+  setSelection(node, neighbors) {
     this.#selectedNode = node;
+    this.#highlightedNodes.clear();
+
+    neighbors.forEach((neighbor) => this.#highlightedNodes.add(neighbor));
   }
 
-  clearAll() {
+  clearSelection() {
     this.#selectedNode = null;
     this.#highlightedNodes.clear();
-  }
-
-  highlightNode(node) {
-    this.#highlightedNodes.add(node);
   }
 
   getHighlightedNodes() {

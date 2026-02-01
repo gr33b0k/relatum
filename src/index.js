@@ -122,6 +122,8 @@ const sidebarSelector = new SidebarSelectController(
   {
     onChange: (nodeId) => {
       const node = graph.getNodeById(nodeId);
+      const neighbors = graph.getNodeNeighbors(node).map((n) => n.neighbor);
+      interactionState.setSelection(node, neighbors);
       sidebarController.renderNodeInfo(node);
     },
   },
