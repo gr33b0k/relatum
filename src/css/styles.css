@@ -71,6 +71,10 @@ body.light {
 
 /* Generals */
 
+:root {
+    --font-family: "Manrope", sans-serif;
+}
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -78,7 +82,7 @@ body.light {
 }
 
 body {
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-family);
     font-optical-sizing: auto;
     font-style: normal;
 }
@@ -324,6 +328,8 @@ body {
 }
 
 .graph-area {
+    --selected-node: var(--primary);
+    --muted-node: var(--secondary);
     height: 100%;
     width: 100%;
     display: block;

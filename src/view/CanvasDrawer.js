@@ -45,10 +45,11 @@ export class CanvasDrawer {
     const { ctx, interactionState } = this;
     const selectedNode = interactionState.getSelectedNode();
     const highlightedNodes = interactionState.getHighlightedNodes();
+    const canvasStyles = window.getComputedStyle(this.canvas);
     if (selectedNode && selectedNode !== node && !highlightedNodes.has(node)) {
-      ctx.fillStyle = "#9ac0b7ff";
+      ctx.fillStyle = canvasStyles.getPropertyValue("--muted-node");
     } else {
-      ctx.fillStyle = "#63c6af";
+      ctx.fillStyle = canvasStyles.getPropertyValue("--selected-node");
     }
     ctx.beginPath();
     ctx.arc(node.x, node.y, node.weight * 10, 0, 2 * Math.PI);
