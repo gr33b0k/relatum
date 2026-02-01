@@ -136,11 +136,6 @@ const sidebarController = new SidebarController(
   sidebarSelector,
 );
 
-sidebarController.onNodeChange = (nodeId) => {
-  const node = graph.getNodeById(nodeId);
-  sidebarController.renderNodeInfo(node);
-};
-
 interaction.onNodeSelect = (selectedNode) => {
   sidebarController.open();
   sidebarController.renderNodeInfo(selectedNode);

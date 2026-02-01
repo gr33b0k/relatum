@@ -7,8 +7,6 @@ export class SidebarController {
   #tags = null;
   #nodeSelector = null;
 
-  onNodeChange = null;
-
   constructor(sidebar, overlay, title, description, tags, nodeSelector) {
     this.sidebar = sidebar;
     this.overlay = overlay;
@@ -23,9 +21,6 @@ export class SidebarController {
 
   #init() {
     this.overlay.addEventListener("click", () => this.close());
-    this.#nodeSelector.onChange = (nodeId) => {
-      this.onNodeChange?.(nodeId);
-    };
   }
 
   open() {
