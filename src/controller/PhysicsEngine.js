@@ -28,6 +28,8 @@ export class PhysicsEngine {
     const nodes = this.graph.getNodesArray();
     const repelRadius = 80;
     const repelStrength = 1;
+    const EPS = 0.0001;
+
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i];
@@ -36,6 +38,19 @@ export class PhysicsEngine {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < EPS) {
+          const angle = Math.random() * Math.PI * 2;
+          const fx = Math.cos(angle) * repelStrength;
+          const fy = Math.sin(angle) * repelStrength;
+
+          a.vx -= fx;
+          a.vy -= fy;
+          b.vx += fx;
+          b.vy += fy;
+          continue;
+        }
+
         if (dist < repelRadius) {
           const t = 1 - dist / repelRadius;
           const force = t * repelStrength;
