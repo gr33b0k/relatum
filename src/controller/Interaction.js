@@ -115,6 +115,7 @@ export class Interaction {
     if (event.button === 0) {
       if (this.#nodeClicked && !this.#draggingNode) {
         this.onNodeSelect?.(interactionState.getSelectedNode());
+        return;
       }
       this.#nodeClicked = false;
       this.#draggingNode = false;

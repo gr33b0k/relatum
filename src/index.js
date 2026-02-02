@@ -140,10 +140,19 @@ const sidebarController = new SidebarController(
 
 interaction.onNodeSelect = (selectedNode) => {
   sidebarController.open();
+  physics.releaseDraggedNode();
   sidebarController.renderNodeInfo(selectedNode);
 };
 
-closeSidebarButton.addEventListener("click", () => sidebarController.close());
+closeSidebarButton.addEventListener("click", () => {
+  sidebarController.close();
+  interactionState.clearSelection();
+});
+
+overlay.addEventListener("click", () => {
+  sidebarController.close();
+  interactionState.clearSelection();
+});
 
 function renderGraph() {
   physics.update();
