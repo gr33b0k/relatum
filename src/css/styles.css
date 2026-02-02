@@ -195,10 +195,6 @@ body {
     fill: var(--text);
 }
 
-.sidebar__action--edit {
-    background-color: var(--success);
-}
-
 .sidebar__action--delete {
     background-color: var(--danger);
 }
