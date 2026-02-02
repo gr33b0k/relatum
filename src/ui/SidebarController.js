@@ -15,12 +15,6 @@ export class SidebarController {
     this.#description = description;
     this.#tags = tags;
     this.#nodeSelector = nodeSelector;
-
-    this.#init();
-  }
-
-  #init() {
-    this.overlay.addEventListener("click", () => this.close());
   }
 
   open() {
