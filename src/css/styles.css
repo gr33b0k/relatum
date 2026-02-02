@@ -91,6 +91,21 @@ body {
     display: none !important;
 }
 
+.button {
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border);
+    outline: none;
+    background-color: var(--bg-light);
+    color: var(--text);
+    padding: .5em 1em;
+    transition: background-color ease-in .1s;
+}
+
+.button:hover {
+    background-color: var(--border-muted);
+}
+
 /* Overlay */
 
 .overlay {
@@ -243,7 +258,7 @@ body {
     align-items: center;
     width: 100%;
     padding: 0.6em 1em;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-muted);
     border-radius: 0.25rem;
     background-color: var(--bg-light);
     color: var(--text);
@@ -288,7 +303,7 @@ body {
 }
 
 .sidebar__select-options li {
-    padding: .5em;
+    padding: .6em;
     cursor: pointer;
 }
 
@@ -299,21 +314,62 @@ body {
 .sidebar__actions {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.5em;
 }
 
+.sidebar__tags {
+    padding: .5em;
+    border-radius: 0.25rem;
+    background-color: var(--bg);
+}
 
-.sidebar__tag-list {
+.sidebar__tags-list {
     display: flex;
     flex-wrap: wrap;
-    gap: .4rem;
+    gap: .4em;
     list-style: none;
+    margin-bottom: .5em;
 }
 
-.tag {
+.sidebar__tag {
     background-color: var(--bg-light);
-    border-radius: .3rem;
-    padding: 5px 10px;
+    border-radius: .3em;
+    padding: .3em .6em;
+}
+
+.sidebar__tags-add {
+    display: flex;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-muted);
+    border-radius: .3em;
+}
+
+.sidebar__tags-input {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-muted);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    padding: .6rem 0 .6rem .6rem;
+}
+
+.sidebar__tags-input::placeholder {
+    color: var(--text-muted);
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+.sidebar__tags-button {
+    padding: .5rem 1rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-muted);
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .sidebar--hidden {

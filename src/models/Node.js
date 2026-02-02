@@ -18,4 +18,8 @@ export class Node {
   setWeight(weight) {
     this.weight = weight;
   }
+
+  addTag(tag) {
+    this.tags.add(tag);
+  }
 }

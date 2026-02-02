@@ -8,6 +8,7 @@ import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
 import { SidebarController } from "./ui/SidebarController.js";
 import { SidebarSelectController } from "./ui/SidebarSelectController.js";
+import { SidebarTagsController } from "./ui/SidebarTagsController.js";
 
 const graph = new Graph();
 
@@ -109,8 +110,9 @@ const sidebar = document.querySelector(".sidebar");
 const overlay = document.querySelector(".overlay");
 const sidebarTitle = sidebar.querySelector(".sidebar__title");
 const sidebarDescription = sidebar.querySelector(".sidebar__description-text");
-const sidebarTags = sidebar.querySelector(".sidebar__tag-list");
+const sidebarTags = sidebar.querySelector(".sidebar__tags-list");
 const closeSidebarButton = document.getElementById("closeSidebar");
+const sidebarAddTags = sidebar.querySelector(".sidebar__tags-add");
 
 const selectWrapper = document.querySelector(".sidebar__select-wrapper");
 const sidebarSelector = new SidebarSelectController(
@@ -129,6 +131,8 @@ const sidebarSelector = new SidebarSelectController(
   },
 );
 
+const sidebarTagsController = new SidebarTagsController(sidebarAddTags);
+
 const sidebarController = new SidebarController(
   sidebar,
   overlay,
@@ -137,6 +141,12 @@ const sidebarController = new SidebarController(
   sidebarTags,
   sidebarSelector,
 );
+
+sidebarTagsController.onAddTag = (tag) => {
+  const currentNode = interactionState.getSelectedNode();
+  currentNode.addTag(tag);
+  sidebarController.renderNodeInfo(currentNode);
+};
 
 interaction.onNodeSelect = (selectedNode) => {
   sidebarController.open();

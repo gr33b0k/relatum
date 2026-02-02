@@ -41,7 +41,7 @@ export class SidebarController {
 
   #renderNodeTag = (tag) => {
     const li = document.createElement("li");
-    li.className = "tag";
+    li.className = "sidebar__tag";
     li.textContent = tag;
     this.#tags.appendChild(li);
   };
