@@ -313,6 +313,40 @@ body {
     gap: 0.5em;
 }
 
+.sidebar__connections {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    list-style: none;
+}
+
+.sidebar__connection {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-light);
+    padding: 0.6em 1em;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.sidebar__connection-info {
+    display: flex;
+    gap: .5em;
+    flex: 1;
+}
+
+.connection__button {
+    border: none;
+    outline: none;
+    width: .5em;
+    height: .5em;
+    background-color: transparent;
+    border-left: 2px solid var(--text);
+    border-bottom: 2px solid var(--text);
+    transform: rotate(-135deg);
+    cursor: pointer;
+}
+
 .sidebar__tags {
     padding: .5em;
     border-radius: 0.25rem;
