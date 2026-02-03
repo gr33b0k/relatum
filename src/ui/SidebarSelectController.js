@@ -34,7 +34,7 @@ export class SidebarSelectController {
     });
     this.#selectOptions.forEach((option) =>
       option.addEventListener("click", (e) =>
-        this.handleOptionSelect(e.target),
+        this.onChange?.(option.dataset.value),
       ),
     );
   }
@@ -57,10 +57,6 @@ export class SidebarSelectController {
       optionElement.textContent = option.text;
       this.#selectOptionsContainer.appendChild(optionElement);
     });
-  }
-
-  handleOptionSelect(option) {
-    this.onChange?.(option.dataset.value);
   }
 
   setValue(value) {
