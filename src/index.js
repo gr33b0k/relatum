@@ -109,9 +109,7 @@ const interaction = new Interaction(
 
 const sidebar = document.querySelector(".sidebar");
 const overlay = document.querySelector(".overlay");
-const sidebarTitle = sidebar.querySelector(".sidebar__title");
 const sidebarConnections = sidebar.querySelector(".sidebar__connections");
-const sidebarDescription = sidebar.querySelector(".sidebar__description-text");
 const closeSidebarButton = document.getElementById("closeSidebar");
 const sidebarAddTags = sidebar.querySelector(".sidebar__tags-add");
 const selectWrapper = document.querySelector(".sidebar__select-wrapper");
@@ -146,8 +144,6 @@ const sidebarConnectionsController = new SidebarConnectionsController(
 const sidebarController = new SidebarController(
   sidebar,
   overlay,
-  sidebarTitle,
-  sidebarDescription,
   sidebarSelectController,
   sidebarConnectionsController,
   sidebarTagsController,

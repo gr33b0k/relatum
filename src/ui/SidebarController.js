@@ -11,16 +11,14 @@ export class SidebarController {
   constructor(
     sidebar,
     overlay,
-    title,
-    description,
     selectController,
     connectionsController,
     tagsController,
   ) {
     this.sidebar = sidebar;
     this.overlay = overlay;
-    this.#title = title;
-    this.#description = description;
+    this.#title = sidebar.querySelector(".sidebar__title");
+    this.#description = sidebar.querySelector(".sidebar__description-text");
 
     this.#selectController = selectController;
     this.#connectionsController = connectionsController;
