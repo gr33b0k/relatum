@@ -1,13 +1,15 @@
 export class SidebarConnectionsController {
   #root = null;
 
+  onConnectionClick = null;
+
   constructor(root) {
     this.#root = root;
   }
 
   setConnections(connections) {
     this.#root.innerHTML = "";
-    connections.forEach((c) => {
+    connections.forEach(({ id, name, type }) => {
       const connElement = document.createElement("li");
       connElement.classList.add("sidebar__connection");
       const connInfoElement = document.createElement("div");
@@ -19,7 +21,6 @@ export class SidebarConnectionsController {
       const connButtonElement = document.createElement("button");
       connButtonElement.classList.add("connection__button");
 
-      const { name, type } = c;
       connNameElement.textContent = name;
       if (type === "source") {
         connDirectionElement.textContent = "→";
@@ -29,6 +30,11 @@ export class SidebarConnectionsController {
 
       connInfoElement.append(connDirectionElement, connNameElement);
       connElement.append(connInfoElement, connButtonElement);
+
+      connElement.addEventListener("click", (e) => {
+        this.onConnectionClick?.(id);
+      });
+
       this.#root.appendChild(connElement);
     });
   }

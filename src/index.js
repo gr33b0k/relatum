@@ -128,6 +128,7 @@ const sidebarSelectController = new SidebarSelectController(
       const neighbors = graph.getNodeNeighbors(node);
       const neighborsNodes = neighbors.map((n) => n.neighbor);
       const nodeConnections = neighbors.map((n) => ({
+        id: n.neighbor.id,
         name: n.neighbor.label,
         type: n.type,
       }));
@@ -152,11 +153,19 @@ const sidebarController = new SidebarController(
   sidebarTagsController,
 );
 
+sidebarConnectionsController.onConnectionClick = (id) => {
+  const node = graph.getNodeById(id);
+  const nodeConnections = graph
+    .getNodeNeighbors(node)
+    .map((n) => ({ id: n.neighbor.id, name: n.neighbor.label, type: n.type }));
+  sidebarController.renderNodeInfo(node, nodeConnections);
+};
+
 sidebarTagsController.onAddTag = (tag) => {
   const currentNode = interactionState.getSelectedNode();
   const nodeConnections = graph
-    .getNodeNeighbors(currentNode)
-    .map((n) => ({ name: n.neighbor.label, type: n.type }));
+    .getNodeNeighbors(selectedNode)
+    .map((n) => ({ id: n.neighbor.id, name: n.neighbor.label, type: n.type }));
   currentNode.addTag(tag);
   sidebarController.renderNodeInfo(currentNode, nodeConnections);
 };
@@ -164,7 +173,7 @@ sidebarTagsController.onAddTag = (tag) => {
 interaction.onNodeSelect = (selectedNode) => {
   const nodeConnections = graph
     .getNodeNeighbors(selectedNode)
-    .map((n) => ({ name: n.neighbor.label, type: n.type }));
+    .map((n) => ({ id: n.neighbor.id, name: n.neighbor.label, type: n.type }));
   sidebarController.open();
   physics.releaseDraggedNode();
   sidebarController.renderNodeInfo(selectedNode, nodeConnections);
