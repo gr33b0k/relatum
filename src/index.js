@@ -9,6 +9,7 @@ import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 import { SidebarController } from "./ui/SidebarController.js";
 import { SidebarSelectController } from "./ui/SidebarSelectController.js";
 import { SidebarTagsController } from "./ui/SidebarTagsController.js";
+import { SidebarConnectionsController } from "./ui/SidebarConnectionsController.js";
 
 const graph = new Graph();
 
@@ -109,13 +110,13 @@ const interaction = new Interaction(
 const sidebar = document.querySelector(".sidebar");
 const overlay = document.querySelector(".overlay");
 const sidebarTitle = sidebar.querySelector(".sidebar__title");
+const sidebarConnections = sidebar.querySelector(".sidebar__connections");
 const sidebarDescription = sidebar.querySelector(".sidebar__description-text");
-const sidebarTags = sidebar.querySelector(".sidebar__tags-list");
 const closeSidebarButton = document.getElementById("closeSidebar");
 const sidebarAddTags = sidebar.querySelector(".sidebar__tags-add");
-
 const selectWrapper = document.querySelector(".sidebar__select-wrapper");
-const sidebarSelector = new SidebarSelectController(
+
+const sidebarSelectController = new SidebarSelectController(
   selectWrapper,
   graph.getNodesArray().map((node) => ({
     value: node.id,
@@ -124,34 +125,49 @@ const sidebarSelector = new SidebarSelectController(
   {
     onChange: (nodeId) => {
       const node = graph.getNodeById(nodeId);
-      const neighbors = graph.getNodeNeighbors(node).map((n) => n.neighbor);
-      interactionState.setSelection(node, neighbors);
-      sidebarController.renderNodeInfo(node);
+      const neighbors = graph.getNodeNeighbors(node);
+      const neighborsNodes = neighbors.map((n) => n.neighbor);
+      const nodeConnections = neighbors.map((n) => ({
+        name: n.neighbor.label,
+        type: n.type,
+      }));
+
+      interactionState.setSelection(node, neighborsNodes);
+      sidebarController.renderNodeInfo(node, nodeConnections);
     },
   },
 );
-
 const sidebarTagsController = new SidebarTagsController(sidebarAddTags);
+const sidebarConnectionsController = new SidebarConnectionsController(
+  sidebarConnections,
+);
 
 const sidebarController = new SidebarController(
   sidebar,
   overlay,
   sidebarTitle,
   sidebarDescription,
-  sidebarTags,
-  sidebarSelector,
+  sidebarSelectController,
+  sidebarConnectionsController,
+  sidebarTagsController,
 );
 
 sidebarTagsController.onAddTag = (tag) => {
   const currentNode = interactionState.getSelectedNode();
+  const nodeConnections = graph
+    .getNodeNeighbors(currentNode)
+    .map((n) => ({ name: n.neighbor.label, type: n.type }));
   currentNode.addTag(tag);
-  sidebarController.renderNodeInfo(currentNode);
+  sidebarController.renderNodeInfo(currentNode, nodeConnections);
 };
 
 interaction.onNodeSelect = (selectedNode) => {
+  const nodeConnections = graph
+    .getNodeNeighbors(selectedNode)
+    .map((n) => ({ name: n.neighbor.label, type: n.type }));
   sidebarController.open();
   physics.releaseDraggedNode();
-  sidebarController.renderNodeInfo(selectedNode);
+  sidebarController.renderNodeInfo(selectedNode, nodeConnections);
 };
 
 closeSidebarButton.addEventListener("click", () => {
