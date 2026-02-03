@@ -24,4 +24,16 @@ export class SidebarTagsController {
       this.#input.value = "";
     });
   }
+
+  renderTags(tags) {
+    const tagsList = this.#form.previousElementSibling;
+    tagsList.innerHTML = "";
+
+    tags.forEach((tag) => {
+      const li = document.createElement("li");
+      li.className = "sidebar__tag";
+      li.textContent = tag;
+      tagsList.appendChild(li);
+    });
+  }
 }

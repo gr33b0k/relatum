@@ -29,6 +29,7 @@ export class SidebarController {
 
   renderNodeInfo(node) {
     this.#title.textContent = node.label;
+
     this.#description.textContent = node.description
       ? node.description
       : "This node have no description";
