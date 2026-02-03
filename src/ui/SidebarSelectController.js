@@ -22,8 +22,6 @@ export class SidebarSelectController {
   #init(options) {
     this.setOptions(options);
 
-    this.#selectOptions = this.#selectOptionsContainer.querySelectorAll("li");
-
     document.addEventListener("pointerdown", (e) => {
       if (!this.#selectWrapper.contains(e.target)) {
         this.#toggleOptions(false);
@@ -55,6 +53,8 @@ export class SidebarSelectController {
       );
       this.#selectOptionsContainer.appendChild(optionElement);
     });
+
+    this.#selectOptions = this.#selectOptionsContainer.querySelectorAll("li");
   }
 
   setValue(value) {
