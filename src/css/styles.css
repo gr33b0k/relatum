@@ -218,6 +218,11 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
+.sidebar__content {
+    overflow-y: auto;
+    scrollbar-color: var(--border) var(--bg-light);
+}
+
 .sidebar__section {
     display: flex;
     flex-direction: column;
@@ -228,8 +233,6 @@ body {
 
 .sidebar__section--description {
     border-bottom: none;
-    overflow-y: auto;
-    scrollbar-color: var(--border) var(--bg-light);
 }
 
 .sidebar__label {

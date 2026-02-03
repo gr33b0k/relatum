@@ -25,7 +25,7 @@
         <canvas class="graph-area" id="graphCanvas"></canvas>
       </section>
     </main>
-    <aside class="sidebar">
+    <aside class="sidebar sidebar--hidden">
       <header class="sidebar__header">
         <h2 class="sidebar__title">Node Details</h2>
         <div class="sidebar__actions">
@@ -60,42 +60,46 @@
           </button>
         </div>
       </header>
-      <section class="sidebar__section sidebar__section--properties">
-        <h3 class="sidebar__subtitle">Properties</h3>
-        <div class="sidebar__field">
-          <label class="sidebar__label" for="sidebar-node">Current Node</label>
-          <div class="sidebar__select-wrapper">
-            <button class="sidebar__select">
-              <span class="selected-value"></span>
-              <span class="arrow"></span>
-            </button>
-            <ul class="sidebar__select-options hidden"></ul>
+      <div class="sidebar__content">
+        <section class="sidebar__section sidebar__section--properties">
+          <h3 class="sidebar__subtitle">Properties</h3>
+          <div class="sidebar__field">
+            <label class="sidebar__label" for="sidebar-node"
+              >Current Node</label
+            >
+            <div class="sidebar__select-wrapper">
+              <button class="sidebar__select">
+                <span class="selected-value"></span>
+                <span class="arrow"></span>
+              </button>
+              <ul class="sidebar__select-options hidden"></ul>
+            </div>
           </div>
-        </div>
-      </section>
-      <section class="sidebar__section sidebar__section--connections">
-        <h3 class="sidebar__subtitle">Connections</h3>
-        <ul class="sidebar__connections"></ul>
-      </section>
-      <section class="sidebar__section sidebar__section--tags">
-        <h3 class="sidebar__subtitle">Tags</h3>
-        <div class="sidebar__tags">
-          <ul class="sidebar__tags-list"></ul>
-          <form class="sidebar__tags-add">
-            <input
-              class="sidebar__tags-input"
-              type="text"
-              name="tag-input"
-              placeholder="Add new tag..."
-            />
-            <button class="sidebar__tags-button" type="submit">+</button>
-          </form>
-        </div>
-      </section>
-      <section class="sidebar__section sidebar__section--description">
-        <h3 class="sidebar__subtitle">Description</h3>
-        <p class="sidebar__description-text"></p>
-      </section>
+        </section>
+        <section class="sidebar__section sidebar__section--connections">
+          <h3 class="sidebar__subtitle">Connections</h3>
+          <ul class="sidebar__connections"></ul>
+        </section>
+        <section class="sidebar__section sidebar__section--tags">
+          <h3 class="sidebar__subtitle">Tags</h3>
+          <div class="sidebar__tags">
+            <ul class="sidebar__tags-list"></ul>
+            <form class="sidebar__tags-add">
+              <input
+                class="sidebar__tags-input"
+                type="text"
+                name="tag-input"
+                placeholder="Add new tag..."
+              />
+              <button class="sidebar__tags-button" type="submit">+</button>
+            </form>
+          </div>
+        </section>
+        <section class="sidebar__section sidebar__section--description">
+          <h3 class="sidebar__subtitle">Description</h3>
+          <p class="sidebar__description-text"></p>
+        </section>
+      </div>
     </aside>
   </body>
 </html>
