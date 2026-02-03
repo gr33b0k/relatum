@@ -3,10 +3,13 @@ export class SidebarController {
   overlay = null;
   #title = null;
   #description = null;
+  #deleteButton = null;
 
   #selectController = null;
   #connectionsController = null;
   #tagsController = null;
+
+  onDelete = null;
 
   constructor(
     sidebar,
@@ -19,6 +22,9 @@ export class SidebarController {
     this.overlay = overlay;
     this.#title = sidebar.querySelector(".sidebar__title");
     this.#description = sidebar.querySelector(".sidebar__description-text");
+    this.#deleteButton = sidebar.querySelector(".sidebar__action--delete");
+
+    this.#deleteButton.addEventListener("click", () => this.onDelete?.());
 
     this.#selectController = selectController;
     this.#connectionsController = connectionsController;

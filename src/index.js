@@ -149,6 +149,28 @@ const sidebarController = new SidebarController(
   sidebarTagsController,
 );
 
+sidebarController.onDelete = () => {
+  const selectedNode = interactionState.getSelectedNode();
+  const neighbors = graph.getNodeNeighbors(selectedNode);
+  const nodeFirstNeighbor = neighbors[0].neighbor;
+  graph.removeNode(selectedNode.id);
+  const newNeighbors = graph.getNodeNeighbors(nodeFirstNeighbor);
+  const neighborsNodes = newNeighbors.map((n) => n.neighbor);
+  const nodeConnections = newNeighbors.map((n) => ({
+    id: n.neighbor.id,
+    name: n.neighbor.label,
+    type: n.type,
+  }));
+  interactionState.setSelection(nodeFirstNeighbor, neighborsNodes);
+  sidebarSelectController.setOptions(
+    graph.getNodesArray().map((node) => ({
+      value: node.id,
+      text: node.label,
+    })),
+  );
+  sidebarController.renderNodeInfo(nodeFirstNeighbor, nodeConnections);
+};
+
 sidebarConnectionsController.onConnectionClick = (id) => {
   const node = graph.getNodeById(id);
   const nodeConnections = graph
