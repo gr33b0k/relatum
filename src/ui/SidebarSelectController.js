@@ -4,7 +4,6 @@ export class SidebarSelectController {
   #selectedValue = null;
   #selectOptionsContainer = null;
   #selectOptions = null;
-  #options = null;
   onChange = null;
 
   constructor(selectWrapper, options, { onChange } = {}) {
@@ -15,17 +14,16 @@ export class SidebarSelectController {
       ".sidebar__select-options",
     );
 
-    this.#options = options;
+    this.onChange = onChange;
+
+    this.#init(options);
+  }
+
+  #init(options) {
     this.setOptions(options);
 
     this.#selectOptions = this.#selectOptionsContainer.querySelectorAll("li");
 
-    this.onChange = onChange;
-
-    this.#init();
-  }
-
-  #init() {
     document.addEventListener("pointerdown", (e) => {
       if (!this.#selectWrapper.contains(e.target)) {
         this.#toggleOptions(false);
