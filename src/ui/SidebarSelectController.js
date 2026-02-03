@@ -32,11 +32,6 @@ export class SidebarSelectController {
     this.#selectButton.addEventListener("click", () => {
       this.#toggleOptions();
     });
-    this.#selectOptions.forEach((option) =>
-      option.addEventListener("click", (e) =>
-        this.onChange?.(option.dataset.value),
-      ),
-    );
   }
 
   #toggleOptions(expand = null) {
@@ -55,6 +50,9 @@ export class SidebarSelectController {
       const optionElement = document.createElement("li");
       optionElement.dataset.value = option.value;
       optionElement.textContent = option.text;
+      optionElement.addEventListener("click", (e) =>
+        this.onChange?.(option.value),
+      );
       this.#selectOptionsContainer.appendChild(optionElement);
     });
   }
