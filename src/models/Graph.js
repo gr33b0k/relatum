@@ -11,6 +11,18 @@ export class Graph {
     this.#nodes.set(node.id, node);
   }
 
+  removeNode(nodeId) {
+    if (!this.#nodes.delete(nodeId)) {
+      return;
+    }
+
+    this.#links = this.#links.filter(
+      (link) => link.from.id !== nodeId && link.to.id !== nodeId,
+    );
+
+    this.#recalculateNodeWeights();
+  }
+
   getNodesArray() {
     return Array.from(this.#nodes.values());
   }
