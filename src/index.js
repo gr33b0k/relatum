@@ -1,6 +1,6 @@
 import { Graph } from "./models/Graph.js";
 import { Node } from "./models/Node.js";
-import { CanvasDrawer } from "./view/CanvasDrawer.js";
+import { CanvasDrawer } from "./render/CanvasDrawer.js";
 import { Camera } from "./models/Camera.js";
 import { Interaction } from "./controller/Interaction.js";
 import { InteractionState } from "./controller/InteractionState.js";
