@@ -198,7 +198,9 @@ export class AppController {
     this.sidebarConnectionsController.onConnectionClick = (id) => {
       const node = this.graph.getNodeById(id);
       const neighbors = this.graph.getNodeNeighbors(node);
+      const neighborsNodes = neighbors.map((n) => n.neighbor);
       const nodeConnections = this.#mapConnections(neighbors);
+      this.interactionState.setSelection(node, neighborsNodes);
       this.sidebarController.renderNodeInfo(node, nodeConnections);
     };
 
