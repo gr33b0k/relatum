@@ -170,8 +170,15 @@ export class AppController {
     this.sidebarController.onDelete = () => {
       const selectedNode = this.interactionState.getSelectedNode();
       const neighbors = this.graph.getNodeNeighbors(selectedNode);
-      const nodeFirstNeighbor = neighbors[0].neighbor;
+      let nodeFirstNeighbor = undefined;
       this.graph.removeNode(selectedNode.id);
+
+      if (neighbors.length !== 0) {
+        nodeFirstNeighbor = neighbors[0].neighbor;
+      } else {
+        const nodes = this.graph.getNodesArray();
+        nodeFirstNeighbor = nodes[Math.floor(Math.random() * nodes.length)];
+      }
       const newNeighbors = this.graph.getNodeNeighbors(nodeFirstNeighbor);
       const neighborsNodes = newNeighbors.map((n) => n.neighbor);
       const nodeConnections = this.#mapConnections(newNeighbors);
