@@ -177,6 +177,10 @@ export class AppController {
         nodeFirstNeighbor = neighbors[0].neighbor;
       } else {
         const nodes = this.graph.getNodesArray();
+        if (nodes.length === 0) {
+          this.sidebarController.close();
+          return;
+        }
         nodeFirstNeighbor = nodes[Math.floor(Math.random() * nodes.length)];
       }
       const newNeighbors = this.graph.getNodeNeighbors(nodeFirstNeighbor);
