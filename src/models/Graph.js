@@ -40,6 +40,14 @@ export class Graph {
     return this.#nodes.get(id);
   }
 
+  getNodeAt(x, y) {
+    return this.getNodesArray().find((node) => {
+      const dx = x - node.x;
+      const dy = y - node.y;
+      return Math.hypot(dx, dy) <= node.weight * 10;
+    });
+  }
+
   linkNodes(from, to) {
     this.#links.push(new Link(from, to));
     this.#recalculateNodeWeights();

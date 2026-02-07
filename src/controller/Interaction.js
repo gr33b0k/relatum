@@ -44,11 +44,7 @@ export class Interaction {
     const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
 
     if (event.button === 0) {
-      const clickedNode = graph.getNodesArray().find((node) => {
-        const dx = wx - node.x;
-        const dy = wy - node.y;
-        return Math.hypot(dx, dy) <= node.weight * 10;
-      });
+      const clickedNode = graph.getNodeAt(wx, wy);
 
       if (clickedNode) {
         this.#nodeClicked = true;
