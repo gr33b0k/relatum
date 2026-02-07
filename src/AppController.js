@@ -14,7 +14,9 @@ import { SidebarConnectionsController } from "./ui/SidebarConnectionsController.
 export class AppController {
   constructor(canvas) {
     this.canvas = canvas;
+  }
 
+  start() {
     this.#init();
     this.#renderLoop();
   }
