@@ -11,6 +11,8 @@ import { SidebarSelectController } from "./ui/SidebarSelectController.js";
 import { SidebarTagsController } from "./ui/SidebarTagsController.js";
 import { SidebarConnectionsController } from "./ui/SidebarConnectionsController.js";
 
+import { SelectionService } from "./services/SelectionService.js";
+
 export class AppController {
   constructor(canvas) {
     this.canvas = canvas;
@@ -82,6 +84,14 @@ export class AppController {
       this.sidebarSelectController,
       this.sidebarConnectionsController,
       this.sidebarTagsController,
+    );
+
+    this.selectionService = new SelectionService(
+      this.graph,
+      this.interactionState,
+      this.sidebarController,
+      this.sidebarSelectController,
+      this.physics,
     );
   }
 
@@ -172,50 +182,28 @@ export class AppController {
     this.sidebarController.onDelete = () => {
       const selectedNode = this.interactionState.getSelectedNode();
       const neighbors = this.graph.getNodeNeighbors(selectedNode);
-      let nodeFirstNeighbor = undefined;
+
       this.graph.removeNode(selectedNode.id);
 
-      if (neighbors.length !== 0) {
-        nodeFirstNeighbor = neighbors[0].neighbor;
-      } else {
-        const nodes = this.graph.getNodesArray();
-        if (nodes.length === 0) {
-          this.sidebarController.close();
-          return;
-        }
-        nodeFirstNeighbor = nodes[Math.floor(Math.random() * nodes.length)];
+      const nodes = this.graph.getNodesArray();
+      if (nodes.length === 0) {
+        this.sidebarController.close();
+        return;
       }
-      const newNeighbors = this.graph.getNodeNeighbors(nodeFirstNeighbor);
-      const neighborsNodes = newNeighbors.map((n) => n.neighbor);
-      const nodeConnections = this.#mapConnections(newNeighbors);
-      this.interactionState.setSelection(nodeFirstNeighbor, neighborsNodes);
-      this.sidebarSelectController.setOptions(
-        this.graph.getNodesArray().map((node) => ({
-          value: node.id,
-          text: node.label,
-        })),
-      );
-      this.sidebarController.renderNodeInfo(nodeFirstNeighbor, nodeConnections);
+
+      const nextNode =
+        neighbors.length !== 0
+          ? neighbors[0].neighbor
+          : nodes[Math.floor(Math.random() * nodes.length)];
+
+      this.selectionService.afterDelete(nextNode);
     };
 
-    this.sidebarSelectController.onChange = (nodeId) => {
-      const node = this.graph.getNodeById(nodeId);
-      const neighbors = this.graph.getNodeNeighbors(node);
-      const neighborsNodes = neighbors.map((n) => n.neighbor);
-      const nodeConnections = this.#mapConnections(neighbors);
+    this.sidebarSelectController.onChange = (id) =>
+      this.selectionService.fromConnectionClick(this.graph.getNodeById(id));
 
-      this.interactionState.setSelection(node, neighborsNodes);
-      this.sidebarController.renderNodeInfo(node, nodeConnections);
-    };
-
-    this.sidebarConnectionsController.onConnectionClick = (id) => {
-      const node = this.graph.getNodeById(id);
-      const neighbors = this.graph.getNodeNeighbors(node);
-      const neighborsNodes = neighbors.map((n) => n.neighbor);
-      const nodeConnections = this.#mapConnections(neighbors);
-      this.interactionState.setSelection(node, neighborsNodes);
-      this.sidebarController.renderNodeInfo(node, nodeConnections);
-    };
+    this.sidebarConnectionsController.onConnectionClick = (id) =>
+      this.selectionService.fromConnectionClick(this.graph.getNodeById(id));
 
     this.sidebarTagsController.onAddTag = (tag) => {
       const currentNode = this.interactionState.getSelectedNode();
@@ -225,13 +213,8 @@ export class AppController {
       this.sidebarController.renderNodeInfo(currentNode, nodeConnections);
     };
 
-    this.interaction.onNodeSelect = (selectedNode) => {
-      const neighbors = this.graph.getNodeNeighbors(selectedNode);
-      const nodeConnections = this.#mapConnections(neighbors);
-      this.sidebarController.open();
-      this.physics.releaseDraggedNode();
-      this.sidebarController.renderNodeInfo(selectedNode, nodeConnections);
-    };
+    this.interaction.onNodeSelect = (node) =>
+      this.selectionService.fromCanvas(node);
   }
 
   #bindListeners() {
