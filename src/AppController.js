@@ -179,6 +179,9 @@ export class AppController {
   }
 
   #bindCallbacks() {
+    this.interaction.onNodeSelect = (node) =>
+      this.selectionService.fromCanvas(node);
+
     this.sidebarController.onDelete = () => {
       const selectedNode = this.interactionState.getSelectedNode();
       const neighbors = this.graph.getNodeNeighbors(selectedNode);
@@ -207,14 +210,9 @@ export class AppController {
 
     this.sidebarTagsController.onAddTag = (tag) => {
       const currentNode = this.interactionState.getSelectedNode();
-      const neighbors = this.graph.getNodeNeighbors(currentNode);
-      const nodeConnections = this.#mapConnections(neighbors);
       currentNode.addTag(tag);
-      this.sidebarController.renderNodeInfo(currentNode, nodeConnections);
+      this.sidebarController.renderTags(currentNode.tags);
     };
-
-    this.interaction.onNodeSelect = (node) =>
-      this.selectionService.fromCanvas(node);
   }
 
   #bindListeners() {

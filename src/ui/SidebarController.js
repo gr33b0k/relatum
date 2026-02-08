@@ -42,13 +42,32 @@ export class SidebarController {
   }
 
   renderNodeInfo(node, connections) {
-    this.#title.textContent = node.label;
+    this.renderLabel(node.label);
+    this.setSelect(node.id);
+    this.renderConnections(connections);
+    this.renderTags(node.tags);
+    this.renderDescription(
+      node.description ? node.description : "This node have no description",
+    );
+  }
 
-    this.#selectController.setValue(node.id);
+  renderLabel(label) {
+    this.#title.textContent = label;
+  }
+
+  setSelect(id) {
+    this.#selectController.setValue(id);
+  }
+
+  renderConnections(connections) {
     this.#connectionsController.setConnections(connections);
-    this.#tagsController.renderTags(node.tags);
-    this.#description.textContent = node.description
-      ? node.description
-      : "This node have no description";
+  }
+
+  renderTags(tags) {
+    this.#tagsController.renderTags(tags);
+  }
+
+  renderDescription(text) {
+    this.#description.textContent = text;
   }
 }
