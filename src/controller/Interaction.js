@@ -38,6 +38,8 @@ export class Interaction {
 
     const { canvas, camera, graph, interactionState, physics } = this;
 
+    this.canvas.setPointerCapture(event.pointerId);
+
     const rect = canvas.getBoundingClientRect();
     const sx = event.clientX - rect.left;
     const sy = event.clientY - rect.top;
@@ -121,6 +123,10 @@ export class Interaction {
     if (event.button === 1) {
       this.#isPanning = false;
       canvas.style.cursor = "default";
+    }
+
+    if (canvas.hasPointerCapture(event.pointerId)) {
+      canvas.releasePointerCapture(event.pointerId);
     }
   }
 
