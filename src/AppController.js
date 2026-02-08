@@ -23,6 +23,15 @@ export class AppController {
     this.#renderLoop();
   }
 
+  changeTheme(theme) {
+    localStorage.setItem("theme", theme);
+
+    document.documentElement.classList.toggle("light", theme === "light");
+
+    this.darkThemeIcon.classList.toggle("selected", theme === "light");
+    this.lightThemeIcon.classList.toggle("selected", theme === "dark");
+  }
+
   #init() {
     this.#initCoreClasses();
     this.#initUIElements();
@@ -53,6 +62,10 @@ export class AppController {
   }
 
   #initUIElements() {
+    this.themeButton = document.querySelector(".button--theme");
+    this.darkThemeIcon = this.themeButton.querySelector(".dark-theme");
+    this.lightThemeIcon = this.themeButton.querySelector(".light-theme");
+
     this.sidebar = document.querySelector(".sidebar");
     this.overlay = document.querySelector(".overlay");
     this.sidebarConnections = this.sidebar.querySelector(
@@ -63,6 +76,14 @@ export class AppController {
     );
     this.sidebarAddTags = this.sidebar.querySelector(".sidebar__tags-add");
     this.selectWrapper = this.sidebar.querySelector(".sidebar__select-wrapper");
+
+    const theme = localStorage.getItem("theme");
+
+    this.darkThemeIcon.classList.toggle("selected", theme === "light");
+    this.lightThemeIcon.classList.toggle(
+      "selected",
+      !theme || theme === "dark",
+    );
   }
 
   #initUIControllers() {
@@ -225,14 +246,11 @@ export class AppController {
       this.sidebarController.close();
       this.interactionState.clearSelection();
     });
-  }
 
-  #mapConnections(neighbors) {
-    return neighbors.map((n) => ({
-      id: n.neighbor.id,
-      name: n.neighbor.label,
-      type: n.type,
-    }));
+    this.themeButton.addEventListener("click", () => {
+      const isLight = document.documentElement.classList.contains("light");
+      this.changeTheme(isLight ? "dark" : "light");
+    });
   }
 
   #renderLoop() {

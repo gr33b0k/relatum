@@ -35,7 +35,7 @@
     --info: oklch(0.7 0.06 260);
 }
 
-body.light {
+html.light {
     /* hsl (fallback color) */
     --bg-dark: hsl(231 68% 93%);
     --bg: hsl(231 100% 98%);
@@ -124,39 +124,63 @@ body {
 /* Header */
 
 .header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 1rem;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
+    pointer-events: none;
     flex-shrink: 0;
     align-items: center;
-    height: 45px;
-    background: linear-gradient(to bottom,
-            var(--bg),
-            var(--bg-dark));
-    border-bottom: 1px solid var(--border-muted);
 }
 
 .header__left {
-    width: 250px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    pointer-events: auto;
+    padding: .25rem 1rem;
+    border-radius: .75rem;
+    background-color: var(--bg);
 }
 
-.header-logo {
+.header__logo {
+    font-size: 1.5rem;
     justify-self: center;
     color: var(--text)
 }
 
-.header__middle {
-    flex-grow: 1;
-    max-width: 25%;
+.button--theme {
+    background-color: var(--bg);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    border-radius: 50%;
+    height: 3rem;
+    aspect-ratio: 1/1;
+    padding: .5em;
+    cursor: pointer;
+}
+
+.button--theme svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    scale: 0 0;
+    transition: scale .3s ease;
+}
+
+.button--theme .selected {
+    scale: 100% 100%;
 }
 
 /* Main content  */
 
 .main-content {
-    height: calc(100vh - 45px);
+    height: 100vh;
     position: relative;
 }
 

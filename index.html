@@ -5,19 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Relatum</title>
     <link rel="stylesheet" href="src/css/styles.css" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        document.documentElement.classList.toggle(
+          "light",
+          savedTheme === "light",
+        );
+      })();
+    </script>
     <script defer type="module" src="./src/index.js"></script>
   </head>
   <body class="">
     <div class="overlay hidden"></div>
     <header class="header">
-      <div class="header__left header-logo">
-        <h1 class="logo">Relatum</h1>
-      </div>
-      <div class="header__middle">
-        <input type="text" class="header__search" />
+      <div class="header__left">
+        <h1 class="header__logo">relatum</h1>
       </div>
       <div class="header__right">
-        <button class="button">theme</button>
+        <button class="button button--theme">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            class="dark-theme"
+          >
+            <path
+              fill="currentColor"
+              d="M13 22.75q-4.062 0-6.906-2.844T3.25 13t2.844-6.906T13 3.25q.38 0 .745.027.366.027.718.081a5.7 5.7 0 0 0-1.774 2.045 5.75 5.75 0 0 0-.664 2.722q0 2.437 1.706 4.144 1.707 1.706 4.144 1.706 1.49 0 2.735-.663a5.8 5.8 0 0 0 2.032-1.774q.054.351.08.717.028.366.028.745 0 4.062-2.844 6.906T13 22.75"
+            ></path>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            class="light-theme"
+          >
+            <path
+              fill="currentColor"
+              d="M13 18.417q-2.248 0-3.833-1.585T7.583 13t1.584-3.832T13 7.583t3.832 1.585T18.416 13t-1.584 3.832T13 18.417m-7.584-4.334H1.083v-2.166h4.333zm19.5 0h-4.333v-2.166h4.333zm-13-8.666V1.083h2.167v4.334zm0 19.5v-4.334h2.167v4.334zM6.933 8.396 4.198 5.769 5.74 4.17l2.6 2.708zm13.325 13.433-2.627-2.735 1.435-1.49 2.736 2.627zM17.604 6.933l2.627-2.735 1.598 1.544-2.709 2.6zM4.17 20.258l2.735-2.627 1.49 1.436-2.628 2.735z"
+            ></path>
+          </svg>
+        </button>
       </div>
     </header>
     <main class="main-content">
