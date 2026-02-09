@@ -6,10 +6,10 @@ import { Interaction } from "./controller/Interaction.js";
 import { InteractionState } from "./controller/InteractionState.js";
 import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
-import { SidebarController } from "./ui/SidebarController.js";
-import { SidebarSelectController } from "./ui/SidebarSelectController.js";
-import { SidebarTagsController } from "./ui/SidebarTagsController.js";
-import { SidebarConnectionsController } from "./ui/SidebarConnectionsController.js";
+import { SidebarController } from "./ui/sidebar/SidebarController.js";
+import { SidebarSelectController } from "./ui/sidebar/SidebarSelectController.js";
+import { SidebarTagsController } from "./ui/sidebar/SidebarTagsController.js";
+import { SidebarConnectionsController } from "./ui/sidebar/SidebarConnectionsController.js";
 
 import { SelectionService } from "./services/SelectionService.js";
 
