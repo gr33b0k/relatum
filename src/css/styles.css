@@ -100,10 +100,10 @@ body {
     color: var(--text);
     padding: .5em 1em;
     transition: background-color ease-in .1s;
-}
 
-.button:hover {
-    background-color: var(--border-muted);
+    &:hover {
+        background-color: var(--border-muted);
+    }
 }
 
 /* Overlay */
@@ -320,15 +320,15 @@ body {
     z-index: 4;
 }
 
-.sidebar__select-options li:hover,
-.sidebar__select-options li:focus {
-    background-color: var(--bg-light);
-    border-radius: 4px;
-}
 
 .sidebar__select-options li {
     padding: .6em;
     cursor: pointer;
+    border-radius: 4px;
+
+    &:hover, &:focus {
+        background-color: var(--bg-light);
+    }
 }
 
 .sidebar__select-options li.selected {
@@ -436,16 +436,78 @@ body {
 
 /* Graph */
 
-.graph-wrapper {
+.graph {
     position: relative;
     height: 100%;
 }
 
-.graph-area {
+.graph__toolbar {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg);
+    border-radius: .75rem;
+}
+
+.toolbar__button {
+    padding: .75rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color .2s ease;
+
+    &:first-child {
+        border-radius: .75rem 0 0 .75rem;
+    }
+
+    &:last-child {
+        border-radius: 0 .75rem .75rem 0;
+    }
+
+    &:hover {
+        background-color: var(--border-muted);
+    }
+}
+
+.toolbar__button svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    aspect-ratio: 1/1;
+    fill: var(--text);
+}
+
+.toolbar__button--add-node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1.25rem;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    border: 5px solid var(--bg-light);
+    background-color: var(--bg);
+}
+
+.toolbar__button--cursor {
+    padding-right: calc(1.25rem + 1.5rem);
+}
+
+.toolbar__button--delete-node {
+    padding-left: calc(1.25rem + 1.5rem);
+}
+
+.graph__area {
     --selected-node: var(--primary);
     --muted-node: var(--secondary);
     height: 100%;
     width: 100%;
     display: block;
     background-color: var(--bg-light);
+    transition: background-color .3s ease;
 }
