@@ -49,7 +49,15 @@ export class Graph {
   }
 
   linkNodes(from, to) {
-    this.#links.push(new Link(from, to));
+    const link = new Link(from, to);
+    const exists = this.#links.some(
+      (link) =>
+        (link.from.id === from.id && link.to.id === to.id) ||
+        (link.from.id === to.id && link.to.id === from.id),
+    );
+
+    if (exists) return;
+    this.#links.push(link);
     this.#recalculateNodeWeights();
   }
 
