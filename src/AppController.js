@@ -11,6 +11,8 @@ import { SidebarSelectController } from "./ui/sidebar/SidebarSelectController.js
 import { SidebarTagsController } from "./ui/sidebar/SidebarTagsController.js";
 import { SidebarConnectionsController } from "./ui/sidebar/SidebarConnectionsController.js";
 
+import { ToolbarController } from "./ui/toolbar/ToolbarController.js";
+
 import { SelectionService } from "./services/SelectionService.js";
 
 export class AppController {
@@ -66,6 +68,14 @@ export class AppController {
     this.darkThemeIcon = this.themeButton.querySelector(".dark-theme");
     this.lightThemeIcon = this.themeButton.querySelector(".light-theme");
 
+    const theme = localStorage.getItem("theme");
+
+    this.darkThemeIcon.classList.toggle("selected", theme === "light");
+    this.lightThemeIcon.classList.toggle(
+      "selected",
+      !theme || theme === "dark",
+    );
+
     this.sidebar = document.querySelector(".sidebar");
     this.overlay = document.querySelector(".overlay");
     this.sidebarConnections = this.sidebar.querySelector(
@@ -77,13 +87,7 @@ export class AppController {
     this.sidebarAddTags = this.sidebar.querySelector(".sidebar__tags-add");
     this.selectWrapper = this.sidebar.querySelector(".sidebar__select-wrapper");
 
-    const theme = localStorage.getItem("theme");
-
-    this.darkThemeIcon.classList.toggle("selected", theme === "light");
-    this.lightThemeIcon.classList.toggle(
-      "selected",
-      !theme || theme === "dark",
-    );
+    this.toolbar = document.querySelector(".graph__toolbar");
   }
 
   #initUIControllers() {
@@ -114,6 +118,8 @@ export class AppController {
       this.sidebarSelectController,
       this.physics,
     );
+
+    this.toolbarController = new ToolbarController(this.toolbar);
   }
 
   #fillMockData() {
@@ -233,6 +239,10 @@ export class AppController {
       const currentNode = this.interactionState.getSelectedNode();
       currentNode.addTag(tag);
       this.sidebarController.renderTags(currentNode.tags);
+    };
+
+    this.toolbarController.onModeChange = (mode) => {
+      this.interactionState.setMode(mode);
     };
   }
 
