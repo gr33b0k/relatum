@@ -2,8 +2,8 @@ import { Graph } from "./models/Graph.js";
 import { Node } from "./models/Node.js";
 import { CanvasDrawer } from "./render/CanvasDrawer.js";
 import { Camera } from "./models/Camera.js";
-import { Interaction } from "./controller/Interaction.js";
-import { InteractionState } from "./controller/InteractionState.js";
+import { Interaction } from "./interaction/Interaction.js";
+import { InteractionState } from "./interaction/InteractionState.js";
 import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
 import { SidebarController } from "./ui/sidebar/SidebarController.js";
