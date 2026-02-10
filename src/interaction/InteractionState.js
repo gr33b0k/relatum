@@ -1,6 +1,7 @@
 export class InteractionState {
   #selectedNode = null;
   #highlightedNodes = new Set();
+  #mode = "cursor";
 
   setSelection(node, neighbors) {
     this.#selectedNode = node;
@@ -20,5 +21,13 @@ export class InteractionState {
 
   getSelectedNode() {
     return this.#selectedNode;
+  }
+
+  setMode(mode) {
+    this.#mode = mode;
+  }
+
+  getMode() {
+    return this.#mode;
   }
 }
