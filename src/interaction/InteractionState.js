@@ -1,6 +1,8 @@
 export class InteractionState {
   #selectedNode = null;
   #highlightedNodes = new Set();
+  #connectingFrom = null;
+  #connectionPreviewPos = null;
   #mode = "cursor";
 
   setSelection(node, neighbors) {
@@ -29,5 +31,30 @@ export class InteractionState {
 
   getMode() {
     return this.#mode;
+  }
+
+  startConnection(node) {
+    this.#connectingFrom = node;
+  }
+
+  updateConnectionPreview(x, y) {
+    this.#connectionPreviewPos = { x, y };
+  }
+
+  clearConnectionPreview() {
+    this.#connectingFrom = null;
+    this.#connectionPreviewPos = null;
+  }
+
+  getConnectionPreview() {
+    if (!this.#connectingFrom || !this.#connectionPreviewPos) return null;
+    return {
+      from: this.#connectingFrom,
+      to: this.#connectionPreviewPos,
+    };
+  }
+
+  getConnectingNode() {
+    return this.#connectingFrom;
   }
 }

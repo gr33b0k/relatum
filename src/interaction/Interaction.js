@@ -40,27 +40,36 @@ export class Interaction {
 
     this.canvas.setPointerCapture(event.pointerId);
 
-    const rect = canvas.getBoundingClientRect();
-    const sx = event.clientX - rect.left;
-    const sy = event.clientY - rect.top;
-    const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
-
     if (event.button === 0) {
+      const rect = canvas.getBoundingClientRect();
+      const sx = event.clientX - rect.left;
+      const sy = event.clientY - rect.top;
+      const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
+
       const clickedNode = graph.getNodeAt(wx, wy);
 
       if (clickedNode) {
+        const mode = interactionState.getMode();
+
         this.#nodeClicked = true;
-        this.#draggingNode = false;
+        switch (mode) {
+          case "connect":
+            interactionState.startConnection(clickedNode);
+            break;
+          case "cursor":
+            this.#draggingNode = false;
 
-        this.#startX = event.clientX;
-        this.#startY = event.clientY;
+            this.#startX = event.clientX;
+            this.#startY = event.clientY;
 
-        const neighbors = graph
-          .getNodeNeighbors(clickedNode)
-          .map((n) => n.neighbor);
+            const neighbors = graph
+              .getNodeNeighbors(clickedNode)
+              .map((n) => n.neighbor);
 
-        interactionState.setSelection(clickedNode, neighbors);
-        physics.setDraggedNode(clickedNode);
+            interactionState.setSelection(clickedNode, neighbors);
+            physics.setDraggedNode(clickedNode);
+            break;
+        }
       } else {
         interactionState.clearSelection();
       }
@@ -77,7 +86,7 @@ export class Interaction {
   #onMouseMove(event) {
     event.preventDefault();
 
-    const { camera, physics, canvas } = this;
+    const { camera, physics, canvas, interactionState } = this;
 
     const rect = canvas.getBoundingClientRect();
 
@@ -95,12 +104,19 @@ export class Interaction {
       const sx = event.clientX - rect.left;
       const sy = event.clientY - rect.top;
       const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
-      const dx = event.clientX - this.#startX;
-      const dy = event.clientY - this.#startY;
-      const distance = Math.hypot(dx, dy);
-      if (distance > 3) {
-        this.#draggingNode = true;
-        physics.setDragTarget(wx, wy);
+      const mode = interactionState.getMode();
+      switch (mode) {
+        case "connect":
+          interactionState.updateConnectionPreview(wx, wy);
+          break;
+        case "cursor":
+          const dx = event.clientX - this.#startX;
+          const dy = event.clientY - this.#startY;
+          const distance = Math.hypot(dx, dy);
+          if (distance > 3) {
+            this.#draggingNode = true;
+            physics.setDragTarget(wx, wy);
+          }
       }
     }
   }
@@ -108,16 +124,35 @@ export class Interaction {
   #onMouseUp(event) {
     event.preventDefault();
 
-    const { canvas, interactionState } = this;
+    const { canvas, interactionState, camera } = this;
 
     if (event.button === 0) {
-      if (this.#nodeClicked && !this.#draggingNode) {
-        this.onNodeSelect?.(interactionState.getSelectedNode());
-        return;
+      const mode = this.interactionState.getMode();
+      switch (mode) {
+        case "connect":
+          const rect = canvas.getBoundingClientRect();
+          const sx = event.clientX - rect.left;
+          const sy = event.clientY - rect.top;
+          const { x: wx, y: wy } = camera.screenToWorld(sx, sy);
+
+          const targetNode = this.graph.getNodeAt(wx, wy);
+          const fromNode = interactionState.getConnectingNode();
+
+          if (fromNode && targetNode && fromNode !== targetNode) {
+            this.graph.linkNodes(fromNode, targetNode);
+          }
+          interactionState.clearConnectionPreview();
+          interactionState.setMode("cursor");
+          break;
+        case "cursor":
+          if (this.#nodeClicked && !this.#draggingNode) {
+            this.onNodeSelect?.(interactionState.getSelectedNode());
+            return;
+          }
+          this.#draggingNode = false;
+          interactionState.clearSelection();
       }
       this.#nodeClicked = false;
-      this.#draggingNode = false;
-      interactionState.clearSelection();
     }
 
     if (event.button === 1) {

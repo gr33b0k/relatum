@@ -65,10 +65,30 @@ export class CanvasDrawer {
     ctx.stroke();
   }
 
+  #drawConnectionPreview() {
+    const preview = this.interactionState.getConnectionPreview();
+    if (!preview) return;
+
+    const { ctx } = this;
+    const { from, to } = preview;
+
+    ctx.save();
+
+    ctx.setLineDash([6, 4]);
+
+    ctx.beginPath();
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
   draw(graph) {
     this.clear();
     this.applyCamera();
     graph.getLinks().forEach((link) => this.drawLink(link));
     graph.getNodesArray().forEach((node) => this.drawNode(node));
+    this.#drawConnectionPreview();
   }
 }
