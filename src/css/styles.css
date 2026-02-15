@@ -79,9 +79,6 @@ html.light {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
     font-family: var(--font-family);
     font-optical-sizing: auto;
     font-style: normal;
@@ -106,6 +103,35 @@ body {
     }
 }
 
+.button--primary {
+    background-color: var(--primary);
+    color: var(--bg)
+}
+
+/* Forms */
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+input, textarea {
+    background-color: var(--bg-light);
+    border-radius: .3rem;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    color: var(--text-muted);
+    padding: .6rem;
+}
+
+textarea {
+    resize: none;
+    font-size: .9rem;
+    scrollbar-color: var(--border) var(--bg-light);
+}
+
 /* Overlay */
 
 .overlay {
@@ -119,6 +145,121 @@ body {
     transition: opacity 0.3s ease;
     z-index: 2;
     pointer-events: auto;
+}
+
+/* Tags */
+
+.tags {
+    padding: .5em;
+    border-radius: 0.25rem;
+    background-color: var(--bg);
+}
+
+.tags__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4em;
+    list-style: none;
+    margin-bottom: .5em;
+}
+
+.tag {
+    background-color: var(--bg-light);
+    border-radius: .3em;
+    padding: .3em .6em;
+}
+
+.tags__add-section {
+    display: flex;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-muted);
+    border-radius: .3em;
+}
+
+.tags__input {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-muted);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    padding: .6rem 0 .6rem .6rem;
+}
+
+.tags__input::placeholder {
+    color: var(--text-muted);
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+.tags__button {
+    padding: .5rem 1rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-muted);
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Modals */
+
+.modal[open] {
+    display: flex;
+    flex-direction: column;
+    min-width: 35vw;
+    margin: auto;
+    border: 1px solid var(--border-muted);
+    border-radius: .5rem;
+    background-color: var(--bg-dark);
+    color: var(--text);
+}
+
+.modal::backdrop {
+    background-color: oklab(0% 0 0 / 0.5);
+
+}
+
+.modal__header {
+    display: flex;
+    align-items: center;
+    padding: 1.3rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal__title {
+    flex: 1;
+    font-size: 1.3rem;
+}
+
+.modal__close {
+    background: var(--bg-light);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.modal__close svg {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: var(--text);
+    fill: var(--text);
+}
+
+.modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 1.3rem;
+}
+
+.modal__actions {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Header */
@@ -264,11 +405,6 @@ body {
     font-size: .9em;
 }
 
-.sidebar__field {
-    display: flex;
-    flex-direction: column;
-    gap: .4rem;
-}
 
 .sidebar__select-wrapper {
     position: relative;
@@ -372,61 +508,6 @@ body {
     border-left: 2px solid var(--text);
     border-bottom: 2px solid var(--text);
     transform: rotate(-135deg);
-    cursor: pointer;
-}
-
-.sidebar__tags {
-    padding: .5em;
-    border-radius: 0.25rem;
-    background-color: var(--bg);
-}
-
-.sidebar__tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .4em;
-    list-style: none;
-    margin-bottom: .5em;
-}
-
-.sidebar__tag {
-    background-color: var(--bg-light);
-    border-radius: .3em;
-    padding: .3em .6em;
-}
-
-.sidebar__tags-add {
-    display: flex;
-    background-color: var(--bg-light);
-    border: 1px solid var(--border-muted);
-    border-radius: .3em;
-}
-
-.sidebar__tags-input {
-    flex: 1;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    color: var(--text-muted);
-    font-family: var(--font-family);
-    font-size: 1rem;
-    padding: .6rem 0 .6rem .6rem;
-}
-
-.sidebar__tags-input::placeholder {
-    color: var(--text-muted);
-    font-family: var(--font-family);
-    font-size: 1rem;
-}
-
-.sidebar__tags-button {
-    padding: .5rem 1rem;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    color: var(--text-muted);
-    font-size: 1.3rem;
-    font-weight: 700;
     cursor: pointer;
 }
 

@@ -7,8 +7,8 @@ export class SidebarTagsController {
 
   constructor(root) {
     this.#form = root;
-    this.#input = root.querySelector(".sidebar__tags-input");
-    this.#addButton = root.querySelector(".sidebar__tags-button");
+    this.#input = root.querySelector(".tags__input");
+    this.#addButton = root.querySelector(".tags__button");
 
     this.#init();
   }
@@ -31,7 +31,7 @@ export class SidebarTagsController {
 
     tags.forEach((tag) => {
       const li = document.createElement("li");
-      li.className = "sidebar__tag";
+      li.className = "tag";
       li.textContent = tag;
       tagsList.appendChild(li);
     });

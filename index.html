@@ -113,7 +113,7 @@
     </main>
     <aside class="sidebar sidebar--hidden">
       <header class="sidebar__header">
-        <h2 class="sidebar__title">Node Details</h2>
+        <h2 class="sidebar__title">Note Details</h2>
         <div class="sidebar__actions">
           <button class="sidebar__action sidebar__action--delete">
             <svg
@@ -146,7 +146,7 @@
       <div class="sidebar__content">
         <section class="sidebar__section sidebar__section--properties">
           <h3 class="sidebar__subtitle">Properties</h3>
-          <div class="sidebar__field">
+          <div class="form__field">
             <label class="sidebar__label" for="sidebar-node"
               >Current Node</label
             >
@@ -165,16 +165,17 @@
         </section>
         <section class="sidebar__section sidebar__section--tags">
           <h3 class="sidebar__subtitle">Tags</h3>
-          <div class="sidebar__tags">
-            <ul class="sidebar__tags-list"></ul>
-            <form class="sidebar__tags-add">
+          <div class="tags">
+            <ul class="tags__list"></ul>
+            <form class="tags__add-section">
               <input
-                class="sidebar__tags-input"
+                class="tags__input"
                 type="text"
                 name="tag-input"
+                id="tag-input"
                 placeholder="Add new tag..."
               />
-              <button class="sidebar__tags-button" type="submit">+</button>
+              <button class="tags__button" type="submit">+</button>
             </form>
           </div>
         </section>
@@ -184,5 +185,59 @@
         </section>
       </div>
     </aside>
+    <dialog class="modal" data-modal="add-node">
+      <header class="modal__header">
+        <h2 class="modal__title">Add new note</h2>
+        <button class="modal__close" type="button">
+          <svg
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            height="32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            ></path>
+          </svg>
+        </button>
+      </header>
+      <form class="modal__form">
+        <div class="form__field">
+          <label for="note-name">Note title</label>
+          <input type="text" name="note-name" id="note-name" />
+        </div>
+        <div class="form__field">
+          <label>Connections</label>
+          <button class="button modal__add-connection" type="button">
+            + Add connection
+          </button>
+        </div>
+        <div class="form__field">
+          <label for="tag-input">Tags</label>
+          <div class="tags">
+            <ul class="tags__list"></ul>
+            <div class="tags__add-section">
+              <input
+                class="tags__input"
+                type="text"
+                name="tag-input"
+                id="tag-input"
+                placeholder="Add new tag..."
+              />
+              <button class="tags__button" type="button">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="form__field">
+          <label for="noteDescription">Description</label>
+          <textarea id="noteDescription" rows="9"></textarea>
+        </div>
+        <div class="modal__actions">
+          <button class="button" type="reset">Reset</button>
+          <button class="button button--primary" type="submit">Create</button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

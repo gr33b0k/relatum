@@ -84,7 +84,7 @@ export class AppController {
     this.closeSidebarButton = this.sidebar.querySelector(
       ".sidebar__action--close",
     );
-    this.sidebarAddTags = this.sidebar.querySelector(".sidebar__tags-add");
+    this.sidebarAddTags = this.sidebar.querySelector(".tags__add-section");
     this.selectWrapper = this.sidebar.querySelector(".sidebar__select-wrapper");
 
     this.toolbar = document.querySelector(".graph__toolbar");
