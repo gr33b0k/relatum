@@ -9,6 +9,11 @@ export class ModalController {
           modal.close();
         }
       });
+      const closeButton = modal.querySelector(".modal__close");
+      closeButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal.close();
+      });
     });
   }
 
