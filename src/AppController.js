@@ -14,6 +14,7 @@ import { SidebarConnectionsController } from "./ui/sidebar/SidebarConnectionsCon
 import { ToolbarController } from "./ui/toolbar/ToolbarController.js";
 
 import { SelectionService } from "./services/SelectionService.js";
+import { ModalController } from "./ui/modal/ModalController.js";
 
 export class AppController {
   constructor(canvas) {
@@ -120,6 +121,8 @@ export class AppController {
     );
 
     this.toolbarController = new ToolbarController(this.toolbar);
+
+    this.modalController = new ModalController();
   }
 
   #fillMockData() {
@@ -243,6 +246,10 @@ export class AppController {
 
     this.toolbarController.onModeChange = (mode) => {
       this.interactionState.setMode(mode);
+    };
+
+    this.toolbarController.onAddNode = () => {
+      this.modalController.open("add-node");
     };
   }
 
