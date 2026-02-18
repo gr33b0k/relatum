@@ -127,7 +127,6 @@ export class AppController {
 
   #fillMockData() {
     const nodeA = new Node({
-      id: "1",
       label: "Node A",
       x: 50,
       y: 50,
@@ -140,7 +139,6 @@ export class AppController {
       tags: ["frontend", "basics"],
     });
     const nodeB = new Node({
-      id: "2",
       label: "Node B",
       x: 50,
       y: 50,
@@ -152,7 +150,6 @@ export class AppController {
       tags: ["javascript"],
     });
     const nodeC = new Node({
-      id: "3",
       label: "Node C",
       x: 400,
       y: 300,
@@ -160,7 +157,6 @@ export class AppController {
       tags: ["css"],
     });
     const nodeD = new Node({
-      id: "4",
       label: "Node D",
       x: 600,
       y: 250,
@@ -171,7 +167,6 @@ export class AppController {
       tags: ["html"],
     });
     const nodeE = new Node({
-      id: "5",
       label: "Node E",
       x: 800,
       y: 100,
@@ -184,7 +179,6 @@ export class AppController {
       tags: ["python"],
     });
     const nodeF = new Node({
-      id: "6",
       label: "Node F",
       x: 1000,
       y: 500,
