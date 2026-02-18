@@ -7,7 +7,7 @@ import { InteractionState } from "./interaction/InteractionState.js";
 import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
 import { SidebarController } from "./ui/sidebar/SidebarController.js";
-import { SidebarSelectController } from "./ui/sidebar/SidebarSelectController.js";
+import { SelectController } from "./ui/select/SelectController.js";
 import { SidebarTagsController } from "./ui/sidebar/SidebarTagsController.js";
 import { SidebarConnectionsController } from "./ui/sidebar/SidebarConnectionsController.js";
 
@@ -86,19 +86,12 @@ export class AppController {
       ".sidebar__action--close",
     );
     this.sidebarAddTags = this.sidebar.querySelector(".tags__add-section");
-    this.selectWrapper = this.sidebar.querySelector(".sidebar__select-wrapper");
+    this.selectWrapper = this.sidebar.querySelector(".select-wrapper");
 
     this.toolbar = document.querySelector(".graph__toolbar");
   }
 
   #initUIControllers() {
-    this.sidebarSelectController = new SidebarSelectController(
-      this.selectWrapper,
-      this.graph.getNodesArray().map((node) => ({
-        value: node.id,
-        text: node.label,
-      })),
-    );
     this.sidebarTagsController = new SidebarTagsController(this.sidebarAddTags);
     this.sidebarConnectionsController = new SidebarConnectionsController(
       this.sidebarConnections,
@@ -107,16 +100,21 @@ export class AppController {
     this.sidebarController = new SidebarController(
       this.sidebar,
       this.overlay,
-      this.sidebarSelectController,
       this.sidebarConnectionsController,
       this.sidebarTagsController,
     );
+
+    const options = this.graph.getNodesArray().map((node) => ({
+      value: node.id,
+      text: node.label,
+    }));
+
+    this.sidebarController.setSelectOptions(options);
 
     this.selectionService = new SelectionService(
       this.graph,
       this.interactionState,
       this.sidebarController,
-      this.sidebarSelectController,
       this.physics,
     );
 
@@ -226,8 +224,8 @@ export class AppController {
       this.selectionService.afterDelete(nextNode);
     };
 
-    this.sidebarSelectController.onChange = (id) =>
-      this.selectionService.fromConnectionClick(this.graph.getNodeById(id));
+    this.sidebarController.onSelectChange = (id) =>
+      this.selectionService.fromSidebarSelect(this.graph.getNodeById(id));
 
     this.sidebarConnectionsController.onConnectionClick = (id) =>
       this.selectionService.fromConnectionClick(this.graph.getNodeById(id));

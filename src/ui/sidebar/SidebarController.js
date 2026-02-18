@@ -1,3 +1,5 @@
+import { SelectController } from "../select/SelectController.js";
+
 export class SidebarController {
   sidebar = null;
   overlay = null;
@@ -10,14 +12,9 @@ export class SidebarController {
   #tagsController = null;
 
   onDelete = null;
+  onSelectChange = null;
 
-  constructor(
-    sidebar,
-    overlay,
-    selectController,
-    connectionsController,
-    tagsController,
-  ) {
+  constructor(sidebar, overlay, connectionsController, tagsController) {
     this.sidebar = sidebar;
     this.overlay = overlay;
     this.#title = sidebar.querySelector(".sidebar__title");
@@ -26,7 +23,13 @@ export class SidebarController {
 
     this.#deleteButton.addEventListener("click", () => this.onDelete?.());
 
-    this.#selectController = selectController;
+    this.#selectController = new SelectController(
+      this.sidebar.querySelector(".select-wrapper"),
+      [],
+      {
+        onChange: (id) => this.onSelectChange?.(id),
+      },
+    );
     this.#connectionsController = connectionsController;
     this.#tagsController = tagsController;
   }
@@ -69,5 +72,10 @@ export class SidebarController {
 
   renderDescription(text) {
     this.#description.textContent = text;
+  }
+
+  setSelectOptions(options) {
+    console.log(options);
+    this.#selectController.setOptions(options);
   }
 }

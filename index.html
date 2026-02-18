@@ -150,12 +150,12 @@
             <label class="sidebar__label" for="sidebar-node"
               >Current Node</label
             >
-            <div class="sidebar__select-wrapper">
-              <button class="sidebar__select">
+            <div class="select-wrapper">
+              <button class="select">
                 <span class="selected-value"></span>
                 <span class="arrow"></span>
               </button>
-              <ul class="sidebar__select-options hidden"></ul>
+              <ul class="select__options hidden"></ul>
             </div>
           </div>
         </section>
@@ -246,9 +246,23 @@
         </div>
         <div class="form__field">
           <label>Connections</label>
-          <button class="button modal__add-connection" type="button">
-            + Add connection
-          </button>
+          <ul class="connections"></ul>
+          <div class="select-wrapper">
+            <button class="select" type="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                fill="#000000"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"
+                ></path>
+              </svg>
+            </button>
+            <ul class="select__options hidden"></ul>
+          </div>
         </div>
         <div class="form__field">
           <label for="tag-input">Tags</label>

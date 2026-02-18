@@ -2,20 +2,12 @@ export class SelectionService {
   #graph = null;
   #interactionState = null;
   #sidebarController = null;
-  #sidebarSelectController = null;
   #physics = null;
 
-  constructor(
-    graph,
-    interactionState,
-    sidebarController,
-    sidebarSelectController,
-    physics,
-  ) {
+  constructor(graph, interactionState, sidebarController, physics) {
     this.#graph = graph;
     this.#interactionState = interactionState;
     this.#sidebarController = sidebarController;
-    this.#sidebarSelectController = sidebarSelectController;
     this.#physics = physics;
   }
 
@@ -66,7 +58,7 @@ export class SelectionService {
     }
 
     if (updateSelectOptions) {
-      this.#sidebarSelectController.setOptions(
+      this.#sidebarController.setSelectOptions(
         this.#graph.getNodesArray().map((node) => ({
           value: node.id,
           text: node.label,

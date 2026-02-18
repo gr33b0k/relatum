@@ -1,4 +1,4 @@
-export class SidebarSelectController {
+export class SelectController {
   #selectWrapper = null;
   #selectButton = null;
   #selectedValue = null;
@@ -8,11 +8,10 @@ export class SidebarSelectController {
 
   constructor(selectWrapper, options, { onChange } = {}) {
     this.#selectWrapper = selectWrapper;
-    this.#selectButton = selectWrapper.querySelector(".sidebar__select");
+    this.#selectButton = selectWrapper.querySelector(".select");
     this.#selectedValue = this.#selectButton.querySelector(".selected-value");
-    this.#selectOptionsContainer = selectWrapper.querySelector(
-      ".sidebar__select-options",
-    );
+    this.#selectOptionsContainer =
+      selectWrapper.querySelector(".select__options");
 
     this.onChange = onChange;
 
