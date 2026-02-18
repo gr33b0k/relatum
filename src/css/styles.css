@@ -103,11 +103,6 @@ html.light {
     }
 }
 
-.button--primary {
-    background-color: var(--primary);
-    color: var(--bg)
-}
-
 /* Forms */
 
 .form__field {
@@ -128,8 +123,14 @@ input, textarea {
 
 textarea {
     resize: none;
-    font-size: .9rem;
     scrollbar-color: var(--border) var(--bg-light);
+}
+
+
+input::placeholder, textarea::placeholder {
+    color: var(--text-muted);
+    font-family: var(--font-family);
+    font-size: 1rem;
 }
 
 /* Overlay */
@@ -163,6 +164,10 @@ textarea {
     margin-bottom: .5em;
 }
 
+.tags__list:empty {
+    margin-bottom: 0;
+}
+
 .tag {
     background-color: var(--bg-light);
     border-radius: .3em;
@@ -187,12 +192,6 @@ textarea {
     padding: .6rem 0 .6rem .6rem;
 }
 
-.tags__input::placeholder {
-    color: var(--text-muted);
-    font-family: var(--font-family);
-    font-size: 1rem;
-}
-
 .tags__button {
     padding: .5rem 1rem;
     background-color: transparent;
@@ -209,7 +208,7 @@ textarea {
 .modal[open] {
     display: flex;
     flex-direction: column;
-    min-width: 35vw;
+    width: 90vw;
     margin: auto;
     border: 1px solid var(--border-muted);
     border-radius: .5rem;
@@ -234,7 +233,13 @@ textarea {
     font-size: 1.3rem;
 }
 
-.modal__close {
+.modal__actions {
+    display: flex;
+    gap: .5em;
+    align-items: center;
+}
+
+.modal__action {
     background: var(--bg-light);
     border: none;
     cursor: pointer;
@@ -242,7 +247,7 @@ textarea {
     border-radius: 6px;
 }
 
-.modal__close svg {
+.modal__action svg {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
@@ -250,16 +255,23 @@ textarea {
     fill: var(--text);
 }
 
+.modal__action--submit {
+    background-color: var(--primary);
+}
+
+.modal__action--submit svg {
+    stroke: var(--bg);
+    fill: var(--bg);
+}
+
 .modal__form {
+    overflow-y: auto;
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: .75rem;
     padding: 1.3rem;
-}
-
-.modal__actions {
-    display: flex;
-    justify-content: space-between;
+    scrollbar-color: var(--border) var(--bg-light);
 }
 
 /* Header */
