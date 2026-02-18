@@ -27,7 +27,7 @@ export class SidebarController {
       this.sidebar.querySelector(".select-wrapper"),
       [],
       {
-        onChange: (id) => this.onSelectChange?.(id),
+        onChange: (option) => this.onSelectChange?.(option.value),
       },
     );
     this.#connectionsController = connectionsController;
@@ -75,7 +75,6 @@ export class SidebarController {
   }
 
   setSelectOptions(options) {
-    console.log(options);
     this.#selectController.setOptions(options);
   }
 }

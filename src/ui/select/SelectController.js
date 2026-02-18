@@ -47,9 +47,7 @@ export class SelectController {
       const optionElement = document.createElement("li");
       optionElement.dataset.value = option.value;
       optionElement.textContent = option.text;
-      optionElement.addEventListener("click", (e) =>
-        this.onChange?.(option.value),
-      );
+      optionElement.addEventListener("click", (e) => this.onChange?.(option));
       this.#selectOptionsContainer.appendChild(optionElement);
     });
 

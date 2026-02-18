@@ -241,6 +241,7 @@ input::placeholder, textarea::placeholder {
     top: 100%;
     left: 0;
     width: 100%;
+    min-width: 350px;
     border: 1px solid var(--border-muted);
     border-radius: 0.25rem;
     background-color: var(--bg-dark);
