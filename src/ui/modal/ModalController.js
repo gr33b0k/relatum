@@ -4,8 +4,14 @@ export class ModalController {
 
     document.querySelectorAll(".modal").forEach((modal) => {
       this.modals.set(modal.dataset.modal, modal);
+      let isPointerDownOnDialog = false;
+
+      modal.addEventListener("pointerdown", (e) => {
+        isPointerDownOnDialog = e.target !== modal;
+      });
+
       modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
+        if (!isPointerDownOnDialog) {
           modal.close();
         }
       });
