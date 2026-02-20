@@ -90,6 +90,7 @@ export class AddNodeController {
     this.#tagsList.innerHTML = "";
     this.#connectionList.innerHTML = "";
     this.#tags.clear();
+    this.#connections.clear();
   }
 
   #addTag() {
@@ -107,12 +108,42 @@ export class AddNodeController {
   }
 
   #addConnection(connection) {
-    const connectionElement = document.createElement("li");
-    connectionElement.dataset.value = connection.value;
-    connectionElement.className = "connection";
-    connectionElement.textContent = connection.text;
-    this.#connectionList.appendChild(connectionElement);
+    const li = document.createElement("li");
+    li.className = "connection";
+    li.dataset.value = connection.value;
+
+    const info = document.createElement("span");
+    info.className = "connection__info";
+    info.textContent = connection.text;
+
+    const toLabel = this.#createDirectionCheckbox("to");
+    const fromLabel = this.#createDirectionCheckbox("from");
+
+    li.append(info, toLabel, fromLabel);
+
+    this.#connectionList.appendChild(li);
     this.#connections.add(connection.value);
     this.#updateSelectOptions();
+  }
+
+  #createDirectionCheckbox(type) {
+    const label = document.createElement("label");
+    label.className = "direction";
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.className = "direction__input";
+
+    const box = document.createElement("span");
+    box.className = `direction__box direction__box--${type}`;
+
+    box.innerHTML = `
+      <svg viewBox="0 0 256 256">
+        <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+      </svg>
+    `;
+
+    label.append(input, box);
+    return label;
   }
 }
