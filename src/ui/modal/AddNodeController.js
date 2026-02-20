@@ -1,6 +1,8 @@
 import { SelectController } from "../select/SelectController.js";
 
 export class AddNodeController {
+  #resetButton = null;
+
   #modalForm = null;
   #noteTitle = null;
   #connectionList = null;
@@ -17,6 +19,8 @@ export class AddNodeController {
   onSumbit = null;
 
   constructor(modal) {
+    this.#resetButton = modal.querySelector(".modal__action[type='reset']");
+
     this.#modalForm = modal.querySelector(".modal__form");
     this.#noteTitle = this.#modalForm.querySelector("#note-name");
     this.#selectController = new SelectController(
@@ -54,6 +58,10 @@ export class AddNodeController {
       e.preventDefault();
 
       this.onSumbit?.(this.#collectFormData());
+      this.#resetForm();
+    });
+
+    this.#resetButton.addEventListener("click", () => {
       this.#resetForm();
     });
 
