@@ -375,6 +375,21 @@ input::placeholder, textarea::placeholder {
     transform: translateX(-50%);
 }
 
+.connections {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    list-style: none;
+}
+
+.connection {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-light);
+    padding: 0.6em 1em;
+    border-radius: 0.25rem;
+}
+
 /* Header */
 
 .header {

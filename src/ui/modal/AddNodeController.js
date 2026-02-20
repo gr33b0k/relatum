@@ -11,6 +11,8 @@ export class AddNodeController {
   #description = null;
 
   #tags = new Set();
+  #connections = new Set();
+  #allOptions = [];
 
   onSumbit = null;
 
@@ -70,7 +72,16 @@ export class AddNodeController {
   }
 
   setSelectOptions(options) {
+    this.#allOptions = options;
     this.#selectController.setOptions(options);
+  }
+
+  #updateSelectOptions() {
+    const optionsToShow = this.#allOptions.filter(
+      (option) => !this.#connections.has(option.value),
+    );
+
+    this.setSelectOptions(optionsToShow);
   }
 
   #resetForm() {
@@ -101,5 +112,7 @@ export class AddNodeController {
     connectionElement.className = "connection";
     connectionElement.textContent = connection.text;
     this.#connectionList.appendChild(connectionElement);
+    this.#connections.add(connection.value);
+    this.#updateSelectOptions();
   }
 }
