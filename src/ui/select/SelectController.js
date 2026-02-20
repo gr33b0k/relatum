@@ -5,8 +5,9 @@ export class SelectController {
   #selectOptionsContainer = null;
   #selectOptions = null;
   onChange = null;
+  renderButton = null;
 
-  constructor(selectWrapper, options, { onChange } = {}) {
+  constructor(selectWrapper, options, { onChange, renderButton } = {}) {
     this.#selectWrapper = selectWrapper;
     this.#selectButton = selectWrapper.querySelector(".select");
     this.#selectedValue = this.#selectButton.querySelector(".selected-value");
@@ -14,6 +15,7 @@ export class SelectController {
       selectWrapper.querySelector(".select__options");
 
     this.onChange = onChange;
+    this.renderButton = renderButton;
 
     this.#init(options);
   }
@@ -38,6 +40,8 @@ export class SelectController {
         : this.#selectOptionsContainer.classList.contains("hidden");
     this.#selectOptionsContainer.classList.toggle("hidden", !isOpen);
     this.#selectButton.setAttribute("aria-expanded", isOpen);
+
+    this.renderButton?.(isOpen, this.#selectButton);
   }
 
   setOptions(options) {
