@@ -53,6 +53,12 @@ export class SelectController {
   setOptions(options) {
     this.#selectOptionsContainer.innerHTML = "";
 
+    if (!options.length) {
+      this.#selectButton.setAttribute("disabled", "true");
+    } else {
+      this.#selectButton.removeAttribute("disabled");
+    }
+
     options.forEach((option) => {
       const optionElement = document.createElement("li");
       optionElement.dataset.value = option.value;

@@ -222,6 +222,11 @@ input::placeholder, textarea::placeholder {
     cursor: pointer;
 }
 
+.select[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 .arrow {
     border-left: .3em solid transparent;
     border-right: .3em solid transparent;
