@@ -53,11 +53,7 @@ export class AddNodeController {
     this.#modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      this.onSumbit?.({
-        title: this.#noteTitle.value.trim(),
-        tags: this.#tags,
-        description: this.#description.value.trim(),
-      });
+      this.onSumbit?.(this.#collectFormData());
       this.#resetForm();
     });
 
@@ -82,6 +78,28 @@ export class AddNodeController {
     );
 
     this.setSelectOptions(optionsToShow);
+  }
+
+  #collectFormData() {
+    const connections = Array.from(
+      this.#connectionList.querySelectorAll(".connection"),
+    ).map((li) => {
+      const value = li.dataset.value;
+      const to = li.querySelector(
+        ".direction__input:has(+ .direction__box--to)",
+      ).checked;
+      const from = li.querySelector(
+        ".direction__input:has(+ .direction__box--to)",
+      ).checked;
+      return { value, to, from };
+    });
+
+    return {
+      title: this.#noteTitle.value.trim(),
+      connections: connections,
+      tags: this.#tags,
+      description: this.#description.value.trim(),
+    };
   }
 
   #resetForm() {
