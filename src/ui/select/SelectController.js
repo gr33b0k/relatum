@@ -25,23 +25,29 @@ export class SelectController {
 
     document.addEventListener("pointerdown", (e) => {
       if (!this.#selectWrapper.contains(e.target)) {
-        this.#toggleOptions(false);
+        this.close();
       }
     });
     this.#selectButton.addEventListener("click", () => {
-      this.#toggleOptions();
+      this.toggle();
     });
   }
 
-  #toggleOptions(expand = null) {
-    const isOpen =
-      expand !== null
-        ? expand
-        : this.#selectOptionsContainer.classList.contains("hidden");
-    this.#selectOptionsContainer.classList.toggle("hidden", !isOpen);
-    this.#selectButton.setAttribute("aria-expanded", isOpen);
+  open() {
+    this.#selectButton.setAttribute("aria-expanded", "true");
+    this.#selectOptionsContainer.classList.remove("hidden");
+    this.renderButton?.(true, this.#selectButton);
+  }
 
-    this.renderButton?.(isOpen, this.#selectButton);
+  close() {
+    this.#selectButton.setAttribute("aria-expanded", "false");
+    this.#selectOptionsContainer.classList.add("hidden");
+    this.renderButton?.(false, this.#selectButton);
+  }
+
+  toggle() {
+    const isOpen = this.#selectButton.getAttribute("aria-expanded") === "true";
+    isOpen ? this.close() : this.open();
   }
 
   setOptions(options) {
@@ -51,7 +57,10 @@ export class SelectController {
       const optionElement = document.createElement("li");
       optionElement.dataset.value = option.value;
       optionElement.textContent = option.text;
-      optionElement.addEventListener("click", (e) => this.onChange?.(option));
+      optionElement.addEventListener("click", (e) => {
+        this.onChange?.(option);
+        this.close();
+      });
       this.#selectOptionsContainer.appendChild(optionElement);
     });
 
@@ -68,7 +77,8 @@ export class SelectController {
     });
     option.classList.add("selected");
 
-    this.#selectedValue.textContent = option.textContent;
-    this.#toggleOptions(false);
+    if (this.#selectedValue) {
+      this.#selectedValue.textContent = option.textContent;
+    }
   }
 }

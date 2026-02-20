@@ -342,15 +342,25 @@ input::placeholder, textarea::placeholder {
 }
 
 .modal__form .select-wrapper {
-    align-self: flex-start;
+    width: 100%;
+    max-width: calc(1.5rem + 1.2rem);
+    align-self: center;
+    transition: max-width .3s ease;
+}
+
+.modal__form .select-wrapper:has(.select[aria-expanded="true"]) {
+    max-width: 350px;
 }
 
 .modal__form .select {
-    display: block;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 100vh;
     padding: .6rem;
+    height: calc(1.5rem + 1.2rem);
+    overflow: hidden;
+    white-space: nowrap;
 }
+
 
 .modal__form .select svg {
     display: block;
@@ -358,6 +368,11 @@ input::placeholder, textarea::placeholder {
     height: 1.5rem;
     stroke: var(--text);
     fill: var(--text);
+}
+
+.modal__form .select__options {
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Header */
