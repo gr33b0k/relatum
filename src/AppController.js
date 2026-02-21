@@ -251,7 +251,34 @@ export class AppController {
     };
 
     this.addNodeModal.onSumbit = (data) => {
-      console.log(data);
+      const node = new Node({
+        label: data.title,
+        description: data.description,
+        tags: data.tags,
+      });
+      this.graph.addNode(node);
+
+      data.connections.forEach((connection) => {
+        const targetNode = this.graph.getNodeById(connection.value);
+        const from = connection.from;
+        const to = connection.to;
+        if (from) {
+          this.graph.linkNodes(targetNode, node);
+        }
+
+        if (to) {
+          this.graph.linkNodes(node, targetNode);
+        }
+      });
+
+      const options = this.graph.getNodesArray().map((node) => ({
+        value: node.id,
+        text: node.label,
+      }));
+
+      this.sidebarController.setSelectOptions(options);
+      this.addNodeModal.setSelectOptions(options);
+      // console.log(this.graph.getLinks());
     };
   }
 
