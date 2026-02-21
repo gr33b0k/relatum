@@ -417,6 +417,7 @@ input::placeholder, textarea::placeholder {
     align-items: center;
     justify-content: center;
     transition: background-color .3s ease;
+    cursor: pointer;
 }
 
 .direction__input:checked+.direction__box {
