@@ -61,6 +61,10 @@ export class AddNodeController {
       this.#resetForm();
     });
 
+    modal.addEventListener("close", () => {
+      this.#resetForm();
+    });
+
     this.#resetButton.addEventListener("click", () => {
       this.#resetForm();
     });

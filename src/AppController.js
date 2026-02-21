@@ -248,7 +248,6 @@ export class AppController {
 
     this.toolbarController.onAddNode = () => {
       this.modalController.open("add-node");
-      this.addNodeModalEl.querySelector(".modal__form").reset();
     };
 
     this.addNodeModal.onSumbit = (data) => {
