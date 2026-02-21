@@ -101,7 +101,7 @@ export class AddNodeController {
         ".direction__input:has(+ .direction__box--to)",
       ).checked;
       const from = li.querySelector(
-        ".direction__input:has(+ .direction__box--to)",
+        ".direction__input:has(+ .direction__box--from)",
       ).checked;
       return { value, to, from };
     });
