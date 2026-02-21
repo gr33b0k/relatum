@@ -5,9 +5,6 @@ export class Graph {
   #links = [];
 
   addNode(node) {
-    if (this.#nodes.has(node.id)) {
-      throw new Error(`Node with id ${node.id} already exists.`);
-    }
     this.#nodes.set(node.id, node);
   }
 
