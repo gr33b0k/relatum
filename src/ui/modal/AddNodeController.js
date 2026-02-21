@@ -55,8 +55,6 @@ export class AddNodeController {
     this.#description = this.#modalForm.querySelector("#note-description");
 
     this.#modalForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
       this.onSumbit?.(this.#collectFormData());
       this.#resetForm();
     });

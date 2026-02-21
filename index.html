@@ -185,7 +185,7 @@
         </section>
       </div>
     </aside>
-    <dialog class="modal" data-modal="add-node">
+    <dialog class="modal" data-modal="add-node" id="add-node-modal">
       <header class="modal__header">
         <h2 class="modal__title">Add new note</h2>
         <div class="modal__actions">
@@ -234,7 +234,7 @@
           </button>
         </div>
       </header>
-      <form class="modal__form" id="add-note-form">
+      <form method="dialog" class="modal__form" id="add-note-form">
         <div class="form__field">
           <label for="note-name">Note title</label>
           <input
