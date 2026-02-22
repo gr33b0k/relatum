@@ -90,9 +90,7 @@ export class AppController {
     this.selectWrapper = this.sidebar.querySelector(".select-wrapper");
 
     this.toolbar = document.querySelector(".graph__toolbar");
-    this.addNodeModalEl = document.querySelector(
-      '.modal[data-modal="add-node"]',
-    );
+    this.addNodeModal = document.querySelector('.modal[data-modal="add-node"]');
   }
 
   #initUIControllers() {
@@ -118,7 +116,7 @@ export class AppController {
     this.toolbarController = new ToolbarController(this.toolbar);
 
     this.modalController = new ModalController();
-    this.addNodeModal = new AddNodeController(this.addNodeModalEl);
+    this.addNodeModalController = new AddNodeController(this.addNodeModal);
 
     const options = this.graph.getNodesArray().map((node) => ({
       value: node.id,
@@ -126,7 +124,7 @@ export class AppController {
     }));
 
     this.sidebarController.setSelectOptions(options);
-    this.addNodeModal.setSelectOptions(options);
+    this.addNodeModalController.setSelectOptions(options);
   }
 
   #fillMockData() {
@@ -250,7 +248,7 @@ export class AppController {
       this.modalController.open("add-node");
     };
 
-    this.addNodeModal.onSumbit = (data) => {
+    this.addNodeModalController.onSumbit = (data) => {
       const node = new Node({
         label: data.title,
         description: data.description,
@@ -277,7 +275,7 @@ export class AppController {
       }));
 
       this.sidebarController.setSelectOptions(options);
-      this.addNodeModal.setSelectOptions(options);
+      this.addNodeModalController.setSelectOptions(options);
     };
   }
 
