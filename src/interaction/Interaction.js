@@ -22,6 +22,7 @@ export class Interaction {
     this.interactionState = interactionState;
     this.physics = physics;
 
+    this.interactionState.onModeChange((mode) => this.#updateCursor(mode));
     this.#initEvents();
   }
 
@@ -31,6 +32,20 @@ export class Interaction {
     canvas.addEventListener("pointermove", (e) => this.#onMouseMove(e));
     canvas.addEventListener("pointerup", (e) => this.#onMouseUp(e));
     canvas.addEventListener("wheel", (e) => this.#onWheel(e));
+  }
+
+  #updateCursor(mode) {
+    switch (mode) {
+      case "connect":
+        this.canvas.style.cursor = "crosshair";
+        break;
+      case "delete":
+        this.canvas.style.cursor = "not-allowed";
+        break;
+      case "cursor":
+      default:
+        this.canvas.style.cursor = "default";
+    }
   }
 
   #onMouseDown(event) {

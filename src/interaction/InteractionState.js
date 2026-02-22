@@ -4,6 +4,7 @@ export class InteractionState {
   #connectingFrom = null;
   #connectionPreviewPos = null;
   #mode = "cursor";
+  #modeListeners = new Set();
 
   setSelection(node, neighbors) {
     this.#selectedNode = node;
@@ -25,8 +26,13 @@ export class InteractionState {
     return this.#selectedNode;
   }
 
+  onModeChange(listener) {
+    this.#modeListeners.add(listener);
+  }
+
   setMode(mode) {
     this.#mode = mode;
+    this.#modeListeners.forEach((listener) => listener(mode));
   }
 
   getMode() {

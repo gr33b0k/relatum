@@ -278,7 +278,6 @@ export class AppController {
 
       this.sidebarController.setSelectOptions(options);
       this.addNodeModal.setSelectOptions(options);
-      // console.log(this.graph.getLinks());
     };
   }
 
