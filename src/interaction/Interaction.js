@@ -87,7 +87,6 @@ export class Interaction {
           case "delete":
             confirm("Are you sure you want to delete this node?") &&
               graph.removeNode(clickedNode.id);
-            interactionState.setMode("cursor");
             break;
         }
       } else {
@@ -162,7 +161,6 @@ export class Interaction {
             this.graph.linkNodes(fromNode, targetNode);
           }
           interactionState.clearConnectionPreview();
-          interactionState.setMode("cursor");
           break;
         case "cursor":
           if (this.#nodeClicked && !this.#draggingNode) {
