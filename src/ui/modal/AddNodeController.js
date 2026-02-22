@@ -19,6 +19,23 @@ export class AddNodeController {
   onSumbit = null;
 
   constructor(modal) {
+    let isPointerDownOnDialog = false;
+
+    modal.addEventListener("pointerdown", (e) => {
+      isPointerDownOnDialog = e.target !== modal;
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (!isPointerDownOnDialog) {
+        modal.close();
+      }
+    });
+    const closeButton = modal.querySelector(".modal__close");
+    closeButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      modal.close();
+    });
+
     this.#resetButton = modal.querySelector(".modal__action[type='reset']");
 
     this.#modalForm = modal.querySelector(".modal__form");

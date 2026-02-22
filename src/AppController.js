@@ -7,14 +7,12 @@ import { InteractionState } from "./interaction/InteractionState.js";
 import { PhysicsEngine } from "./controller/PhysicsEngine.js";
 
 import { SidebarController } from "./ui/sidebar/SidebarController.js";
-import { SelectController } from "./ui/select/SelectController.js";
 import { SidebarTagsController } from "./ui/sidebar/SidebarTagsController.js";
 import { SidebarConnectionsController } from "./ui/sidebar/SidebarConnectionsController.js";
 
 import { ToolbarController } from "./ui/toolbar/ToolbarController.js";
 
 import { SelectionService } from "./services/SelectionService.js";
-import { ModalController } from "./ui/modal/ModalController.js";
 import { AddNodeController } from "./ui/modal/AddNodeController.js";
 
 export class AppController {
@@ -115,7 +113,6 @@ export class AppController {
 
     this.toolbarController = new ToolbarController(this.toolbar);
 
-    this.modalController = new ModalController();
     this.addNodeModalController = new AddNodeController(this.addNodeModal);
 
     const options = this.graph.getNodesArray().map((node) => ({
@@ -245,7 +242,7 @@ export class AppController {
     };
 
     this.toolbarController.onAddNode = () => {
-      this.modalController.open("add-node");
+      this.addNodeModal.showModal();
     };
 
     this.addNodeModalController.onSumbit = (data) => {
