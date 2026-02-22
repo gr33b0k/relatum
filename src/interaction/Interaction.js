@@ -69,6 +69,11 @@ export class Interaction {
             interactionState.setSelection(clickedNode, neighbors);
             physics.setDraggedNode(clickedNode);
             break;
+          case "delete":
+            confirm("Are you sure you want to delete this node?") &&
+              graph.removeNode(clickedNode.id);
+            interactionState.setMode("cursor");
+            break;
         }
       } else {
         interactionState.clearSelection();
