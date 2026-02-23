@@ -67,6 +67,9 @@ export class Interaction {
         const mode = interactionState.getMode();
 
         this.#nodeClicked = true;
+        const neighbors = graph
+          .getNodeNeighbors(clickedNode)
+          .map((n) => n.neighbor);
         switch (mode) {
           case "connect":
             interactionState.startConnection(clickedNode);
@@ -77,16 +80,12 @@ export class Interaction {
             this.#startX = event.clientX;
             this.#startY = event.clientY;
 
-            const neighbors = graph
-              .getNodeNeighbors(clickedNode)
-              .map((n) => n.neighbor);
-
             interactionState.setSelection(clickedNode, neighbors);
             physics.setDraggedNode(clickedNode);
             break;
           case "delete":
-            confirm("Are you sure you want to delete this node?") &&
-              graph.removeNode(clickedNode.id);
+            interactionState.setSelection(clickedNode, neighbors);
+            this.onDeleteNode?.(clickedNode);
             break;
         }
       } else {

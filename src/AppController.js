@@ -14,6 +14,7 @@ import { ToolbarController } from "./ui/toolbar/ToolbarController.js";
 
 import { SelectionService } from "./services/SelectionService.js";
 import { AddNodeController } from "./ui/modal/AddNodeController.js";
+import { ConfirmModalController } from "./ui/modal/ConfirmModalController.js";
 
 export class AppController {
   constructor(canvas) {
@@ -89,6 +90,7 @@ export class AppController {
 
     this.toolbar = document.querySelector(".graph__toolbar");
     this.addNodeModal = document.querySelector('.modal[data-modal="add-node"]');
+    this.confirmModal = document.querySelector('.modal[data-modal="confirm"]');
   }
 
   #initUIControllers() {
@@ -114,6 +116,7 @@ export class AppController {
     this.toolbarController = new ToolbarController(this.toolbar);
 
     this.addNodeModalController = new AddNodeController(this.addNodeModal);
+    this.confirmModalController = new ConfirmModalController(this.confirmModal);
 
     const options = this.graph.getNodesArray().map((node) => ({
       value: node.id,
@@ -205,8 +208,31 @@ export class AppController {
     this.interaction.onNodeSelect = (node) =>
       this.selectionService.fromCanvas(node);
 
-    this.sidebarController.onDelete = () => {
+    this.interaction.onDeleteNode = async (node) => {
+      const confirm = await this.confirmModalController.confirm(
+        `Deleting note ${node.label}`,
+        `Are you sure you want to delete note ${node.title}`,
+      );
+
+      if (confirm) {
+        this.graph.removeNode(node.id);
+      }
+
+      this.interactionState.clearSelection();
+    };
+
+    this.sidebarController.onDelete = async () => {
       const selectedNode = this.interactionState.getSelectedNode();
+
+      const confirm = await this.confirmModalController.confirm(
+        `Deleting note ${selectedNode.label}`,
+        `Are you sure you want to delete note ${selectedNode.title}`,
+      );
+
+      if (!confirm) {
+        return;
+      }
+
       const neighbors = this.graph.getNodeNeighbors(selectedNode);
 
       this.graph.removeNode(selectedNode.id);
