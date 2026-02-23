@@ -336,7 +336,7 @@ input::placeholder, textarea::placeholder {
     fill: var(--bg);
 }
 
-.modal__form {
+.modal__form, .modal__content {
     overflow-y: auto;
     position: relative;
     display: flex;
