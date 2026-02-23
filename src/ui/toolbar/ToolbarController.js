@@ -5,27 +5,57 @@ export class ToolbarController {
 
   constructor(toolbar) {
     this.toolbar = toolbar;
-    [
-      this.linkButton,
-      this.cursorButton,
-      this.addNodeButton,
-      this.deleteNodeButton,
-      this.searchButton,
-    ] = toolbar.querySelectorAll(".toolbar__button");
-
+    this.buttons = toolbar.querySelectorAll(".toolbar__button");
+    this.linkButton = this.toolbar.querySelector(
+      ".toolbar__button--link-nodes",
+    );
+    this.cursorButton = this.toolbar.querySelector(".toolbar__button--cursor");
+    this.deleteNodeButton = this.toolbar.querySelector(
+      ".toolbar__button--delete-node",
+    );
+    this.addNodeButton = this.toolbar.querySelector(
+      ".toolbar__button--add-node",
+    );
+    this.searchButton = this.toolbar.querySelector(".toolbar__button--search");
     this.#initEvents();
   }
 
+  #setActiveMode(mode) {
+    this.buttons.forEach((button) =>
+      button.classList.remove("toolbar__button--active"),
+    );
+
+    switch (mode) {
+      case "link":
+        this.linkButton.classList.add("toolbar__button--active");
+        break;
+      case "cursor":
+        this.cursorButton.classList.add("toolbar__button--active");
+        break;
+      case "delete":
+        this.deleteNodeButton.classList.add("toolbar__button--active");
+        break;
+      case "search":
+        this.searchButton.classList.add("toolbar__button--active");
+        break;
+    }
+  }
+
   #initEvents() {
-    this.linkButton.addEventListener("click", () =>
-      this.onModeChange?.("connect"),
-    );
-    this.cursorButton.addEventListener("click", () =>
-      this.onModeChange?.("cursor"),
-    );
-    this.deleteNodeButton.addEventListener("click", () =>
-      this.onModeChange?.("delete"),
-    );
+    this.linkButton.addEventListener("click", () => {
+      this.#setActiveMode("link");
+      this.onModeChange?.("connect");
+    });
+
+    this.cursorButton.addEventListener("click", () => {
+      this.#setActiveMode("cursor");
+      this.onModeChange?.("cursor");
+    });
+
+    this.deleteNodeButton.addEventListener("click", () => {
+      this.#setActiveMode("delete");
+      this.onModeChange?.("delete");
+    });
 
     this.addNodeButton.addEventListener("click", () => {
       this.onModeChange?.("cursor");
@@ -33,6 +63,7 @@ export class ToolbarController {
     });
 
     this.searchButton.addEventListener("click", () => {
+      this.#setActiveMode("cursor");
       this.onModeChange?.("cursor");
       this.onSearch?.();
     });

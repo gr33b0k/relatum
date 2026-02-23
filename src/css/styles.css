@@ -675,6 +675,10 @@ input::placeholder, textarea::placeholder {
     fill: var(--text);
 }
 
+.toolbar__button--active {
+    background-color: var(--border-muted);
+}
+
 .toolbar__button--add-node {
     position: absolute;
     top: 50%;
@@ -687,7 +691,7 @@ input::placeholder, textarea::placeholder {
     background-color: var(--bg);
 }
 
-.toolbar__button--cursor {
+.toolbar__button--link-nodes {
     padding-right: calc(1.25rem + 1.5rem);
 }
 
