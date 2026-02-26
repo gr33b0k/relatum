@@ -647,12 +647,96 @@ input::placeholder, textarea::placeholder {
     bottom: 1em;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--bg);
+}
+
+.toolbar__search {
+    display: flex;
+    flex-direction: column;
     border-radius: .75rem;
+    width: 100%;
+    height: 100%;
+    margin-bottom: .9rem;
+    background-color: var(--bg-dark);
+    color: var(--text)
+}
+
+.toolbar__search-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.toolbar__search-content {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1rem;
+}
+
+.toolbar__search-field {
+    display: flex;
+    align-items: center;
+    border-radius: .3rem;
+    padding-right: .6rem;
+    background-color: var(--bg-light);
+}
+
+.toolbar__search-input {
+    flex: 1;
+    background-color: transparent
+}
+
+.toolbar__search-clear {
+    position: relative;
+    padding: .6rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.toolbar__search-clear::before,
+.toolbar__search-clear::after {
+    content: '';
+    position: absolute;
+    background-color: var(--text-muted);
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 75%;
+}
+
+.toolbar__search-clear::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.toolbar__search-clear::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.toolbar__filters {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.toolbar__filters h3 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.toolbar__filter {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.toolbar__filter .checkbox__input:not(:checked)+.checkbox__box svg {
+    visibility: hidden;
 }
 
 .toolbar__buttons {
     display: flex;
+    border-radius: .75rem;
+    background-color: var(--bg);
 }
 
 .toolbar__button {

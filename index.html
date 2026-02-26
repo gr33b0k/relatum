@@ -52,6 +52,72 @@
     <main class="main-content">
       <section class="graph">
         <div class="graph__toolbar">
+          <div class="toolbar__search">
+            <header class="toolbar__search-header hidden">
+              <p class="toolbar__search-results"></p>
+            </header>
+            <div class="toolbar__search-content">
+              <div class="toolbar__search-field">
+                <input
+                  type="text"
+                  class="toolbar__search-input"
+                  placeholder="Search notes..."
+                />
+                <button class="toolbar__search-clear"></button>
+              </div>
+              <div class="toolbar__filters">
+                <h3 class="toolbar__filters-title">Search in:</h3>
+
+                <label class="checkbox toolbar__filter">
+                  <input
+                    type="checkbox"
+                    class="checkbox__input"
+                    name="search-connections"
+                  />
+                  <span class="checkbox__box">
+                    <svg viewBox="0 0 256 256">
+                      <path
+                        d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span class="checkbox__label">Connections</span>
+                </label>
+
+                <label class="checkbox toolbar__filter">
+                  <input
+                    type="checkbox"
+                    class="checkbox__input"
+                    name="search-tags"
+                  />
+                  <span class="checkbox__box">
+                    <svg viewBox="0 0 256 256">
+                      <path
+                        d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span class="checkbox__label">Tags</span>
+                </label>
+
+                <label class="checkbox toolbar__filter">
+                  <input
+                    type="checkbox"
+                    class="checkbox__input"
+                    name="search-content"
+                  />
+                  <span class="checkbox__box">
+                    <svg viewBox="0 0 256 256">
+                      <path
+                        d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span class="checkbox__label">Content</span>
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="toolbar__buttons">
             <button
               class="toolbar__button toolbar__button--cursor toolbar__button--active"
