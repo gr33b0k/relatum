@@ -63,7 +63,7 @@ export class ToolbarController {
     });
 
     this.searchButton.addEventListener("click", () => {
-      this.#setActiveMode("cursor");
+      this.#setActiveMode("search");
       this.onModeChange?.("cursor");
       this.onSearch?.();
     });
