@@ -173,14 +173,14 @@ export class AddNodeController {
 
   #createDirectionCheckbox(type) {
     const label = document.createElement("label");
-    label.className = "direction";
+    label.className = "checkbox";
 
     const input = document.createElement("input");
     input.type = "checkbox";
-    input.className = "direction__input";
+    input.className = "checkbox__input";
 
     const box = document.createElement("span");
-    box.className = `direction__box direction__box--${type}`;
+    box.className = `checkbox__box checkbox__box--${type}`;
 
     const typeStr = String(type);
     box.title = `${typeStr[0].toUpperCase()}${typeStr.slice(1)} this note`;
