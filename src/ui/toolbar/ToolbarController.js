@@ -45,11 +45,6 @@ export class ToolbarController {
       case "search":
         this.searchButton.classList.add("toolbar__button--active");
         break;
-      case "clear":
-        this.buttons.forEach((button) =>
-          button.classList.remove("toolbar__button--active"),
-        );
-        break;
     }
   }
 
@@ -102,7 +97,7 @@ export class ToolbarController {
             ></path>
           </svg>`;
     } else {
-      this.#setActiveMode("clear");
+      this.searchButton.classList.remove("toolbar__button--active");
       this.searchButton.innerHTML = `
           <svg
             xmlns="http://www.w3.org/2000/svg"
