@@ -10,7 +10,11 @@ export class InteractionState {
     this.#selectedNode = node;
     this.#highlightedNodes.clear();
 
-    neighbors.forEach((neighbor) => this.#highlightedNodes.add(neighbor));
+    this.highlightNodes(neighbors);
+  }
+
+  highlightNodes(nodes) {
+    nodes.forEach((node) => this.#highlightedNodes.add(node));
   }
 
   clearSelection() {

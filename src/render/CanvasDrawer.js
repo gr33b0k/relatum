@@ -46,14 +46,25 @@ export class CanvasDrawer {
     const selectedNode = interactionState.getSelectedNode();
     const highlightedNodes = interactionState.getHighlightedNodes();
     const canvasStyles = window.getComputedStyle(this.canvas);
-    if (selectedNode && selectedNode !== node && !highlightedNodes.has(node)) {
-      ctx.fillStyle = canvasStyles.getPropertyValue("--muted-node");
+    if (selectedNode) {
+      if (node === selectedNode || highlightedNodes.has(node)) {
+        ctx.fillStyle = canvasStyles.getPropertyValue("--selected-node");
+      } else {
+        ctx.fillStyle = canvasStyles.getPropertyValue("--muted-node");
+      }
+    } else if (highlightedNodes.size > 0) {
+      if (highlightedNodes.has(node)) {
+        ctx.fillStyle = canvasStyles.getPropertyValue("--selected-node");
+      } else {
+        ctx.fillStyle = canvasStyles.getPropertyValue("--muted-node");
+      }
     } else {
       ctx.fillStyle = canvasStyles.getPropertyValue("--selected-node");
     }
     ctx.beginPath();
     ctx.arc(node.x, node.y, node.weight * 10, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.stroke();
   }
 
   drawLink(link) {

@@ -271,6 +271,36 @@ export class AppController {
       this.addNodeModal.showModal();
     };
 
+    this.toolbarController.onSearch = (query, filters) => {
+      const results = this.graph.getNodesArray().filter((node) => {
+        let match = false;
+
+        if (filters.label) {
+          match =
+            match || node.label.toLowerCase().includes(query.toLowerCase());
+        }
+
+        if (filters.tags) {
+          match =
+            match ||
+            [...node.tags].some((tag) =>
+              tag.toLowerCase().includes(query.toLowerCase()),
+            );
+        }
+
+        if (filters.description) {
+          match =
+            match ||
+            node.description.toLowerCase().includes(query.toLowerCase());
+        }
+
+        return match;
+      });
+
+      this.interactionState.clearSelection();
+      this.interactionState.highlightNodes(results);
+    };
+
     this.addNodeModalController.onSumbit = (data) => {
       const node = new Node({
         label: data.title,
