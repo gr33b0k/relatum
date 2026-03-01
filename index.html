@@ -52,7 +52,7 @@
     <main class="main-content">
       <section class="graph">
         <div class="graph__toolbar">
-          <div class="toolbar__search">
+          <div class="toolbar__search hidden">
             <header class="toolbar__search-header hidden">
               <p class="toolbar__search-results"></p>
             </header>
@@ -72,7 +72,9 @@
                   <input
                     type="checkbox"
                     class="checkbox__input"
-                    name="search-connections"
+                    data-filter="label"
+                    name="search-label"
+                    checked
                   />
                   <span class="checkbox__box">
                     <svg viewBox="0 0 256 256">
@@ -81,13 +83,14 @@
                       ></path>
                     </svg>
                   </span>
-                  <span class="checkbox__label">Connections</span>
+                  <span class="checkbox__label">Label</span>
                 </label>
 
                 <label class="checkbox toolbar__filter">
                   <input
                     type="checkbox"
                     class="checkbox__input"
+                    data-filter="tags"
                     name="search-tags"
                   />
                   <span class="checkbox__box">
@@ -104,7 +107,8 @@
                   <input
                     type="checkbox"
                     class="checkbox__input"
-                    name="search-content"
+                    data-filter="description"
+                    name="search-description"
                   />
                   <span class="checkbox__box">
                     <svg viewBox="0 0 256 256">
@@ -113,7 +117,7 @@
                       ></path>
                     </svg>
                   </span>
-                  <span class="checkbox__label">Content</span>
+                  <span class="checkbox__label">Description</span>
                 </label>
               </div>
             </div>

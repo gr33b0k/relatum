@@ -9,8 +9,8 @@ export class ToolbarController {
     this.toolbar = toolbar;
     this.searchSection = toolbar.querySelector(".toolbar__search");
     this.toolbarSearch = new ToolbarSearch(this.searchSection);
-    this.toolbarSearch.onSearch = (query) => {
-      this.onSearch?.(query);
+    this.toolbarSearch.onSearch = (query, filters) => {
+      this.onSearch?.(query, filters);
     };
     this.buttons = toolbar.querySelectorAll(".toolbar__button");
     this.linkButton = this.toolbar.querySelector(
@@ -79,7 +79,6 @@ export class ToolbarController {
       this.toolbarSearch.toggle();
       this.#setSearch();
       this.onModeChange?.("cursor");
-      this.onSearch?.();
     });
   }
 

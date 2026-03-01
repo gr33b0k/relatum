@@ -9,19 +9,37 @@ export class ToolbarSearch {
     this.clearButton = this.searchSection.querySelector(
       ".toolbar__search-clear",
     );
+
+    this.filterElements =
+      this.searchSection.querySelectorAll(".toolbar__filter");
     this.#initEvents();
   }
 
   #initEvents() {
     this.searchInput.addEventListener("input", () => {
       const query = this.searchInput.value.trim();
-      this.onSearch?.(query);
+      if (query) {
+        this.onSearch?.(query, this.#getFilters());
+      }
     });
 
     this.clearButton.addEventListener("click", () => {
       this.searchInput.value = "";
-      this.onSearch?.("");
+      this.onSearch?.("", {});
     });
+  }
+
+  #getFilters() {
+    const filters = {};
+    this.filterElements.forEach((filter) => {
+      const checkbox = filter.querySelector(".checkbox__input");
+      const filterType = checkbox.dataset.filter;
+
+      if (checkbox.checked) {
+        filters[filterType] = true;
+      }
+    });
+    return filters;
   }
 
   open() {
