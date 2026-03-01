@@ -272,6 +272,10 @@ export class AppController {
     };
 
     this.toolbarController.onSearch = (query, filters) => {
+      if (!query) {
+        this.interactionState.clearSelection();
+        return;
+      }
       const results = this.graph.getNodesArray().filter((node) => {
         let match = false;
 
@@ -297,6 +301,7 @@ export class AppController {
         return match;
       });
 
+      console.log(results);
       this.interactionState.clearSelection();
       this.interactionState.highlightNodes(results);
     };
