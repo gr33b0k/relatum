@@ -18,9 +18,7 @@ export class ToolbarSearch {
   #initEvents() {
     this.searchInput.addEventListener("input", () => {
       const query = this.searchInput.value.trim();
-      if (query) {
-        this.onSearch?.(query, this.#getFilters());
-      }
+      this.onSearch?.(query, this.#getFilters());
     });
 
     this.clearButton.addEventListener("click", () => {
