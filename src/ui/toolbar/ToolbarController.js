@@ -10,7 +10,7 @@ export class ToolbarController {
     this.searchSection = toolbar.querySelector(".toolbar__search");
     this.toolbarSearch = new ToolbarSearch(this.searchSection);
     this.toolbarSearch.onSearch = (query, filters) => {
-      this.onSearch?.(query, filters);
+      return this.onSearch?.(query, filters);
     };
     this.buttons = toolbar.querySelectorAll(".toolbar__button");
     this.linkButton = this.toolbar.querySelector(

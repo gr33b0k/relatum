@@ -3,6 +3,12 @@ export class ToolbarSearch {
 
   constructor(searchSection) {
     this.searchSection = searchSection;
+    this.searchHeader = this.searchSection.querySelector(
+      ".toolbar__search-header",
+    );
+    this.searchResults = this.searchHeader.querySelector(
+      ".toolbar__search-results",
+    );
     this.searchInput = this.searchSection.querySelector(
       ".toolbar__search-input",
     );
@@ -18,12 +24,14 @@ export class ToolbarSearch {
   #initEvents() {
     this.searchInput.addEventListener("input", () => {
       const query = this.searchInput.value.trim();
-      this.onSearch?.(query, this.#getFilters());
+      const count = this.onSearch?.(query, this.#getFilters());
+      this.#updateResults(count);
     });
 
     this.clearButton.addEventListener("click", () => {
       this.searchInput.value = "";
       this.onSearch?.("", {});
+      this.#updateResults(-1);
     });
 
     this.filterElements.forEach((filter) => {
@@ -31,7 +39,8 @@ export class ToolbarSearch {
 
       checkbox.addEventListener("change", (e) => {
         const query = this.searchInput.value.trim();
-        this.onSearch?.(query, this.#getFilters());
+        const count = this.onSearch?.(query, this.#getFilters());
+        this.#updateResults(count);
       });
     });
   }
@@ -49,12 +58,26 @@ export class ToolbarSearch {
     return filters;
   }
 
+  #updateResults(count) {
+    if (count === -1) {
+      this.searchHeader.classList.add("hidden");
+      return;
+    }
+    this.searchHeader.classList.remove("hidden");
+    if (count !== 0) {
+      this.searchResults.textContent = `Found ${count} notes`;
+    } else {
+      this.searchResults.textContent = `Nothing found`;
+    }
+  }
+
   open() {
     this.searchSection.classList.remove("hidden");
     this.searchInput.focus();
   }
 
   close() {
+    this.searchHeader.classList.add("hidden");
     this.searchSection.classList.add("hidden");
     this.searchInput.value = "";
   }
