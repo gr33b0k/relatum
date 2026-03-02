@@ -66,17 +66,36 @@ export class PhysicsEngine {
       }
     }
 
+    const links = this.graph.getLinks();
+    const springLength = 80;
+    const springStrength = 0.01;
+
+    links.forEach((link) => {
+      const a = link.from;
+      const b = link.to;
+
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      const diff = dist - springLength;
+      const force = diff * springStrength;
+
+      const fx = (dx / dist) * force;
+      const fy = (dy / dist) * force;
+
+      if (a !== this.#draggedNode) {
+        a.vx += fx;
+        a.vy += fy;
+      }
+
+      if (b !== this.#draggedNode) {
+        b.vx -= fx;
+        b.vy -= fy;
+      }
+    });
+
     if (this.#draggedNode) {
-      const neighbors = this.graph.getNodeNeighbors(this.#draggedNode);
-      neighbors.forEach((n) => {
-        const node = n.neighbor;
-        const dx = this.#draggedNode.x - node.x;
-        const dy = this.#draggedNode.y - node.y;
-
-        node.vx += dx * 0.01;
-        node.vy += dy * 0.01;
-      });
-
       this.#draggedNode.x += (this.#targetX - this.#draggedNode.x) * 0.5;
       this.#draggedNode.y += (this.#targetY - this.#draggedNode.y) * 0.5;
     }
