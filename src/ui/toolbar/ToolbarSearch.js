@@ -24,6 +24,11 @@ export class ToolbarSearch {
   #initEvents() {
     this.searchInput.addEventListener("input", () => {
       const query = this.searchInput.value.trim();
+      if (query) {
+        this.clearButton.style.visibility = "visible";
+      } else {
+        this.clearButton.style.visibility = "hidden";
+      }
       const count = this.onSearch?.(query, this.#getFilters());
       this.#updateResults(count);
     });

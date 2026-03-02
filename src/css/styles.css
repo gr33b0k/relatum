@@ -691,6 +691,7 @@ input::placeholder, textarea::placeholder {
     background: transparent;
     border: none;
     cursor: pointer;
+    visibility: hidden;
 }
 
 .toolbar__search-clear::before,
