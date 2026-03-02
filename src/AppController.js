@@ -167,7 +167,7 @@ export class AppController {
     this.interaction.onDeleteNode = async (node) => {
       const confirm = await this.confirmModalController.confirm(
         `Deleting note ${node.label}`,
-        `Are you sure you want to delete note ${node.title}`,
+        `Are you sure you want to delete note ${node.label}`,
       );
 
       if (confirm) {
@@ -189,7 +189,7 @@ export class AppController {
 
       const confirm = await this.confirmModalController.confirm(
         `Deleting note ${selectedNode.label}`,
-        `Are you sure you want to delete note ${selectedNode.title}`,
+        `Are you sure you want to delete note ${selectedNode.label}`,
       );
 
       if (!confirm) {
