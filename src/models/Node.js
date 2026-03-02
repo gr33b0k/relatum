@@ -1,6 +1,6 @@
 export class Node {
-  constructor({ label, x = 0, y = 0, weight = 1, description, tags = [] }) {
-    this.id = crypto.randomUUID();
+  constructor({ id, label, x = 0, y = 0, weight = 1, description, tags = [] }) {
+    this.id = id ? id : crypto.randomUUID();
     this.label = label;
     this.x = x ? x : Math.random() * 500;
     this.y = y ? y : Math.random() * 500;
