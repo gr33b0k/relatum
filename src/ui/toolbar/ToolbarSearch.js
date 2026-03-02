@@ -43,8 +43,19 @@ export class ToolbarSearch {
       const checkbox = filter.querySelector(".checkbox__input");
 
       checkbox.addEventListener("change", (e) => {
+        const filters = this.#getFilters();
         const query = this.searchInput.value.trim();
-        const count = this.onSearch?.(query, this.#getFilters());
+        let count = 0;
+
+        if (Object.keys(filters).length !== 0) {
+          count = this.onSearch?.(query, filters);
+        } else {
+          this.searchSection.querySelector(
+            ".checkbox__input[data-filter='label']",
+          ).checked = true;
+
+          count = this.onSearch?.(query, { label: true });
+        }
         this.#updateResults(count);
       });
     });
