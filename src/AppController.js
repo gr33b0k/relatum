@@ -5,6 +5,8 @@ import { Camera } from "./models/Camera.js";
 import { Interaction } from "./interaction/Interaction.js";
 import { InteractionState } from "./interaction/InteractionState.js";
 import { PhysicsEngine } from "./controller/PhysicsEngine.js";
+import { SelectionService } from "./services/SelectionService.js";
+import { GraphStorageService } from "./services/GraphStorageService.js";
 
 import { SidebarController } from "./ui/sidebar/SidebarController.js";
 import { SidebarTagsController } from "./ui/sidebar/SidebarTagsController.js";
@@ -12,7 +14,6 @@ import { SidebarConnectionsController } from "./ui/sidebar/SidebarConnectionsCon
 
 import { ToolbarController } from "./ui/toolbar/ToolbarController.js";
 
-import { SelectionService } from "./services/SelectionService.js";
 import { AddNodeController } from "./ui/modal/AddNodeController.js";
 import { ConfirmModalController } from "./ui/modal/ConfirmModalController.js";
 
@@ -45,10 +46,11 @@ export class AppController {
 
   #initCoreClasses() {
     this.graph = new Graph();
-    this.#fillMockData();
-
+    // this.#fillMockData();
     this.camera = new Camera();
     this.interactionState = new InteractionState();
+    this.graphStorage = new GraphStorageService();
+    this.#restoreGraph();
     this.physics = new PhysicsEngine(this.graph);
     this.interaction = new Interaction(
       this.canvas,
@@ -127,81 +129,35 @@ export class AppController {
     this.addNodeModalController.setSelectOptions(options);
   }
 
-  #fillMockData() {
-    const nodeA = new Node({
-      label: "Node A",
-      x: 50,
-      y: 50,
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis aperiam odit aliquid nesciunt voluptates consequuntur aspernatur, quod nulla cumque. Enim fugit numquam mollitia sequi reiciendis dolorum veritatis vitae amet perferendis?
-      Totam repudiandae modi, maiores maxime optio voluptatem iusto unde assumenda quis, commodi voluptas quasi. In, voluptatibus cumque vero debitis commodi eius voluptas sunt facilis saepe, possimus dolore sint, obcaecati illo!
-      Dolorum, dicta. Sapiente distinctio rerum molestias quas ratione blanditiis, aut sint aliquam reiciendis eligendi quisquam cupiditate soluta enim commodi, architecto aperiam numquam dolor vero error quasi minima? Magni, itaque sunt.
-      Officia, impedit. Neque eveniet corrupti voluptas nesciunt expedita officia incidunt, laborum rem sunt ducimus enim ut est a nam quia. Blanditiis labore vero eaque dolores quam commodi, quasi exercitationem sapiente?
-      Odio fugiat eveniet eos consectetur eum excepturi, amet aut, ducimus a, doloremque velit? Aliquam nemo vitae sed magni ducimus nesciunt nulla cum explicabo! Atque perferendis ullam reprehenderit, impedit eius temporibus!
-      Unde voluptatibus dolore ex eaque non perferendis, labore debitis. Nesciunt, quis impedit cumque nemo autem ipsum a sunt sed dolorem, soluta totam. Laudantium maiores aperiam harum labore quisquam esse recusandae!`,
-      tags: ["frontend", "basics"],
-    });
-    const nodeB = new Node({
-      label: "Node B",
-      x: 50,
-      y: 50,
-      description: `Lorem ipsum dolor sit amet consectetur, 
-                    adipisicing elit. Delectus quam blanditiis, 
-                    doloremque officia odio aut saepe aspernatur doloribus, 
-                    explicabo, dolores magni enim quos maxime maiores qui. 
-                    Excepturi quisquam fugiat veritatis.`,
-      tags: ["javascript"],
-    });
-    const nodeC = new Node({
-      label: "Node C",
-      x: 400,
-      y: 300,
-      description: `Lorem ipsum dolor sit amet consectetur`,
-      tags: ["css"],
-    });
-    const nodeD = new Node({
-      label: "Node D",
-      x: 600,
-      y: 250,
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Vitae ad illum pariatur. Illum, mollitia ducimus! 
-                    Explicabo provident id eius nobis. 
-                    Impedit id officia corporis magnam delectus repellat in sit. Expedita?`,
-      tags: ["html"],
-    });
-    const nodeE = new Node({
-      label: "Node E",
-      x: 800,
-      y: 100,
-      description: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                    Beatae obcaecati aspernatur dolorum, vitae ab molestiae accusantium voluptas, omnis architecto id minima. 
-                    Maiores quae delectus deserunt impedit sed sunt non sit?
-                    Quos, ipsa magni cupiditate ab adipisci nulla nemo dolore quas laudantium molestias, 
-                    veritatis sit ipsum aspernatur nostrum error sed harum libero quidem veniam, officia corrupti? 
-                    Doloribus voluptas omnis quo mollitia!`,
-      tags: ["python"],
-    });
-    const nodeF = new Node({
-      label: "Node F",
-      x: 1000,
-      y: 500,
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Eius, debitis asperiores. Officiis, sequi amet? 
-                    Laudantium in ducimus dolores voluptates vero aspernatur fugit repellat iure. 
-                    Illo, dolorum error. Magni, placeat! Officia!`,
-      tags: ["backend", "basics"],
+  #restoreGraph() {
+    const graphNodes = this.graphStorage.load();
+
+    if (!graphNodes) return;
+
+    graphNodes.forEach((n) => {
+      const node = new Node({
+        id: n.id,
+        label: n.label,
+        x: n.x,
+        y: n.y,
+        description: n.description,
+        tags: n.tags,
+      });
+
+      this.graph.addNode(node);
     });
 
-    this.graph.addNode(nodeA);
-    this.graph.addNode(nodeB);
-    this.graph.addNode(nodeC);
-    this.graph.addNode(nodeD);
-    this.graph.addNode(nodeE);
-    this.graph.addNode(nodeF);
-
-    this.graph.linkNodes(nodeA, nodeB);
-    this.graph.linkNodes(nodeA, nodeC);
-    this.graph.linkNodes(nodeA, nodeD);
-    this.graph.linkNodes(nodeE, nodeF);
+    graphNodes.forEach((n) => {
+      const node = this.graph.getNodeById(n.id);
+      n.links.forEach(({ id, type }) => {
+        const neighborNode = this.graph.getNodeById(id);
+        if (type === "source") {
+          this.graph.linkNodes(node, neighborNode);
+        } else {
+          this.graph.linkNodes(neighborNode, node);
+        }
+      });
+    });
   }
 
   #bindCallbacks() {
@@ -219,6 +175,7 @@ export class AppController {
       }
 
       this.interactionState.clearSelection();
+      this.graphStorage.save(this.graph);
     };
 
     this.sidebarController.onDelete = async () => {
@@ -249,6 +206,7 @@ export class AppController {
           : nodes[Math.floor(Math.random() * nodes.length)];
 
       this.selectionService.afterDelete(nextNode);
+      this.graphStorage.save(this.graph);
     };
 
     this.sidebarController.onSelectChange = (id) =>
@@ -261,6 +219,7 @@ export class AppController {
       const currentNode = this.interactionState.getSelectedNode();
       currentNode.addTag(tag);
       this.sidebarController.renderTags(currentNode.tags);
+      this.graphStorage.save(this.graph);
     };
 
     this.toolbarController.onModeChange = (mode) => {
@@ -335,6 +294,7 @@ export class AppController {
 
       this.sidebarController.setSelectOptions(options);
       this.addNodeModalController.setSelectOptions(options);
+      this.graphStorage.save(this.graph);
     };
   }
 
