@@ -178,6 +178,12 @@ export class AppController {
       this.graphStorage.save(this.graph);
     };
 
+    this.interaction.onConnect = (from, target) => {
+      if (from && target && from !== target) {
+        this.graph.linkNodes(from, target);
+        this.graphStorage.save(this.graph);
+      }
+    };
     this.sidebarController.onDelete = async () => {
       const selectedNode = this.interactionState.getSelectedNode();
 

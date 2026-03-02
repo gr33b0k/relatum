@@ -14,6 +14,7 @@ export class Interaction {
   physics = null;
 
   onNodeSelect = null;
+  onConnect = null;
 
   constructor(canvas, graph, camera, interactionState, physics) {
     this.canvas = canvas;
@@ -156,9 +157,7 @@ export class Interaction {
           const targetNode = this.graph.getNodeAt(wx, wy);
           const fromNode = interactionState.getConnectingNode();
 
-          if (fromNode && targetNode && fromNode !== targetNode) {
-            this.graph.linkNodes(fromNode, targetNode);
-          }
+          this.onConnect?.(fromNode, targetNode);
           interactionState.clearConnectionPreview();
           break;
         case "cursor":
