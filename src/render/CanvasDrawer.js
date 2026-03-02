@@ -54,7 +54,7 @@ export class CanvasDrawer {
       }
     } else if (highlightedNodes.size > 0) {
       if (highlightedNodes.has(node)) {
-        ctx.fillStyle = canvasStyles.getPropertyValue("--selected-node");
+        ctx.fillStyle = canvasStyles.getPropertyValue("--highlighted-node");
       } else {
         ctx.fillStyle = canvasStyles.getPropertyValue("--muted-node");
       }
@@ -64,7 +64,6 @@ export class CanvasDrawer {
     ctx.beginPath();
     ctx.arc(node.x, node.y, node.weight * 10, 0, 2 * Math.PI);
     ctx.fill();
-    ctx.stroke();
   }
 
   drawLink(link) {
