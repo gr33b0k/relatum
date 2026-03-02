@@ -25,6 +25,15 @@ export class ToolbarSearch {
       this.searchInput.value = "";
       this.onSearch?.("", {});
     });
+
+    this.filterElements.forEach((filter) => {
+      const checkbox = filter.querySelector(".checkbox__input");
+
+      checkbox.addEventListener("change", (e) => {
+        const query = this.searchInput.value.trim();
+        this.onSearch?.(query, this.#getFilters());
+      });
+    });
   }
 
   #getFilters() {
