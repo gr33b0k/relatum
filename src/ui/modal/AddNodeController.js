@@ -113,10 +113,10 @@ export class AddNodeController {
     ).map((li) => {
       const value = li.dataset.value;
       const to = li.querySelector(
-        ".direction__input:has(+ .direction__box--to)",
+        ".checkbox__input:has(+ .checkbox__box--to)",
       ).checked;
       const from = li.querySelector(
-        ".direction__input:has(+ .direction__box--from)",
+        ".checkbox__input:has(+ .checkbox__box--from)",
       ).checked;
       return { value, to, from };
     });
