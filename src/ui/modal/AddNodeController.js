@@ -104,7 +104,7 @@ export class AddNodeController {
       (option) => !this.#connections.has(option.value),
     );
 
-    this.setSelectOptions(optionsToShow);
+    this.#selectController.setOptions(optionsToShow);
   }
 
   #collectFormData() {
@@ -197,6 +197,7 @@ export class AddNodeController {
       e.preventDefault();
       li.remove();
       this.#connections.delete(connection.value);
+      this.#updateSelectOptions();
     });
 
     li.append(connectionContent, disconnectButton);
