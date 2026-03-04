@@ -34,10 +34,10 @@ export class Graph {
   }
 
   removeLink(from, to) {
-    console.log(from, to);
     this.#links = this.#links.filter(
       (link) => !(link.from.id === from && link.to.id === to),
     );
+    this.#recalculateNodeWeights();
   }
 
   getNodesArray() {
