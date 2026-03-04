@@ -253,6 +253,90 @@ input::placeholder, textarea::placeholder {
     cursor: pointer;
 }
 
+/* Connections */
+
+.connections {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    list-style: none;
+}
+
+.connection {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.connection__content {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-light);
+    padding: 0.6rem 1rem;
+    border-radius: 0.25rem;
+    gap: .4rem;
+    flex: 1;
+}
+
+.connection__info {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    flex: 1;
+}
+
+.connection__arrow {
+    border: none;
+    outline: none;
+    width: .5em;
+    height: .5em;
+    background-color: transparent;
+    border-left: 2px solid var(--text);
+    border-bottom: 2px solid var(--text);
+    transform: rotate(-135deg);
+    cursor: pointer;
+}
+
+
+.connection__direction {
+    display: flex;
+    gap: .25rem;
+}
+
+.checkbox__box--from {
+    transform: rotate(180deg);
+}
+
+.connection__disconnect-button {
+    padding: .6rem;
+    border: none;
+    outline: none;
+    background: var(--bg-light);
+    cursor: pointer;
+    border-radius: .25rem;
+    transition: background-color .2s ease;
+
+    &:hover {
+        background-color: var(--danger);
+    }
+
+    &:hover svg {
+        fill: var(--bg);
+    }
+
+
+}
+
+.connection__disconnect-button svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(1px + 1.5rem);
+    aspect-ratio: 1/1;
+    fill: var(--text);
+    transition: fill .2s ease;
+}
+
 /* Custom select */
 
 .select-wrapper {
@@ -466,35 +550,6 @@ input::placeholder, textarea::placeholder {
     transform: translateX(-50%);
 }
 
-.connections {
-    display: flex;
-    flex-direction: column;
-    gap: .5em;
-    list-style: none;
-}
-
-.connection {
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-light);
-    padding: 0.6em 1em;
-    border-radius: 0.25rem;
-    gap: .75rem;
-}
-
-.connection__info {
-    flex: 1;
-}
-
-.connection__direction {
-    display: flex;
-    gap: .25rem;
-}
-
-.checkbox__box--from {
-    transform: rotate(180deg);
-}
-
 /* Header */
 
 .header {
@@ -642,40 +697,6 @@ input::placeholder, textarea::placeholder {
     display: flex;
     justify-content: center;
     gap: 0.5em;
-}
-
-.sidebar__connections {
-    display: flex;
-    flex-direction: column;
-    gap: .5em;
-    list-style: none;
-}
-
-.sidebar__connection {
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-light);
-    padding: 0.6em 1em;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
-
-.sidebar__connection-info {
-    display: flex;
-    gap: .5em;
-    flex: 1;
-}
-
-.connection__button {
-    border: none;
-    outline: none;
-    width: .5em;
-    height: .5em;
-    background-color: transparent;
-    border-left: 2px solid var(--text);
-    border-bottom: 2px solid var(--text);
-    transform: rotate(-135deg);
-    cursor: pointer;
 }
 
 .sidebar--hidden {

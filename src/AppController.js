@@ -46,7 +46,6 @@ export class AppController {
 
   #initCoreClasses() {
     this.graph = new Graph();
-    // this.#fillMockData();
     this.camera = new Camera();
     this.interactionState = new InteractionState();
     this.graphStorage = new GraphStorageService();
@@ -81,9 +80,7 @@ export class AppController {
 
     this.sidebar = document.querySelector(".sidebar");
     this.overlay = document.querySelector(".overlay");
-    this.sidebarConnections = this.sidebar.querySelector(
-      ".sidebar__connections",
-    );
+    this.sidebarConnections = this.sidebar.querySelector(".connections");
     this.closeSidebarButton = this.sidebar.querySelector(
       ".sidebar__action--close",
     );
@@ -220,6 +217,21 @@ export class AppController {
 
     this.sidebarConnectionsController.onConnectionClick = (id) =>
       this.selectionService.fromConnectionClick(this.graph.getNodeById(id));
+
+    this.sidebarConnectionsController.onDisconnect = (
+      nodeToDisconnect,
+      type,
+    ) => {
+      const currentNode = this.interactionState.getSelectedNode().id;
+
+      if (type === "source") {
+        this.graph.removeLink(currentNode, nodeToDisconnect);
+      } else {
+        this.graph.removeLink(nodeToDisconnect, currentNode);
+      }
+
+      this.graphStorage.save(this.graph);
+    };
 
     this.sidebarTagsController.onAddTag = (tag) => {
       const currentNode = this.interactionState.getSelectedNode();
