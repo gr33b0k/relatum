@@ -20,6 +20,26 @@ export class Graph {
     this.#recalculateNodeWeights();
   }
 
+  linkNodes(from, to) {
+    const link = new Link(from, to);
+    const exists = this.#links.some(
+      (link) =>
+        (link.from.id === from.id && link.to.id === to.id) ||
+        (link.from.id === to.id && link.to.id === from.id),
+    );
+
+    if (exists) return;
+    this.#links.push(link);
+    this.#recalculateNodeWeights();
+  }
+
+  removeLink(from, to) {
+    console.log(from, to);
+    this.#links = this.#links.filter(
+      (link) => !(link.from.id === from && link.to.id === to),
+    );
+  }
+
   getNodesArray() {
     return Array.from(this.#nodes.values());
   }
@@ -43,19 +63,6 @@ export class Graph {
       const dy = y - node.y;
       return Math.hypot(dx, dy) <= node.weight * 10;
     });
-  }
-
-  linkNodes(from, to) {
-    const link = new Link(from, to);
-    const exists = this.#links.some(
-      (link) =>
-        (link.from.id === from.id && link.to.id === to.id) ||
-        (link.from.id === to.id && link.to.id === from.id),
-    );
-
-    if (exists) return;
-    this.#links.push(link);
-    this.#recalculateNodeWeights();
   }
 
   #recalculateNodeWeights() {
