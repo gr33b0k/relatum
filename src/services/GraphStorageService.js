@@ -11,7 +11,6 @@ export class GraphStorageService {
         .getNodeNeighbors(node)
         .map((n) => ({ id: n.neighbor.id, type: n.type })),
     }));
-    console.log("Saving: ", data);
 
     localStorage.setItem("graph", JSON.stringify(data));
   }
