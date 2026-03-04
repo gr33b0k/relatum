@@ -228,6 +228,13 @@ export class AppController {
       this.graphStorage.save(this.graph);
     };
 
+    this.sidebarTagsController.onRemoveTag = (tag) => {
+      const currentNode = this.interactionState.getSelectedNode();
+      currentNode.removeTag(tag);
+      this.sidebarController.renderTags(currentNode.tags);
+      this.graphStorage.save(this.graph);
+    };
+
     this.toolbarController.onModeChange = (mode) => {
       this.interactionState.setMode(mode);
     };

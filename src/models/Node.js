@@ -19,4 +19,8 @@ export class Node {
   addTag(tag) {
     this.tags.add(tag);
   }
+
+  removeTag(tag) {
+    this.tags.delete(tag);
+  }
 }

@@ -146,7 +146,20 @@ export class AddNodeController {
 
     const tagElement = document.createElement("li");
     tagElement.className = "tag";
-    tagElement.textContent = tag;
+
+    const tagText = document.createElement("span");
+    tagText.textContent = tag;
+    tagElement.appendChild(tagText);
+
+    const removeButton = document.createElement("button");
+    removeButton.className = "tag__remove";
+    tagElement.appendChild(removeButton);
+
+    removeButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      tagElement.remove();
+      this.#tags.delete(tag);
+    });
 
     this.#tagsList.appendChild(tagElement);
     this.#tags.add(tag);
