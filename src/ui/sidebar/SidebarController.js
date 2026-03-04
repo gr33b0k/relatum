@@ -4,7 +4,7 @@ export class SidebarController {
   sidebar = null;
   overlay = null;
   #title = null;
-  #description = null;
+  #descriptionController = null;
   #deleteButton = null;
 
   #selectController = null;
@@ -13,13 +13,20 @@ export class SidebarController {
 
   onDelete = null;
   onSelectChange = null;
+  onDescriptionChange = null;
 
-  constructor(sidebar, overlay, connectionsController, tagsController) {
+  constructor(
+    sidebar,
+    overlay,
+    connectionsController,
+    tagsController,
+    descriptionController,
+  ) {
     this.sidebar = sidebar;
     this.overlay = overlay;
-    this.#title = sidebar.querySelector(".sidebar__title");
-    this.#description = sidebar.querySelector(".sidebar__description-text");
-    this.#deleteButton = sidebar.querySelector(".sidebar__action--delete");
+    this.#title = this.sidebar.querySelector(".sidebar__title");
+
+    this.#deleteButton = this.sidebar.querySelector(".sidebar__action--delete");
 
     this.#deleteButton.addEventListener("click", () => this.onDelete?.());
 
@@ -32,6 +39,7 @@ export class SidebarController {
     );
     this.#connectionsController = connectionsController;
     this.#tagsController = tagsController;
+    this.#descriptionController = descriptionController;
   }
 
   open() {
@@ -70,8 +78,8 @@ export class SidebarController {
     this.#tagsController.renderTags(tags);
   }
 
-  renderDescription(text) {
-    this.#description.textContent = text;
+  renderDescription(description) {
+    this.#descriptionController.renderDescription(description);
   }
 
   setSelectOptions(options) {

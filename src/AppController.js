@@ -16,6 +16,7 @@ import { ToolbarController } from "./ui/toolbar/ToolbarController.js";
 
 import { AddNodeController } from "./ui/modal/AddNodeController.js";
 import { ConfirmModalController } from "./ui/modal/ConfirmModalController.js";
+import { SidebarDescriptionController } from "./ui/sidebar/SidebarDescriptionController.js";
 
 export class AppController {
   constructor(canvas) {
@@ -81,11 +82,14 @@ export class AppController {
     this.sidebar = document.querySelector(".sidebar");
     this.overlay = document.querySelector(".overlay");
     this.sidebarConnections = this.sidebar.querySelector(".connections");
+    this.sidebarAddTags = this.sidebar.querySelector(".tags__add-section");
+    this.sidebarDescription = this.sidebar.querySelector(
+      ".sidebar__section--description",
+    );
+    this.selectWrapper = this.sidebar.querySelector(".select-wrapper");
     this.closeSidebarButton = this.sidebar.querySelector(
       ".sidebar__action--close",
     );
-    this.sidebarAddTags = this.sidebar.querySelector(".tags__add-section");
-    this.selectWrapper = this.sidebar.querySelector(".select-wrapper");
 
     this.toolbar = document.querySelector(".graph__toolbar");
     this.addNodeModal = document.querySelector('.modal[data-modal="add-node"]');
@@ -97,12 +101,16 @@ export class AppController {
     this.sidebarConnectionsController = new SidebarConnectionsController(
       this.sidebarConnections,
     );
+    this.sidebarDescriptionController = new SidebarDescriptionController(
+      this.sidebarDescription,
+    );
 
     this.sidebarController = new SidebarController(
       this.sidebar,
       this.overlay,
       this.sidebarConnectionsController,
       this.sidebarTagsController,
+      this.sidebarDescriptionController,
     );
 
     this.selectionService = new SelectionService(
@@ -244,6 +252,13 @@ export class AppController {
       const currentNode = this.interactionState.getSelectedNode();
       currentNode.removeTag(tag);
       this.sidebarController.renderTags(currentNode.tags);
+      this.graphStorage.save(this.graph);
+    };
+
+    this.sidebarDescriptionController.onDescriptionChange = (description) => {
+      const currentNode = this.interactionState.getSelectedNode();
+
+      currentNode.setDescription(description);
       this.graphStorage.save(this.graph);
     };
 

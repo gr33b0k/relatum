@@ -20,6 +20,10 @@ export class Node {
     this.tags.add(tag);
   }
 
+  setDescription(description) {
+    this.description = description;
+  }
+
   removeTag(tag) {
     this.tags.delete(tag);
   }
