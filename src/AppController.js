@@ -81,7 +81,9 @@ export class AppController {
 
     this.sidebar = document.querySelector(".sidebar");
     this.overlay = document.querySelector(".overlay");
-    this.sidebarConnections = this.sidebar.querySelector(".connections");
+    this.sidebarConnections = this.sidebar.querySelector(
+      ".sidebar__section--connections",
+    );
     this.sidebarAddTags = this.sidebar.querySelector(".tags__add-section");
     this.sidebarDescription = this.sidebar.querySelector(
       ".sidebar__section--description",
@@ -125,12 +127,15 @@ export class AppController {
     this.addNodeModalController = new AddNodeController(this.addNodeModal);
     this.confirmModalController = new ConfirmModalController(this.confirmModal);
 
-    const options = this.graph.getNodesArray().map((node) => ({
+    const allNodes = this.graph.getNodesArray();
+
+    const options = allNodes.map((node) => ({
       value: node.id,
       text: node.label,
     }));
 
     this.sidebarController.setSelectOptions(options);
+    this.sidebarConnectionsController.setAllNotes(options);
     this.addNodeModalController.setSelectOptions(options);
   }
 
@@ -238,6 +243,14 @@ export class AppController {
         this.graph.removeLink(nodeToDisconnect, currentNode);
       }
 
+      this.graphStorage.save(this.graph);
+    };
+
+    this.sidebarConnectionsController.onAddConnection = (toId) => {
+      const currentNode = this.interactionState.getSelectedNode();
+      const targetNode = this.graph.getNodeById(toId);
+
+      this.graph.linkNodes(currentNode, targetNode);
       this.graphStorage.save(this.graph);
     };
 

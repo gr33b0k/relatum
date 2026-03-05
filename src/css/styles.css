@@ -684,16 +684,12 @@ input::placeholder, textarea::placeholder {
     border-bottom: 1px solid var(--border);
 }
 
-.sidebar__section--description {
-    border-bottom: none;
-}
-
-.sidebar__description-header {
+.sidebar__section-header {
     display: flex;
     align-items: center;
 }
 
-.sidebar__edit-description {
+.sidebar__edit-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -711,7 +707,26 @@ input::placeholder, textarea::placeholder {
     }
 }
 
-.sidebar__section--description:has(textarea) .sidebar__edit-description {
+.sidebar__edit-button svg {
+    width: 1.2rem;
+    fill: var(--text);
+    transition: fill .2s ease;
+}
+
+.sidebar__section--connections .select-wrapper {
+    margin-left: auto;
+}
+
+.sidebar__section--connections .select__options {
+    right: 0;
+    left: unset;
+}
+
+.sidebar__section--description {
+    border-bottom: none;
+}
+
+.sidebar__section--description:has(textarea) .sidebar__edit-button {
     background-color: var(--success);
 
     & svg {
@@ -719,13 +734,7 @@ input::placeholder, textarea::placeholder {
     }
 }
 
-.sidebar__edit-description svg {
-    width: 1.2rem;
-    fill: var(--text);
-    transition: fill .2s ease;
-}
-
-.sidebar__edit-description .sidebar__description-text {
+.sidebar__description-text {
     white-space: pre-wrap;
     overflow-wrap: break-word;
     word-break: break-word;

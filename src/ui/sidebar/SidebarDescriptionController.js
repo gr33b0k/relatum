@@ -9,7 +9,7 @@ export class SidebarDescriptionController {
 
   constructor(root) {
     this.#description = root.querySelector(".sidebar__description-text");
-    this.#editButton = root.querySelector(".sidebar__edit-description");
+    this.#editButton = root.querySelector(".sidebar__edit-button");
     this.#editButton.addEventListener("click", () => this.#toggleEdit());
   }
 

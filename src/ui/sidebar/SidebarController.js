@@ -53,6 +53,8 @@ export class SidebarController {
   }
 
   renderNodeInfo(node, connections) {
+    this.#connectionsController.setCurrentNote(node.id);
+
     this.renderLabel(node.label);
     this.setSelect(node.id);
     this.renderConnections(connections);
