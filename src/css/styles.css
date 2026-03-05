@@ -717,6 +717,14 @@ input::placeholder, textarea::placeholder {
     margin-left: auto;
 }
 
+.sidebar__section--connections .select[aria-expanded="true"] {
+    background-color: var(--danger);
+}
+
+.sidebar__section--connections .select[aria-expanded="true"] svg {
+    fill: var(--bg);
+}
+
 .sidebar__section--connections .select__options {
     right: 0;
     left: unset;

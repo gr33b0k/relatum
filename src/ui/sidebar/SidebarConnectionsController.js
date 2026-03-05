@@ -25,6 +25,27 @@ export class SidebarConnectionsController {
       {
         onChange: (connection) =>
           this.#addConnection(connection.value, connection.text),
+        renderButton: (isOpen, button) => {
+          if (isOpen) {
+            button.innerHTML = `
+              <svg stroke-width="0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                </path>
+              </svg>
+            `;
+          } else {
+            button.innerHTML = `
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#000000"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"
+                ></path>
+              </svg>`;
+          }
+        },
       },
     );
   }
