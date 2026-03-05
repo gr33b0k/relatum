@@ -34,7 +34,6 @@ export class SelectionService {
   afterDelete(node) {
     this.#focusNode(node, {
       updateSelection: true,
-      updateSelectOptions: true,
     });
   }
 
@@ -55,15 +54,6 @@ export class SelectionService {
 
     if (updateSelection) {
       this.#interactionState.setSelection(node, neighborsNodes);
-    }
-
-    if (updateSelectOptions) {
-      this.#sidebarController.setSelectOptions(
-        this.#graph.getNodesArray().map((node) => ({
-          value: node.id,
-          text: node.label,
-        })),
-      );
     }
 
     if (openSidebar) {

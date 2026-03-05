@@ -184,7 +184,18 @@ export class AppController {
         this.graph.removeNode(node.id);
       }
 
+      const nodes = this.graph.getNodesArray();
+
       this.interactionState.clearSelection();
+
+      const options = nodes.map((node) => ({
+        value: node.id,
+        text: node.label,
+      }));
+
+      this.sidebarController.setSelectOptions(options);
+      this.sidebarConnectionsController.setAllNotes(options);
+      this.addNodeModalController.setSelectOptions(options);
       this.graphStorage.save(this.graph);
     };
 
@@ -221,7 +232,15 @@ export class AppController {
           ? neighbors[0].neighbor
           : nodes[Math.floor(Math.random() * nodes.length)];
 
+      const options = nodes.map((node) => ({
+        value: node.id,
+        text: node.label,
+      }));
+
       this.selectionService.afterDelete(nextNode);
+      this.sidebarController.setSelectOptions(options);
+      this.sidebarConnectionsController.setAllNotes(options);
+      this.addNodeModalController.setSelectOptions(options);
       this.graphStorage.save(this.graph);
     };
 
@@ -346,6 +365,7 @@ export class AppController {
       }));
 
       this.sidebarController.setSelectOptions(options);
+      this.sidebarConnectionsController.setAllNotes(options);
       this.addNodeModalController.setSelectOptions(options);
       this.graphStorage.save(this.graph);
     };
