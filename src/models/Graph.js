@@ -33,6 +33,18 @@ export class Graph {
     this.#recalculateNodeWeights();
   }
 
+  reverseLink(fromId, toId) {
+    const link = this.#links.find(
+      (link) => link.from.id === fromId && link.to.id === toId,
+    );
+
+    if (!link) return;
+
+    [link.from, link.to] = [link.to, link.from];
+
+    this.#recalculateNodeWeights();
+  }
+
   removeLink(from, to) {
     this.#links = this.#links.filter(
       (link) => !(link.from.id === from && link.to.id === to),

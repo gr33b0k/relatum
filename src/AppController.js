@@ -273,6 +273,14 @@ export class AppController {
       this.graphStorage.save(this.graph);
     };
 
+    this.sidebarConnectionsController.onDirectionChange = (fromId, toId) => {
+      this.graph.reverseLink(fromId, toId);
+      const currentNode = this.interactionState.getSelectedNode();
+      this.selectionService.fromCanvas(currentNode);
+
+      this.graphStorage.save(this.graph);
+    };
+
     this.sidebarTagsController.onAddTag = (tag) => {
       const currentNode = this.interactionState.getSelectedNode();
       currentNode.addTag(tag);

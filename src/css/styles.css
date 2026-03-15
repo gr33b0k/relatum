@@ -272,7 +272,7 @@ input::placeholder, textarea::placeholder {
     display: flex;
     align-items: center;
     background-color: var(--bg-light);
-    padding: 0.6rem 1rem;
+    padding: 0.6rem 1rem .6rem .6rem;
     border-radius: 0.25rem;
     gap: .4rem;
     flex: 1;
@@ -281,7 +281,7 @@ input::placeholder, textarea::placeholder {
 .connection__info {
     display: flex;
     align-items: center;
-    gap: .5em;
+    gap: .6em;
     flex: 1;
 }
 
@@ -300,7 +300,25 @@ input::placeholder, textarea::placeholder {
 
 .connection__direction {
     display: flex;
-    gap: .25rem;
+    align-items: center;
+    justify-content: center;
+    padding: .25rem;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-muted);
+    border-radius: .25rem;
+    cursor: pointer;
+    transition: background-color .2s ease;
+
+    &:hover {
+        background-color: var(--border-muted);
+        border: 1px solid var(--border);
+    }
+}
+
+.connection__direction svg {
+    width: .75rem;
+    aspect-ratio: 1/1;
+    fill: var(--text)
 }
 
 .checkbox__box--from {

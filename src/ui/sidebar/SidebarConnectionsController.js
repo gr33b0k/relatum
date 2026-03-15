@@ -13,6 +13,7 @@ export class SidebarConnectionsController {
 
   onConnectionClick = null;
   onAddConnection = null;
+  onDirectionChange = null;
 
   constructor(root) {
     this.#root = root;
@@ -76,7 +77,7 @@ export class SidebarConnectionsController {
     this.updateSelectOptions();
   }
 
-  #addConnection(id, name, type = "source", isNewConnection = true) {
+  #addConnection(id, name, type = "target", isNewConnection = true) {
     const connElement = document.createElement("li");
     connElement.classList.add("connection");
     connElement.dataset.id = id;
@@ -84,10 +85,16 @@ export class SidebarConnectionsController {
     connContentElement.classList.add("connection__content");
     const connInfoElement = document.createElement("div");
     connInfoElement.classList.add("connection__info");
-    const connDirectionElement = document.createElement("span");
+    const connDirectionElement = document.createElement("button");
     connDirectionElement.classList.add("connection__direction");
     const connNameElement = document.createElement("span");
     connNameElement.classList.add("connection__name");
+    connDirectionElement.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 256 256">
+        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z">
+        </path>
+      </svg>
+    `;
     const connArrowElement = document.createElement("span");
     connArrowElement.classList.add("connection__arrow");
     const disconnectButton = document.createElement("button");
@@ -103,9 +110,9 @@ export class SidebarConnectionsController {
 
     connNameElement.textContent = name;
     if (type === "source") {
-      connDirectionElement.textContent = "→";
+      connDirectionElement.style.rotate = "180deg";
     } else {
-      connDirectionElement.textContent = "←";
+      connDirectionElement.style.rotate = "0deg";
     }
 
     connInfoElement.append(connDirectionElement, connNameElement);
@@ -121,6 +128,15 @@ export class SidebarConnectionsController {
 
     connContentElement.addEventListener("click", (e) => {
       this.onConnectionClick?.(id);
+    });
+
+    connDirectionElement.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (type === "target") {
+        this.onDirectionChange?.(this.#currentNoteId, id);
+      } else {
+        this.onDirectionChange?.(id, this.#currentNoteId);
+      }
     });
 
     this.#connectionsList.appendChild(connElement);
