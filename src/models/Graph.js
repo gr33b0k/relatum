@@ -87,8 +87,8 @@ export class Graph {
       .filter((link) => link.from.id === node.id || link.to.id === node.id)
       .map((link) => {
         return link.from.id === node.id
-          ? { neighbor: this.#nodes.get(link.to.id), type: "source" }
-          : { neighbor: this.#nodes.get(link.from.id), type: "target" };
+          ? { neighbor: this.#nodes.get(link.to.id), type: "target" }
+          : { neighbor: this.#nodes.get(link.from.id), type: "source" };
       });
   }
 }

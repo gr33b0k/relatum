@@ -162,9 +162,9 @@ export class AppController {
       n.links.forEach(({ id, type }) => {
         const neighborNode = this.graph.getNodeById(id);
         if (type === "source") {
-          this.graph.linkNodes(node, neighborNode);
-        } else {
           this.graph.linkNodes(neighborNode, node);
+        } else {
+          this.graph.linkNodes(node, neighborNode);
         }
       });
     });
@@ -257,9 +257,9 @@ export class AppController {
       const currentNode = this.interactionState.getSelectedNode().id;
 
       if (type === "source") {
-        this.graph.removeLink(currentNode, nodeToDisconnect);
-      } else {
         this.graph.removeLink(nodeToDisconnect, currentNode);
+      } else {
+        this.graph.removeLink(currentNode, nodeToDisconnect);
       }
 
       this.graphStorage.save(this.graph);
