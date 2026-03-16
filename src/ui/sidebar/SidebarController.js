@@ -57,7 +57,7 @@ export class SidebarController {
 
     this.renderLabel(node.label);
     this.setSelect(node.id);
-    this.renderConnections(connections);
+    this.renderConnections(node.label, connections);
     this.renderTags(node.tags);
     this.renderDescription(
       node.description ? node.description : "This node have no description",
@@ -72,8 +72,8 @@ export class SidebarController {
     this.#selectController.setValue(id);
   }
 
-  renderConnections(connections) {
-    this.#connectionsController.setConnections(connections);
+  renderConnections(currentNodeLabel, connections) {
+    this.#connectionsController.setConnections(currentNodeLabel, connections);
   }
 
   renderTags(tags) {
