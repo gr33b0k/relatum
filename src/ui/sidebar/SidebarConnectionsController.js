@@ -9,6 +9,7 @@ export class SidebarConnectionsController {
 
   #allNotes = null;
   #currentNoteId = null;
+  #currentNoteLabel = null;
   #connections = new Set();
 
   onConnectionClick = null;
@@ -67,23 +68,18 @@ export class SidebarConnectionsController {
     this.#selectController.setOptions(options);
   }
 
-  setConnections(currentNodeLabel, connections) {
+  setConnections(currentNoteLabel, connections) {
+    this.#currentNoteLabel = currentNoteLabel;
     this.#connectionsList.innerHTML = "";
     this.#connections = new Set();
     connections.forEach(({ id, name, type }) => {
-      this.#addConnection(id, name, type, false, currentNodeLabel);
+      this.#addConnection(id, name, type, false);
     });
 
     this.updateSelectOptions();
   }
 
-  #addConnection(
-    id,
-    name,
-    type = "target",
-    isNewConnection = true,
-    currentNodeLabel,
-  ) {
+  #addConnection(id, name, type = "target", isNewConnection = true) {
     const connElement = document.createElement("li");
     connElement.classList.add("connection");
     connElement.dataset.id = id;
@@ -125,7 +121,7 @@ export class SidebarConnectionsController {
       connDirectionElement.style.rotate = "0deg";
     }
 
-    connRelationFromElement.textContent = currentNodeLabel;
+    connRelationFromElement.textContent = this.#currentNoteLabel;
     connRelationToElement.textContent = name;
     connRelationElement.append(
       connRelationFromElement,
