@@ -72,7 +72,7 @@ export class SidebarDescriptionController {
 
     const pre = document.createElement("pre");
     pre.className = "sidebar__description-text";
-    pre.textContent = newText || "This node have no description";
+    pre.textContent = newText || "This node has no description";
 
     this.#textarea.replaceWith(pre);
     this.#description = pre;
