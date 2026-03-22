@@ -75,6 +75,12 @@ html.light {
     --font-family: "Manrope", sans-serif;
 }
 
+html, body {
+    overscroll-behavior: none;
+    overflow: hidden;
+    background-color: var(--bg-light);
+}
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
