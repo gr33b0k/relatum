@@ -347,11 +347,24 @@ export class AppController {
     };
 
     this.addNodeModalController.onSumbit = (data) => {
+      const viewport = this.camera.getViewportWorldBounds(
+        this.canvas.clientWidth,
+        this.canvas.clientHeight,
+      );
+
+      const randomX =
+        viewport.xMin + Math.random() * (viewport.xMax - viewport.xMin);
+      const randomY =
+        viewport.yMin + Math.random() * (viewport.yMax - viewport.yMin);
+
       const node = new Node({
         label: data.title,
         description: data.description,
         tags: data.tags,
+        x: randomX,
+        y: randomY,
       });
+
       this.graph.addNode(node);
 
       data.connections.forEach((connection) => {

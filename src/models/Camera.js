@@ -5,6 +5,15 @@ export class Camera {
     this.offsetY = 0;
   }
 
+  getViewportWorldBounds(viewWidth, viewHeight) {
+    return {
+      xMin: this.screenToWorld(0, 0).x,
+      yMin: this.screenToWorld(0, 0).y,
+      xMax: this.screenToWorld(viewWidth, viewHeight).x,
+      yMax: this.screenToWorld(viewWidth, viewHeight).y,
+    };
+  }
+
   screenToWorld(sx, sy) {
     return {
       x: sx / this.scale + this.offsetX,
