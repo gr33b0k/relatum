@@ -77,6 +77,7 @@ html.light {
 
 html, body {
     overscroll-behavior: none;
+    touch-action: none;
     overflow: hidden;
     background-color: var(--bg-light);
 }
