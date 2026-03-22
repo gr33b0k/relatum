@@ -626,7 +626,7 @@ input::placeholder, textarea::placeholder {
 /* Main content  */
 
 .main-content {
-    height: 100vh;
+    height: 100dvh;
     position: relative;
 }
 
