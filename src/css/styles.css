@@ -945,8 +945,8 @@ input::placeholder, textarea::placeholder {
 
 .graph__area {
     --selected-node: var(--primary);
-    --highlighted-node: var(--success);
-    --muted-node: var(--secondary);
+    --highlighted-node: oklch(from var(--primary) calc(l + 0.1) c h);
+    --muted-node: oklch(from var(--primary) calc(l - 0.3) calc(c - 0.05) h);
     height: 100%;
     width: 100%;
     display: block;
